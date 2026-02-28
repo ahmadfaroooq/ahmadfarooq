@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Blog — Ahmad Farooq</title>
+  <meta name="description" content="Thinking in systems. Long-form essays on growth marketing, brand strategy, content systems, and the mental models behind building compounding brands.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ahmadfarooq.vercel.app/blog.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://ahmadfarooq.vercel.app/blog.html">
+  <meta property="og:title"       content="Blog — Ahmad Farooq">
+  <meta property="og:description" content="Thinking in systems. Long-form essays on growth, brand strategy, and content.">
+  <meta property="og:image"       content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">
+  <meta property="og:site_name"   content="Ahmad Farooq">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@ahmaddfaroooq">
+  <meta name="twitter:title"       content="Blog — Ahmad Farooq">
+  <meta name="twitter:description" content="Thinking in systems. Essays on growth, brand, and content.">
+  <meta name="twitter:image"       content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Ahmad Farooq Blog",
+    "description": "Long-form essays on growth marketing, brand strategy, content systems, and compounding brands.",
+    "url": "https://ahmadfarooq.vercel.app/blog.html",
+    "author": {
+      "@type": "Person",
+      "name": "Ahmad Farooq",
+      "url": "https://ahmadfarooq.vercel.app"
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect x='2' y='14' width='18' height='13' fill='%23FF6700'/><rect x='11' y='1' width='15' height='15' transform='rotate(45 18 8)' fill='%23BFFF00'/><circle cx='27' cy='27' r='8' fill='%23000'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-transition">
+
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="nav-logo" aria-label="Ahmad Farooq — Home">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect x="2" y="14" width="18" height="13" fill="#FF6700"/>
+          <rect x="11" y="1" width="15" height="15" transform="rotate(45 18 8)" fill="#BFFF00"/>
+          <circle cx="27" cy="27" r="8" fill="#000"/>
+        </svg>
+        <span class="nav-logo-text">Ahmad Farooq</span>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="behind-the-build.html">Behind the Build</a></li>
+        <li class="dropdown">
+          <button class="dropdown-toggle" aria-expanded="false">
+            Services
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="growth.html">Growth Marketing</a></li>
+            <li><a href="linkedin.html">LinkedIn Branding</a></li>
+            <li><a href="strategy.html">Marketing Strategy</a></li>
+            <li><a href="content-writing.html">Content Writing</a></li>
+            <li><a href="graphic-design.html">Graphic Design</a></li>
+          </ul>
+        </li>
+        <li><a href="design.html">Design</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="playbook.html">Playbook</a></li>
+        <li><a href="book.html"><span class="btn btn-primary btn-sm">Book a Call</span></a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero" aria-label="Page introduction">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">Blog</span>
+        <h1 class="page-hero-title">Thinking in systems.</h1>
+        <p class="page-hero-desc">Long-form essays on growth marketing, brand strategy, content systems, macroeconomics, and the mental models behind building things that compound.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Blog posts">
+      <div class="container">
+
+        <!-- Filter Bar -->
+        <div class="filter-bar" role="group" aria-label="Filter by category">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="growth-frameworks">Growth Frameworks</button>
+          <button class="filter-btn" data-category="content-systems">Content Systems</button>
+          <button class="filter-btn" data-category="philosophy">Philosophy</button>
+          <button class="filter-btn" data-category="macroeconomics">Macroeconomics</button>
+          <button class="filter-btn" data-category="productivity-systems">Productivity Systems</button>
+          <button class="filter-btn" data-category="brand-strategy">Brand Strategy</button>
+        </div>
+
+        <!-- Blog Grid — dynamically populated from cms/blog-posts.json -->
+        <div class="blog-grid" id="blog-grid" aria-live="polite">
+          <!-- Cards injected by JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="blog-empty" id="blog-empty" style="display:none;" aria-live="polite">
+          <h3>Nothing here yet.</h3>
+          <p>Check back soon — new essays drop regularly.</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="blog-loading" style="text-align:center; padding: 80px 0;">
+          <p style="color: var(--text-muted); font-family: var(--font-heading); font-size: 0.9rem; letter-spacing: 0.05em;">Loading posts…</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo" aria-label="Ahmad Farooq — Home">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect x="2" y="14" width="18" height="13" fill="#FF6700"/>
+          <rect x="11" y="1" width="15" height="15" transform="rotate(45 18 8)" fill="#BFFF00"/>
+          <circle cx="27" cy="27" r="8" fill="#fff"/>
+        </svg>
+        <span class="footer-logo-text">Ahmad Farooq</span>
+      </a>
+      <ul class="footer-socials" role="list">
+        <li><a href="https://www.linkedin.com/in/byahmad/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
+        <li><a href="https://x.com/ahmaddfaroooq" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
+        <li><a href="mailto:hello@ahmadfarooq.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Ahmad Farooq. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var grid    = document.getElementById('blog-grid');
+      var empty   = document.getElementById('blog-empty');
+      var loading = document.getElementById('blog-loading');
+
+      function formatDate(dateStr) {
+        var d = new Date(dateStr);
+        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      }
+
+      function renderCard(post) {
+        var card = document.createElement('a');
+        card.className = 'blog-card reveal';
+        card.href = 'blog/' + post.slug + '.html';
+        card.setAttribute('data-category', post.category);
+        card.innerHTML =
+          '<div class="blog-card-content">' +
+            '<div style="margin-bottom:10px;">' +
+              '<span class="tag tag-ghost">' + post.category.replace(/-/g,' ') + '</span>' +
+            '</div>' +
+            '<h3>' + post.title + '</h3>' +
+            '<p>' + post.excerpt + '</p>' +
+          '</div>' +
+          '<div class="blog-card-meta">' +
+            '<span class="blog-card-date">' + formatDate(post.date) + '</span>' +
+            '<span class="blog-card-readtime">' + (post.readTime || '') + '</span>' +
+          '</div>';
+        return card;
+      }
+
+      fetch('cms/blog-posts.json?v=' + Date.now())
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed');
+          return res.json();
+        })
+        .then(function (posts) {
+          loading.style.display = 'none';
+
+          /* Sort newest first */
+          posts.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+
+          if (posts.length === 0) {
+            empty.style.display = 'block';
+            return;
+          }
+
+          posts.forEach(function (post) {
+            grid.appendChild(renderCard(post));
+          });
+
+          /* Trigger reveal for dynamically added cards */
+          if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+              });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('#blog-grid .reveal').forEach(function (el) { obs.observe(el); });
+          } else {
+            document.querySelectorAll('#blog-grid .reveal').forEach(function (el) { el.classList.add('visible'); });
+          }
+        })
+        .catch(function () {
+          loading.style.display = 'none';
+          empty.style.display = 'block';
+        });
+    })();
+  </script>
+  <script src="scripts.js"></script>
+</body>
+</html>

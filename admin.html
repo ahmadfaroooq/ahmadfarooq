@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Ahmad Farooq</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect x='2' y='14' width='18' height='13' fill='%23FF6700'/><rect x='11' y='1' width='15' height='15' transform='rotate(45 18 8)' fill='%23BFFF00'/><circle cx='27' cy='27' r='8' fill='%23000'/></svg>">
+  <!-- marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* ============================================================
+       ADMIN STYLES (self-contained, separate from styles.css)
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F5F0E8; --bg-dark: #EDE8DC; --text: #1A1A1A; --text-light: #4A4A4A;
+      --text-muted: #7A7A7A; --lime: #BFFF00; --orange: #FF6700; --mint: #00FFAB;
+      --white: #FFF; --black: #000; --border: #1A1A1A;
+      --font-heading: 'Sora', sans-serif; --font-body: 'DM Sans', sans-serif;
+      --sidebar-w: 280px; --meta-w: 300px; --header-h: 56px;
+    }
+    html, body { height: 100%; }
+    body { font-family: var(--font-body); font-size: 0.9rem; color: var(--text); background: var(--bg-dark); overflow: hidden; }
+    button { cursor: pointer; font: inherit; }
+    input, textarea, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       LOGIN OVERLAY
+    ============================================================ */
+    #login-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+    .login-box {
+      background: var(--white);
+      border: 2px solid var(--border);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .login-logo {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 32px;
+    }
+    .login-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+    }
+    .login-box h2 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .login-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .login-field { margin-bottom: 16px; }
+    .login-field label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .login-field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .login-field input:focus { background: var(--white); box-shadow: inset 0 0 0 2px var(--lime); }
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--lime);
+      border: 2px solid var(--border);
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .login-btn:hover { background: var(--black); color: var(--lime); transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--lime); }
+    .login-error {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: rgba(255,103,0,0.1);
+      border: 1.5px solid var(--orange);
+      font-size: 0.82rem;
+      color: var(--orange);
+      display: none;
+    }
+
+    /* ============================================================
+       ADMIN SHELL
+    ============================================================ */
+    #admin-shell { display: none; height: 100vh; flex-direction: column; }
+
+    /* Admin header */
+    .admin-header {
+      height: var(--header-h);
+      background: var(--black);
+      border-bottom: 2px solid var(--lime);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+    .admin-header-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--white);
+    }
+    .admin-header-title {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid rgba(255,255,255,0.2);
+    }
+    .admin-header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .admin-tab {
+      padding: 6px 16px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .admin-tab.active { background: var(--lime); border-color: var(--lime); color: var(--black); }
+    .admin-tab:hover:not(.active) { border-color: rgba(255,255,255,0.5); color: var(--white); }
+    .admin-logout {
+      padding: 6px 12px;
+      border: 1.5px solid rgba(255,103,0,0.4);
+      background: transparent;
+      color: rgba(255,103,0,0.8);
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+    .admin-logout:hover { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+    /* Admin body */
+    .admin-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ============================================================
+       SIDEBAR
+    ============================================================ */
+    .admin-sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--white);
+      border-right: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .sidebar-header-label {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .btn-new {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px;
+      background: var(--lime);
+      border: 2px solid var(--border);
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-new:hover { background: var(--black); color: var(--lime); transform: translate(-1px,-1px); box-shadow: 2px 2px 0 var(--lime); }
+    .post-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+    .post-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      cursor: pointer;
+      position: relative;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: background 0.15s;
+    }
+    .post-item:hover { background: var(--bg); }
+    .post-item.active { background: rgba(191,255,0,0.1); border-left: 3px solid var(--lime); }
+    .post-item-title {
+      flex: 1;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .post-badge {
+      font-family: var(--font-heading);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border: 1px solid currentColor;
+      flex-shrink: 0;
+    }
+    .post-badge.published { color: #1a7a1a; background: rgba(26,122,26,0.08); }
+    .post-badge.draft { color: var(--text-muted); background: transparent; }
+    .post-delete {
+      display: none;
+      width: 22px; height: 22px;
+      align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      background: var(--white);
+      font-size: 0.8rem;
+      color: var(--orange);
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .post-item:hover .post-delete { display: flex; }
+    .post-delete:hover { background: var(--orange); color: var(--white); }
+
+    /* ============================================================
+       MAIN EDITOR AREA
+    ============================================================ */
+    .admin-main { flex: 1; display: flex; overflow: hidden; }
+    .editor-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    /* Initial hidden states — JS controls visibility after load */
+    #editor-toolbar { display: none; }
+    #split-mode { display: none; }
+    #meta-panel { display: none; }
+
+    .editor-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 8px 16px;
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .toolbar-btn {
+      padding: 4px 8px;
+      border: 1.5px solid transparent;
+      background: transparent;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-light);
+      transition: all 0.15s;
+    }
+    .toolbar-btn:hover { border-color: var(--border); background: var(--bg); color: var(--text); }
+    .toolbar-sep { width: 1px; height: 20px; background: var(--border); margin: 0 6px; opacity: 0.3; }
+    .editor-mode-btns { margin-left: auto; display: flex; gap: 2px; }
+    .mode-btn {
+      padding: 4px 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .mode-btn.active { background: var(--black); color: var(--lime); border-color: var(--black); }
+
+    .editor-pane { flex: 1; display: flex; overflow: hidden; }
+    #write-pane { display: flex; flex: 1; overflow: hidden; }
+    #preview-pane { display: none; flex: 1; overflow-y: auto; padding: 32px; background: var(--bg); }
+    #split-mode #write-pane, #split-mode #preview-pane { display: flex; flex: 1; }
+    #split-mode #preview-pane { display: block; border-left: 2px solid var(--border); }
+    #write-mode #write-pane { display: flex; }
+    #write-mode #preview-pane { display: none; }
+    #preview-mode #write-pane { display: none; }
+    #preview-mode #preview-pane { display: block; flex: 1; }
+
+    #content-textarea {
+      flex: 1;
+      padding: 24px;
+      border: none;
+      background: var(--bg);
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+      resize: none;
+      outline: none;
+    }
+    #content-textarea:focus { background: var(--white); }
+
+    .preview-prose h2 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; margin: 32px 0 12px; }
+    .preview-prose h3 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin: 24px 0 10px; }
+    .preview-prose p { margin-bottom: 16px; line-height: 1.7; color: var(--text-light); }
+    .preview-prose ul, .preview-prose ol { margin: 0 0 16px 24px; }
+    .preview-prose li { margin-bottom: 6px; line-height: 1.7; }
+    .preview-prose blockquote { border-left: 4px solid var(--lime); padding: 12px 20px; margin: 20px 0; background: var(--white); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .preview-prose code { background: var(--bg-dark); padding: 2px 5px; font-family: 'Courier New', monospace; font-size: 0.85rem; }
+    .preview-prose pre { background: var(--text); color: var(--lime); padding: 20px; overflow-x: auto; margin: 20px 0; }
+    .preview-prose pre code { background: none; color: inherit; }
+    .preview-prose hr { border: none; border-top: 2px solid var(--border); margin: 32px 0; }
+
+    /* Empty editor state */
+    .editor-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 40px;
+    }
+    .editor-empty h3 { font-family: var(--font-heading); font-size: 1.1rem; color: var(--text-muted); }
+
+    /* ============================================================
+       META PANEL
+    ============================================================ */
+    .meta-panel {
+      width: var(--meta-w);
+      flex-shrink: 0;
+      background: var(--white);
+      border-left: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .meta-section { padding: 16px; border-bottom: 2px solid var(--border); }
+    .meta-label {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .meta-input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      font-size: 0.85rem;
+      color: var(--text);
+      outline: none;
+      transition: box-shadow 0.15s;
+    }
+    .meta-input:focus { background: var(--white); box-shadow: inset 0 0 0 2px var(--lime); }
+    .meta-input-sm { padding: 6px 10px; font-size: 0.82rem; }
+    textarea.meta-input { resize: vertical; min-height: 60px; }
+
+    /* Category tag grid */
+    .cat-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cat-btn {
+      padding: 4px 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cat-btn.active { background: var(--lime); border-color: var(--border); }
+
+    /* Status toggle */
+    .status-toggle { display: flex; gap: 0; }
+    .status-opt {
+      flex: 1;
+      padding: 7px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .status-opt:first-child { border-right: 1px solid var(--border); }
+    .status-opt:last-child { border-left: 1px solid var(--border); }
+    .status-opt.active-draft { background: var(--bg-dark); }
+    .status-opt.active-published { background: var(--lime); }
+
+    /* Action buttons */
+    .meta-actions { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .meta-btn {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .meta-btn-save { background: var(--bg-dark); }
+    .meta-btn-save:hover { background: var(--black); color: var(--white); transform: translate(-1px,-1px); box-shadow: 2px 2px 0 var(--border); }
+    .meta-btn-publish { background: var(--lime); }
+    .meta-btn-publish:hover { background: var(--black); color: var(--lime); transform: translate(-1px,-1px); box-shadow: 2px 2px 0 var(--lime); }
+    .meta-btn-export { background: transparent; color: var(--text-muted); font-size: 0.75rem; border-color: rgba(0,0,0,0.15); }
+    .meta-btn-export:hover { background: var(--bg-dark); color: var(--text); }
+
+    /* ============================================================
+       SETTINGS PANEL
+    ============================================================ */
+    #settings-panel { display: none; flex: 1; overflow-y: auto; padding: 40px; background: var(--bg); }
+    #settings-panel.active { display: block; }
+    .settings-section {
+      background: var(--white);
+      border: 2px solid var(--border);
+      padding: 28px;
+      margin-bottom: 24px;
+      max-width: 560px;
+    }
+    .settings-section h3 { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+    .settings-field { margin-bottom: 14px; }
+    .settings-field label { display: block; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .settings-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .settings-input:focus { background: var(--white); box-shadow: inset 0 0 0 2px var(--lime); }
+    .settings-btn {
+      padding: 8px 20px;
+      border: 2px solid var(--border);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 4px;
+      transition: all 0.2s;
+    }
+    .settings-btn-primary { background: var(--lime); }
+    .settings-btn-primary:hover { background: var(--black); color: var(--lime); transform: translate(-1px,-1px); box-shadow: 2px 2px 0 var(--lime); }
+    .settings-btn-danger { background: transparent; color: var(--orange); border-color: var(--orange); }
+    .settings-btn-danger:hover { background: var(--orange); color: var(--white); }
+    .settings-status { font-size: 0.82rem; margin-top: 10px; padding: 8px 12px; border: 1.5px solid; }
+    .settings-status.ok { color: #1a7a1a; border-color: #1a7a1a; background: rgba(26,122,26,0.06); }
+    .settings-status.err { color: var(--orange); border-color: var(--orange); background: rgba(255,103,0,0.06); }
+    #conn-status { display: none; }
+
+    /* ============================================================
+       PUBLISH MODAL
+    ============================================================ */
+    .pub-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .pub-overlay.open { display: flex; }
+    .pub-modal {
+      background: var(--white);
+      border: 2px solid var(--border);
+      padding: 40px;
+      width: 100%;
+      max-width: 480px;
+    }
+    .pub-modal h3 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .pub-modal p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; }
+    .pub-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .pub-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .pub-step-icon { width: 20px; height: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .pub-step.pending .pub-step-icon::before { content: '○'; color: var(--text-muted); }
+    .pub-step.running .pub-step-icon::before { content: '◌'; color: var(--orange); animation: pubSpin 1s linear infinite; }
+    .pub-step.done .pub-step-icon::before { content: '✓'; color: #1a7a1a; font-weight: 700; }
+    .pub-step.error .pub-step-icon::before { content: '✗'; color: var(--orange); font-weight: 700; }
+    @keyframes pubSpin { to { transform: rotate(360deg); } }
+    .pub-actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .pub-btn { padding: 8px 20px; border: 2px solid var(--border); font-family: var(--font-heading); font-size: 0.82rem; font-weight: 700; transition: all 0.2s; }
+    .pub-btn-confirm { background: var(--lime); }
+    .pub-btn-confirm:hover { background: var(--black); color: var(--lime); }
+    .pub-btn-cancel { background: transparent; }
+    .pub-btn-cancel:hover { background: var(--bg-dark); }
+    .pub-btn-close { background: var(--bg-dark); display: none; }
+
+    /* Notification toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      background: var(--black);
+      color: var(--lime);
+      border: 2px solid var(--lime);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 600;
+      z-index: 9998;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.error { border-color: var(--orange); color: var(--orange); }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=DM+Sans:wght@400;500&family=Playfair+Display:wght@700&display=swap">
+</head>
+<body>
+
+  <!-- ========================================================
+       LOGIN OVERLAY
+  ======================================================== -->
+  <div id="login-overlay">
+    <div class="login-box">
+      <div class="login-logo">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+          <rect x="2" y="14" width="18" height="13" fill="#FF6700"/>
+          <rect x="11" y="1" width="15" height="15" transform="rotate(45 18 8)" fill="#BFFF00"/>
+          <circle cx="27" cy="27" r="8" fill="#000"/>
+        </svg>
+        <span class="login-logo-text">Ahmad Farooq</span>
+      </div>
+      <h2>Admin Access</h2>
+      <p>Enter your credentials to continue.</p>
+      <form id="login-form" autocomplete="off">
+        <div class="login-field">
+          <label for="login-user">Username</label>
+          <input type="text" id="login-user" autocomplete="off" required>
+        </div>
+        <div class="login-field">
+          <label for="login-pass">Password</label>
+          <input type="password" id="login-pass" autocomplete="off" required>
+        </div>
+        <button type="submit" class="login-btn">Sign In →</button>
+        <div class="login-error" id="login-error">Incorrect username or password.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       ADMIN SHELL
+  ======================================================== -->
+  <div id="admin-shell">
+
+    <!-- Admin Header -->
+    <div class="admin-header">
+      <div class="admin-header-logo">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+          <rect x="2" y="14" width="18" height="13" fill="#FF6700"/>
+          <rect x="11" y="1" width="15" height="15" transform="rotate(45 18 8)" fill="#BFFF00"/>
+          <circle cx="27" cy="27" r="8" fill="#fff"/>
+        </svg>
+        Ahmad Farooq
+      </div>
+      <span class="admin-header-title">CMS Admin</span>
+      <div class="admin-header-right">
+        <button class="admin-tab active" data-tab="blog">Blog</button>
+        <button class="admin-tab" data-tab="playbook">Playbook</button>
+        <button class="admin-tab" data-tab="settings">Settings</button>
+        <button class="admin-logout" id="logout-btn">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Admin Body -->
+    <div class="admin-body">
+
+      <!-- ======================================================
+           SIDEBAR
+      ====================================================== -->
+      <div class="admin-sidebar" id="admin-sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-header-label" id="sidebar-label">Blog Posts</span>
+          <button class="btn-new" id="btn-new">+ New</button>
+        </div>
+        <div class="post-list" id="post-list"></div>
+      </div>
+
+      <!-- ======================================================
+           EDITOR + META
+      ====================================================== -->
+      <div class="admin-main" id="editor-panel">
+
+        <!-- Editor Area -->
+        <div class="editor-area">
+
+          <!-- Toolbar -->
+          <div class="editor-toolbar" id="editor-toolbar">
+            <button class="toolbar-btn" data-action="h2" title="Heading 2">H2</button>
+            <button class="toolbar-btn" data-action="h3" title="Heading 3">H3</button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" data-action="bold" title="Bold"><strong>B</strong></button>
+            <button class="toolbar-btn" data-action="italic" title="Italic"><em>I</em></button>
+            <div class="toolbar-sep"></div>
+            <button class="toolbar-btn" data-action="quote" title="Blockquote">"</button>
+            <button class="toolbar-btn" data-action="code" title="Code block">&lt;/&gt;</button>
+            <button class="toolbar-btn" data-action="link" title="Link">🔗</button>
+            <button class="toolbar-btn" data-action="hr" title="Divider">—</button>
+            <div class="editor-mode-btns">
+              <button class="mode-btn active" data-mode="split">Split</button>
+              <button class="mode-btn" data-mode="write">Write</button>
+              <button class="mode-btn" data-mode="preview">Preview</button>
+            </div>
+          </div>
+
+          <!-- Write / Preview Panes -->
+          <div class="editor-pane" id="split-mode">
+            <div id="write-pane">
+              <textarea id="content-textarea" placeholder="Start writing in Markdown…" spellcheck="true"></textarea>
+            </div>
+            <div id="preview-pane">
+              <div class="preview-prose" id="preview-content"></div>
+            </div>
+          </div>
+
+          <!-- Empty state (no post selected) -->
+          <div class="editor-empty" id="editor-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/>
+            </svg>
+            <h3>No post selected</h3>
+            <p style="color:var(--text-muted);font-size:0.82rem;">Select a post from the sidebar or create a new one.</p>
+          </div>
+
+        </div>
+
+        <!-- Meta Panel -->
+        <div class="meta-panel" id="meta-panel">
+
+          <div class="meta-section">
+            <span class="meta-label">Title</span>
+            <input type="text" class="meta-input" id="meta-title" placeholder="Post title…">
+          </div>
+
+          <div class="meta-section">
+            <span class="meta-label">Slug</span>
+            <input type="text" class="meta-input meta-input-sm" id="meta-slug" placeholder="auto-generated-slug">
+            <small style="display:block;margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Auto-generated. Edit to override.</small>
+          </div>
+
+          <div class="meta-section">
+            <span class="meta-label">Excerpt</span>
+            <textarea class="meta-input" id="meta-excerpt" placeholder="Brief description…" rows="3"></textarea>
+          </div>
+
+          <div class="meta-section" id="cat-section">
+            <span class="meta-label">Category</span>
+            <div class="cat-grid" id="cat-grid"></div>
+          </div>
+
+          <div class="meta-section">
+            <span class="meta-label">Date</span>
+            <input type="date" class="meta-input meta-input-sm" id="meta-date">
+          </div>
+
+          <div class="meta-section">
+            <span class="meta-label">Read Time</span>
+            <input type="text" class="meta-input meta-input-sm" id="meta-readtime" placeholder="Auto-calculated">
+            <small style="display:block;margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Updates on save. Override if needed.</small>
+          </div>
+
+          <div class="meta-section">
+            <span class="meta-label">Status</span>
+            <div class="status-toggle">
+              <button class="status-opt active-draft" data-status="draft">Draft</button>
+              <button class="status-opt" data-status="published">Published</button>
+            </div>
+          </div>
+
+          <div class="meta-actions">
+            <button class="meta-btn meta-btn-save" id="btn-save">Save Draft</button>
+            <button class="meta-btn meta-btn-publish" id="btn-publish">Publish to GitHub →</button>
+            <button class="meta-btn meta-btn-export" id="btn-export-post">Export HTML</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================
+           SETTINGS PANEL
+      ====================================================== -->
+      <div id="settings-panel">
+
+        <div style="max-width:560px;">
+          <h2 style="font-family:var(--font-heading);font-size:1.6rem;font-weight:700;margin-bottom:8px;">Settings</h2>
+          <p style="color:var(--text-muted);margin-bottom:32px;font-size:0.9rem;">Configure your GitHub repository connection and manage CMS data.</p>
+        </div>
+
+        <div class="settings-section">
+          <h3>GitHub Repository</h3>
+          <div class="settings-field">
+            <label>Repository Owner</label>
+            <input type="text" class="settings-input" id="gh-owner-input" placeholder="ahmadfaroooq">
+          </div>
+          <div class="settings-field">
+            <label>Repository Name</label>
+            <input type="text" class="settings-input" id="gh-repo-input" placeholder="ahmadfarooq">
+          </div>
+          <div class="settings-field">
+            <label>Branch</label>
+            <input type="text" class="settings-input" id="gh-branch-input" placeholder="main">
+          </div>
+          <div class="settings-field">
+            <label>Personal Access Token (PAT)</label>
+            <input type="password" class="settings-input" id="gh-token-input" placeholder="ghp_…" autocomplete="off">
+            <small style="display:block;margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Requires <code>repo</code> scope. Stored locally in your browser only.</small>
+          </div>
+          <button class="settings-btn settings-btn-primary" id="btn-save-gh">Save GitHub Settings</button>
+          <button class="settings-btn" id="btn-test-conn" style="margin-left:8px;">Test Connection</button>
+          <div id="conn-status" class="settings-status"></div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Data Management</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">Export all CMS data as a JSON backup, or clear all stored posts.</p>
+          <button class="settings-btn settings-btn-primary" id="btn-export-all">Export All Data (JSON)</button>
+          <button class="settings-btn settings-btn-danger" id="btn-clear-all" style="margin-left:8px;">Clear All Data</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       PUBLISH MODAL
+  ======================================================== -->
+  <div class="pub-overlay" id="pub-overlay">
+    <div class="pub-modal">
+      <h3 id="pub-title">Publishing post…</h3>
+      <p id="pub-subtitle">Committing to GitHub. Vercel will deploy in ~30 seconds.</p>
+      <div class="pub-steps" id="pub-steps"></div>
+      <div class="pub-actions">
+        <button class="pub-btn pub-btn-cancel" id="pub-cancel">Cancel</button>
+        <button class="pub-btn pub-btn-confirm" id="pub-confirm">Confirm Publish</button>
+        <button class="pub-btn pub-btn-close" id="pub-close">Done ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <script>
+  /* ============================================================
+     ADMIN CMS — Main Script
+  ============================================================ */
+  (function () {
+    'use strict';
+
+    /* ----------------------------------------------------------
+       AUTH — btoa-encoded credentials
+    ---------------------------------------------------------- */
+    var AU = 'YWhtYWQ=';           /* btoa('ahmad') */
+    var AP = 'QGhtYWQ1MjI1TWF2';   /* btoa('@hmad5225Mav') */
+
+    function checkAuth() {
+      return sessionStorage.getItem('cms-auth') === '1';
+    }
+
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var user = document.getElementById('login-user').value;
+      var pass = document.getElementById('login-pass').value;
+      var err  = document.getElementById('login-error');
+
+      try {
+        if (btoa(user) === AU && btoa(pass) === AP) {
+          sessionStorage.setItem('cms-auth', '1');
+          document.getElementById('login-overlay').style.display = 'none';
+          var shell = document.getElementById('admin-shell');
+          shell.style.display = 'flex';
+          init();
+        } else {
+          err.style.display = 'block';
+          document.getElementById('login-pass').value = '';
+        }
+      } catch (ex) {
+        err.style.display = 'block';
+      }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', function () {
+      sessionStorage.removeItem('cms-auth');
+      location.reload();
+    });
+
+    /* Auto-login if session active */
+    if (checkAuth()) {
+      document.getElementById('login-overlay').style.display = 'none';
+      document.getElementById('admin-shell').style.display = 'flex';
+      init();
+    }
+
+    /* ----------------------------------------------------------
+       CONSTANTS
+    ---------------------------------------------------------- */
+    var BLOG_CATS = [
+      'growth-frameworks','content-systems','philosophy',
+      'macroeconomics','productivity-systems','brand-strategy'
+    ];
+    var PLAYBOOK_CATS = [
+      'growth','strategy','content-system','linkedin','branding'
+    ];
+    var BLOG_KEY     = 'cms-blog-posts';
+    var PLAYBOOK_KEY = 'cms-playbook-posts';
+
+    /* ----------------------------------------------------------
+       STATE
+    ---------------------------------------------------------- */
+    var currentTab  = 'blog';
+    var currentPost = null;
+    var isDirty     = false;
+
+    /* ----------------------------------------------------------
+       INIT
+    ---------------------------------------------------------- */
+    function init() {
+      /* Seed GitHub defaults */
+      if (!localStorage.getItem('gh-owner')) localStorage.setItem('gh-owner', 'ahmadfaroooq');
+      if (!localStorage.getItem('gh-repo'))  localStorage.setItem('gh-repo', 'ahmadfarooq');
+      if (!localStorage.getItem('gh-branch')) localStorage.setItem('gh-branch', 'main');
+
+      bindTabs();
+      bindToolbar();
+      bindModes();
+      bindMeta();
+      bindSidebar();
+      bindSettings();
+      bindPublish();
+      bindLivePreview();
+
+      switchTab('blog');
+      setDate();
+    }
+
+    /* ----------------------------------------------------------
+       TABS
+    ---------------------------------------------------------- */
+    function bindTabs() {
+      document.querySelectorAll('.admin-tab').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (btn.dataset.tab) switchTab(btn.dataset.tab);
+        });
+      });
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      currentPost = null;
+      isDirty = false;
+
+      document.querySelectorAll('.admin-tab').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.tab === tab);
+      });
+
+      var isSettings = (tab === 'settings');
+      document.getElementById('admin-sidebar').style.display = isSettings ? 'none' : '';
+      document.getElementById('editor-panel').style.display  = isSettings ? 'none' : 'flex';
+      document.getElementById('settings-panel').classList.toggle('active', isSettings);
+
+      if (!isSettings) {
+        document.getElementById('sidebar-label').textContent = tab === 'blog' ? 'Blog Posts' : 'Playbooks';
+        renderCatGrid(tab === 'blog' ? BLOG_CATS : PLAYBOOK_CATS);
+        renderPostList();
+        showEmpty();
+      }
+
+      if (isSettings) loadSettings();
+    }
+
+    /* ----------------------------------------------------------
+       POST LIST (SIDEBAR)
+    ---------------------------------------------------------- */
+    function getPosts() {
+      var key = currentTab === 'blog' ? BLOG_KEY : PLAYBOOK_KEY;
+      try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return []; }
+    }
+
+    function savePosts(posts) {
+      var key = currentTab === 'blog' ? BLOG_KEY : PLAYBOOK_KEY;
+      localStorage.setItem(key, JSON.stringify(posts));
+    }
+
+    function renderPostList() {
+      var list = document.getElementById('post-list');
+      list.innerHTML = '';
+      var posts = getPosts();
+      if (posts.length === 0) {
+        list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:0.82rem;">No posts yet. Click + New.</div>';
+        return;
+      }
+      posts.slice().reverse().forEach(function (post, i) {
+        var realIdx = posts.length - 1 - i;
+        var item = document.createElement('div');
+        item.className = 'post-item' + (currentPost && currentPost.slug === post.slug ? ' active' : '');
+        item.innerHTML =
+          '<span class="post-item-title">' + escHtml(post.title || 'Untitled') + '</span>' +
+          '<span class="post-badge ' + (post.status === 'published' ? 'published' : 'draft') + '">' + (post.status || 'draft') + '</span>' +
+          '<button class="post-delete" data-idx="' + realIdx + '" title="Delete" aria-label="Delete post">×</button>';
+
+        item.addEventListener('click', function (e) {
+          if (e.target.classList.contains('post-delete')) return;
+          selectPost(posts[realIdx]);
+          renderPostList();
+        });
+
+        var del = item.querySelector('.post-delete');
+        del.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (!confirm('Delete "' + (post.title || 'Untitled') + '"?')) return;
+          var fresh = getPosts();
+          fresh.splice(realIdx, 1);
+          savePosts(fresh);
+          if (currentPost && currentPost.slug === post.slug) { currentPost = null; showEmpty(); }
+          renderPostList();
+          toast('Post deleted.');
+        });
+
+        list.appendChild(item);
+      });
+    }
+
+    function bindSidebar() {
+      document.getElementById('btn-new').addEventListener('click', function () {
+        newPost();
+      });
+    }
+
+    /* ----------------------------------------------------------
+       NEW POST
+    ---------------------------------------------------------- */
+    function newPost() {
+      currentPost = {
+        title: '', slug: '', excerpt: '',
+        category: (currentTab === 'blog' ? BLOG_CATS[0] : PLAYBOOK_CATS[0]),
+        date: today(), readTime: '', status: 'draft', content: ''
+      };
+      isDirty = false;
+      showEditor();
+      populateMeta(currentPost);
+      renderPostList();
+      document.getElementById('meta-title').focus();
+    }
+
+    /* ----------------------------------------------------------
+       SELECT POST
+    ---------------------------------------------------------- */
+    function selectPost(post) {
+      currentPost = Object.assign({}, post);
+      isDirty = false;
+      showEditor();
+      populateMeta(currentPost);
+    }
+
+    /* ----------------------------------------------------------
+       EDITOR VISIBILITY
+    ---------------------------------------------------------- */
+    function showEditor() {
+      document.getElementById('editor-empty').style.display = 'none';
+      document.getElementById('editor-toolbar').style.display = '';
+      document.getElementById('split-mode').style.display = 'flex';
+      document.getElementById('meta-panel').style.display = 'flex';
+    }
+
+    function showEmpty() {
+      document.getElementById('editor-empty').style.display = 'flex';
+      document.getElementById('editor-toolbar').style.display = 'none';
+      document.getElementById('split-mode').style.display = 'none';
+      document.getElementById('meta-panel').style.display = 'none';
+    }
+
+    /* ----------------------------------------------------------
+       POPULATE META FIELDS
+    ---------------------------------------------------------- */
+    function populateMeta(post) {
+      document.getElementById('meta-title').value    = post.title || '';
+      document.getElementById('meta-slug').value     = post.slug || '';
+      document.getElementById('meta-excerpt').value  = post.excerpt || '';
+      document.getElementById('meta-date').value     = post.date || today();
+      document.getElementById('meta-readtime').value = post.readTime || '';
+      document.getElementById('content-textarea').value = post.content || '';
+      updatePreview();
+
+      /* Category */
+      document.querySelectorAll('.cat-btn').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.cat === post.category);
+      });
+
+      /* Status */
+      document.querySelectorAll('.status-opt').forEach(function (b) {
+        b.classList.remove('active-draft', 'active-published');
+        if (b.dataset.status === post.status || (!post.status && b.dataset.status === 'draft')) {
+          b.classList.add(b.dataset.status === 'draft' ? 'active-draft' : 'active-published');
+        }
+      });
+    }
+
+    /* ----------------------------------------------------------
+       META BINDINGS
+    ---------------------------------------------------------- */
+    function bindMeta() {
+      /* Title → auto slug */
+      document.getElementById('meta-title').addEventListener('input', function () {
+        if (!currentPost) return;
+        isDirty = true;
+        currentPost.title = this.value;
+        var slug = document.getElementById('meta-slug');
+        if (!slug.dataset.manual) {
+          slug.value = slugify(this.value);
+          currentPost.slug = slug.value;
+        }
+        updateReadTime();
+      });
+
+      document.getElementById('meta-slug').addEventListener('input', function () {
+        this.dataset.manual = '1';
+        if (currentPost) currentPost.slug = this.value;
+        isDirty = true;
+      });
+
+      document.getElementById('meta-excerpt').addEventListener('input', function () {
+        if (currentPost) currentPost.excerpt = this.value;
+        isDirty = true;
+      });
+
+      document.getElementById('meta-date').addEventListener('change', function () {
+        if (currentPost) currentPost.date = this.value;
+        isDirty = true;
+      });
+
+      document.getElementById('meta-readtime').addEventListener('input', function () {
+        if (currentPost) currentPost.readTime = this.value;
+      });
+
+      document.getElementById('content-textarea').addEventListener('input', function () {
+        if (currentPost) { currentPost.content = this.value; isDirty = true; }
+        updatePreview();
+        updateReadTime();
+      });
+    }
+
+    /* ----------------------------------------------------------
+       CATEGORY GRID
+    ---------------------------------------------------------- */
+    function renderCatGrid(cats) {
+      var grid = document.getElementById('cat-grid');
+      grid.innerHTML = '';
+      cats.forEach(function (cat) {
+        var btn = document.createElement('button');
+        btn.className = 'cat-btn';
+        btn.dataset.cat = cat;
+        btn.textContent = cat.replace(/-/g,' ');
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.cat-btn').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          if (currentPost) { currentPost.category = cat; isDirty = true; }
+        });
+        grid.appendChild(btn);
+      });
+    }
+
+    /* ----------------------------------------------------------
+       STATUS TOGGLE
+    ---------------------------------------------------------- */
+    document.querySelectorAll('.status-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (!currentPost) return;
+        var st = btn.dataset.status;
+        currentPost.status = st;
+        isDirty = true;
+        document.querySelectorAll('.status-opt').forEach(function (b) {
+          b.classList.remove('active-draft', 'active-published');
+        });
+        btn.classList.add(st === 'draft' ? 'active-draft' : 'active-published');
+      });
+    });
+
+    /* ----------------------------------------------------------
+       SAVE
+    ---------------------------------------------------------- */
+    document.getElementById('btn-save').addEventListener('click', function () {
+      saveCurrentPost();
+    });
+
+    function saveCurrentPost() {
+      if (!currentPost) return;
+      var title = document.getElementById('meta-title').value.trim();
+      if (!title) { toast('Title is required.', true); return; }
+      currentPost.title   = title;
+      currentPost.slug    = document.getElementById('meta-slug').value || slugify(title);
+      currentPost.excerpt = document.getElementById('meta-excerpt').value;
+      currentPost.date    = document.getElementById('meta-date').value || today();
+      currentPost.readTime = document.getElementById('meta-readtime').value || calcReadTime(currentPost.content);
+      currentPost.content = document.getElementById('content-textarea').value;
+
+      var posts = getPosts();
+      var idx   = posts.findIndex(function (p) { return p.slug === currentPost.slug; });
+      if (idx >= 0) posts[idx] = currentPost;
+      else posts.push(currentPost);
+      savePosts(posts);
+      isDirty = false;
+      renderPostList();
+      toast('Saved.');
+    }
+
+    /* ----------------------------------------------------------
+       EXPORT POST (download HTML file)
+    ---------------------------------------------------------- */
+    document.getElementById('btn-export-post').addEventListener('click', function () {
+      if (!currentPost || !currentPost.title) { toast('Save post first.', true); return; }
+      saveCurrentPost();
+      var html = currentTab === 'blog'
+        ? buildBlogHTML(currentPost)
+        : buildPlaybookHTML(currentPost);
+      downloadFile((currentTab === 'blog' ? 'blog/' : 'playbook/') + currentPost.slug + '.html', html);
+      toast('HTML exported.');
+    });
+
+    /* ----------------------------------------------------------
+       TOOLBAR
+    ---------------------------------------------------------- */
+    function bindToolbar() {
+      document.querySelectorAll('.toolbar-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var ta = document.getElementById('content-textarea');
+          var action = btn.dataset.action;
+          var start = ta.selectionStart;
+          var end   = ta.selectionEnd;
+          var sel   = ta.value.substring(start, end);
+          var replacement = '';
+
+          switch (action) {
+            case 'h2':   replacement = '## ' + (sel || 'Heading'); break;
+            case 'h3':   replacement = '### ' + (sel || 'Heading'); break;
+            case 'bold': replacement = '**' + (sel || 'bold text') + '**'; break;
+            case 'italic': replacement = '_' + (sel || 'italic text') + '_'; break;
+            case 'quote': replacement = '\n> ' + (sel || 'Quote') + '\n'; break;
+            case 'code':  replacement = '\n```\n' + (sel || 'code') + '\n```\n'; break;
+            case 'link':
+              var url = prompt('Enter URL:', 'https://');
+              if (!url) return;
+              replacement = '[' + (sel || 'Link text') + '](' + url + ')';
+              break;
+            case 'hr': replacement = '\n\n---\n\n'; break;
+          }
+
+          ta.setRangeText(replacement, start, end, 'end');
+          ta.focus();
+          if (currentPost) currentPost.content = ta.value;
+          updatePreview();
+          updateReadTime();
+        });
+      });
+    }
+
+    /* ----------------------------------------------------------
+       EDITOR MODES
+    ---------------------------------------------------------- */
+    function bindModes() {
+      document.querySelectorAll('.mode-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.mode-btn').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          applyMode(btn.dataset.mode);
+        });
+      });
+    }
+
+    function applyMode(mode) {
+      var wp = document.getElementById('write-pane');
+      var pp = document.getElementById('preview-pane');
+      if (mode === 'split') { wp.style.display = 'flex'; pp.style.display = 'block'; }
+      if (mode === 'write') { wp.style.display = 'flex'; pp.style.display = 'none'; }
+      if (mode === 'preview') { wp.style.display = 'none'; pp.style.display = 'block'; }
+    }
+
+    /* ----------------------------------------------------------
+       LIVE PREVIEW
+    ---------------------------------------------------------- */
+    function bindLivePreview() {
+      document.getElementById('content-textarea').addEventListener('input', updatePreview);
+    }
+
+    function updatePreview() {
+      var md  = document.getElementById('content-textarea').value;
+      var div = document.getElementById('preview-content');
+      if (typeof marked !== 'undefined') {
+        div.innerHTML = marked.parse(md);
+      } else {
+        div.textContent = md;
+      }
+    }
+
+    /* ----------------------------------------------------------
+       READ TIME AUTO-CALCULATE
+    ---------------------------------------------------------- */
+    function updateReadTime() {
+      var content  = document.getElementById('content-textarea').value;
+      var rt       = calcReadTime(content);
+      var rtField  = document.getElementById('meta-readtime');
+      if (!rtField.value || rtField.value === currentPost.readTime) {
+        rtField.value = rt;
+      }
+      if (currentPost) currentPost.readTime = rt;
+    }
+
+    function calcReadTime(content) {
+      if (!content) return '1 min read';
+      var words = content.trim().split(/\s+/).length;
+      return Math.max(1, Math.ceil(words / 200)) + ' min read';
+    }
+
+    /* ----------------------------------------------------------
+       PUBLISH (GitHub API)
+    ---------------------------------------------------------- */
+    function bindPublish() {
+      document.getElementById('btn-publish').addEventListener('click', function () {
+        if (!currentPost || !currentPost.title) { toast('Save post first.', true); return; }
+        saveCurrentPost();
+        openPublishModal();
+      });
+
+      document.getElementById('pub-confirm').addEventListener('click', function () {
+        runPublish();
+      });
+
+      document.getElementById('pub-cancel').addEventListener('click', function () {
+        document.getElementById('pub-overlay').classList.remove('open');
+      });
+
+      document.getElementById('pub-close').addEventListener('click', function () {
+        document.getElementById('pub-overlay').classList.remove('open');
+      });
+    }
+
+    function openPublishModal() {
+      var owner  = localStorage.getItem('gh-owner') || '';
+      var repo   = localStorage.getItem('gh-repo') || '';
+      var branch = localStorage.getItem('gh-branch') || 'main';
+
+      document.getElementById('pub-title').textContent = 'Publish: ' + (currentPost.title || 'Untitled');
+      document.getElementById('pub-subtitle').textContent = 'Committing to ' + owner + '/' + repo + ' (' + branch + '). Vercel deploys in ~30s.';
+
+      var isPlaybook = currentTab === 'playbook';
+      var steps = [
+        { id: 'step-html', label: 'Commit ' + (isPlaybook ? 'playbook' : 'blog') + '/' + currentPost.slug + '.html' },
+        { id: 'step-json', label: 'Update cms/' + (isPlaybook ? 'playbook' : 'blog') + '-posts.json index' }
+      ];
+
+      var container = document.getElementById('pub-steps');
+      container.innerHTML = '';
+      steps.forEach(function (s) {
+        var div = document.createElement('div');
+        div.className = 'pub-step pending';
+        div.id = s.id;
+        div.innerHTML = '<div class="pub-step-icon"></div><span>' + s.label + '</span>';
+        container.appendChild(div);
+      });
+
+      document.getElementById('pub-confirm').style.display = '';
+      document.getElementById('pub-cancel').style.display = '';
+      document.getElementById('pub-close').style.display = 'none';
+      document.getElementById('pub-overlay').classList.add('open');
+    }
+
+    async function runPublish() {
+      var token  = localStorage.getItem('gh-token') || '';
+      var owner  = localStorage.getItem('gh-owner') || '';
+      var repo   = localStorage.getItem('gh-repo') || '';
+      var branch = localStorage.getItem('gh-branch') || 'main';
+
+      if (!token) { toast('No GitHub PAT set. Go to Settings.', true); return; }
+      if (!owner || !repo) { toast('GitHub config incomplete.', true); return; }
+
+      document.getElementById('pub-confirm').style.display = 'none';
+      document.getElementById('pub-cancel').style.display = 'none';
+
+      var gh = new GitHubCMS(owner, repo, branch, token);
+      var isPlaybook = currentTab === 'playbook';
+
+      /* Step 1: Commit HTML */
+      setStep('step-html', 'running');
+      try {
+        var html     = isPlaybook ? buildPlaybookHTML(currentPost) : buildBlogHTML(currentPost);
+        var htmlPath = (isPlaybook ? 'playbook/' : 'blog/') + currentPost.slug + '.html';
+        await gh.putFile(htmlPath, html, 'Publish: ' + currentPost.title);
+        setStep('step-html', 'done');
+      } catch (e) {
+        setStep('step-html', 'error');
+        toast('HTML commit failed: ' + e.message, true);
+        document.getElementById('pub-close').style.display = '';
+        return;
+      }
+
+      /* Step 2: Update JSON index */
+      setStep('step-json', 'running');
+      try {
+        currentPost.status = 'published';
+        var posts = getPosts();
+        var idx = posts.findIndex(function (p) { return p.slug === currentPost.slug; });
+        if (idx >= 0) posts[idx] = currentPost;
+        else posts.push(currentPost);
+        savePosts(posts);
+
+        var published = posts.filter(function (p) { return p.status === 'published'; });
+        var indexArr  = published.map(function (p) {
+          return { title: p.title, slug: p.slug, excerpt: p.excerpt, category: p.category, readTime: p.readTime || '', date: p.date };
+        });
+        indexArr.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+
+        var jsonPath = 'cms/' + (isPlaybook ? 'playbook' : 'blog') + '-posts.json';
+        await gh.putFile(jsonPath, JSON.stringify(indexArr, null, 2), 'Update ' + jsonPath);
+        setStep('step-json', 'done');
+      } catch (e) {
+        setStep('step-json', 'error');
+        toast('JSON update failed: ' + e.message, true);
+        document.getElementById('pub-close').style.display = '';
+        return;
+      }
+
+      renderPostList();
+      document.getElementById('pub-close').style.display = '';
+      toast('Published! Vercel deploying now…');
+    }
+
+    function setStep(id, state) {
+      var el = document.getElementById(id);
+      if (el) { el.className = 'pub-step ' + state; }
+    }
+
+    /* ----------------------------------------------------------
+       GitHubCMS Class
+    ---------------------------------------------------------- */
+    function GitHubCMS(owner, repo, branch, token) {
+      this.base   = 'https://api.github.com/repos/' + owner + '/' + repo + '/contents';
+      this.branch = branch;
+      this.token  = token;
+    }
+
+    GitHubCMS.prototype.getFile = async function (path) {
+      var res = await fetch(this.base + '/' + path + '?ref=' + this.branch, {
+        headers: { 'Authorization': 'token ' + this.token, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (res.status === 404) return null;
+      if (!res.ok) throw new Error('GET ' + path + ' failed: ' + res.status);
+      return res.json();
+    };
+
+    GitHubCMS.prototype.putFile = async function (path, content, message) {
+      var existing = await this.getFile(path);
+      var body = {
+        message: message,
+        content: b64enc(content),
+        branch: this.branch
+      };
+      if (existing) body.sha = existing.sha;
+
+      var res = await fetch(this.base + '/' + path, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'token ' + this.token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) {
+        var err = await res.json().catch(function () { return {}; });
+        throw new Error(err.message || 'PUT failed: ' + res.status);
+      }
+      return res.json();
+    };
+
+    /* Unicode-safe base64 */
+    function b64enc(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    /* ----------------------------------------------------------
+       HTML GENERATORS
+    ---------------------------------------------------------- */
+    var HEADER_HTML = '  <header class="site-header" role="banner">\n    <div class="header-inner">\n      <a href="../index.html" class="nav-logo" aria-label="Ahmad Farooq">\n        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="2" y="14" width="18" height="13" fill="#FF6700"/><rect x="11" y="1" width="15" height="15" transform="rotate(45 18 8)" fill="#BFFF00"/><circle cx="27" cy="27" r="8" fill="#000"/></svg>\n        <span class="nav-logo-text">Ahmad Farooq</span>\n      </a>\n      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>\n      <ul class="nav-links" role="list">\n        <li><a href="../index.html">Home</a></li>\n        <li><a href="../behind-the-build.html">Behind the Build</a></li>\n        <li class="dropdown"><button class="dropdown-toggle" aria-expanded="false">Services <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><ul class="dropdown-menu" role="list"><li><a href="../growth.html">Growth Marketing</a></li><li><a href="../linkedin.html">LinkedIn Branding</a></li><li><a href="../strategy.html">Marketing Strategy</a></li><li><a href="../content-writing.html">Content Writing</a></li><li><a href="../graphic-design.html">Graphic Design</a></li></ul></li>\n        <li><a href="../design.html">Design</a></li>\n        <li><a href="../blog.html">Blog</a></li>\n        <li><a href="../playbook.html">Playbook</a></li>\n        <li><a href="../book.html"><span class="btn btn-primary btn-sm">Book a Call</span></a></li>\n      </ul>\n    </div>\n  </header>';
+
+    var FOOTER_HTML = '  <footer class="site-footer" role="contentinfo">\n    <div class="footer-inner">\n      <a href="../index.html" class="footer-logo"><svg width="32" height="32" viewBox="0 0 36 36" fill="none"><rect x="2" y="14" width="18" height="13" fill="#FF6700"/><rect x="11" y="1" width="15" height="15" transform="rotate(45 18 8)" fill="#BFFF00"/><circle cx="27" cy="27" r="8" fill="#fff"/></svg><span class="footer-logo-text">Ahmad Farooq</span></a>\n      <ul class="footer-socials" role="list"><li><a href="https://www.linkedin.com/in/byahmad/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li><li><a href="https://x.com/ahmaddfaroooq" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li><li><a href="mailto:hello@ahmadfarooq.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a></li></ul>\n      <p class="footer-copy">&copy; 2026 Ahmad Farooq. All rights reserved.</p>\n    </div>\n  </footer>';
+
+    var FAVICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect x='2' y='14' width='18' height='13' fill='%23FF6700'/><rect x='11' y='1' width='15' height='15' transform='rotate(45 18 8)' fill='%23BFFF00'/><circle cx='27' cy='27' r='8' fill='%23000'/></svg>";
+
+    function buildBlogHTML(post) {
+      var content = typeof marked !== 'undefined' ? marked.parse(post.content || '') : (post.content || '');
+      var title   = escHtml(post.title || '');
+      var excerpt = escHtml(post.excerpt || '');
+      var cat     = escHtml(post.category || '');
+      var date    = escHtml(post.date || '');
+      var rt      = escHtml(post.readTime || '');
+
+      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + title + ' \u2014 Ahmad Farooq</title>\n  <meta name="description" content="' + excerpt + '">\n  <meta name="robots" content="index, follow">\n  <link rel="canonical" href="https://ahmadfarooq.vercel.app/blog/' + post.slug + '.html">\n  <meta property="og:type" content="article">\n  <meta property="og:title" content="' + title + '">\n  <meta property="og:description" content="' + excerpt + '">\n  <meta property="og:url" content="https://ahmadfarooq.vercel.app/blog/' + post.slug + '.html">\n  <meta property="og:image" content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="' + title + '">\n  <meta name="twitter:description" content="' + excerpt + '">\n  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"' + post.title + '","description":"' + post.excerpt + '","datePublished":"' + post.date + '","author":{"@type":"Person","name":"Ahmad Farooq","url":"https://ahmadfarooq.vercel.app"}}<\/script>\n  <link rel="icon" type="image/svg+xml" href="' + FAVICON + '">\n  <link rel="stylesheet" href="../styles.css">\n</head>\n<body class="page-transition">\n' + HEADER_HTML + '\n  <main>\n    <section class="page-hero">\n      <div class="page-hero-inner">\n        <span class="page-hero-label">' + cat.replace(/-/g,' ') + '</span>\n        <h1 class="page-hero-title">' + title + '</h1>\n        <div class="post-meta-row">\n          <span class="tag tag-ghost">' + date + '</span>\n          <span class="tag tag-mint">' + rt + '</span>\n        </div>\n      </div>\n    </section>\n    <section class="section">\n      <div class="container">\n        <article class="post-prose reveal">' + content + '</article>\n        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">\n          <a href="../blog.html" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">\u2190 Back to Blog</a>\n        </div>\n      </div>\n    </section>\n    <section class="cta-band"><div class="container"><h2 class="reveal">Ready to apply this?</h2><p class="reveal">Book a free strategy call.</p><a href="../book.html" class="btn btn-primary reveal">Book a Call</a></div></section>\n  </main>\n' + FOOTER_HTML + '\n  <script src="../scripts.js"><\/script>\n</body>\n</html>';
+    }
+
+    function buildPlaybookHTML(post) {
+      var content = typeof marked !== 'undefined' ? marked.parse(post.content || '') : (post.content || '');
+      var title   = escHtml(post.title || '');
+      var excerpt = escHtml(post.excerpt || '');
+      var cat     = escHtml(post.category || '');
+
+      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + title + ' \u2014 The Playbook \u2014 Ahmad Farooq</title>\n  <meta name="description" content="' + excerpt + '">\n  <meta name="robots" content="index, follow">\n  <link rel="canonical" href="https://ahmadfarooq.vercel.app/playbook/' + post.slug + '.html">\n  <meta property="og:type" content="article">\n  <meta property="og:title" content="' + title + '">\n  <meta property="og:description" content="' + excerpt + '">\n  <meta property="og:url" content="https://ahmadfarooq.vercel.app/playbook/' + post.slug + '.html">\n  <meta property="og:image" content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="' + title + '">\n  <meta name="twitter:description" content="' + excerpt + '">\n  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"' + post.title + '","description":"' + post.excerpt + '","datePublished":"' + (post.date||'') + '","author":{"@type":"Person","name":"Ahmad Farooq","url":"https://ahmadfarooq.vercel.app"}}<\/script>\n  <link rel="icon" type="image/svg+xml" href="' + FAVICON + '">\n  <link rel="stylesheet" href="../styles.css">\n</head>\n<body class="page-transition">\n' + HEADER_HTML + '\n  <main>\n    <section class="page-hero">\n      <div class="page-hero-inner">\n        <span class="page-hero-label">Playbook \u00B7 ' + cat.replace(/-/g,' ') + '</span>\n        <h1 class="page-hero-title">' + title + '</h1>\n        <p class="page-hero-desc">' + excerpt + '</p>\n      </div>\n    </section>\n    <section class="section">\n      <div class="container">\n        <article class="post-prose reveal">' + content + '</article>\n        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">\n          <a href="../playbook.html" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">\u2190 Back to Playbooks</a>\n        </div>\n      </div>\n    </section>\n    <section class="cta-band"><div class="container"><h2 class="reveal">Want help implementing this?</h2><p class="reveal">Book a free strategy call.</p><a href="../book.html" class="btn btn-primary reveal">Book a Call</a></div></section>\n  </main>\n' + FOOTER_HTML + '\n  <script src="../scripts.js"><\/script>\n</body>\n</html>';
+    }
+
+    /* ----------------------------------------------------------
+       SETTINGS
+    ---------------------------------------------------------- */
+    function loadSettings() {
+      document.getElementById('gh-owner-input').value  = localStorage.getItem('gh-owner') || '';
+      document.getElementById('gh-repo-input').value   = localStorage.getItem('gh-repo') || '';
+      document.getElementById('gh-branch-input').value = localStorage.getItem('gh-branch') || 'main';
+      document.getElementById('gh-token-input').value  = localStorage.getItem('gh-token') || '';
+    }
+
+    function bindSettings() {
+      document.getElementById('btn-save-gh').addEventListener('click', function () {
+        localStorage.setItem('gh-owner',  document.getElementById('gh-owner-input').value.trim());
+        localStorage.setItem('gh-repo',   document.getElementById('gh-repo-input').value.trim());
+        localStorage.setItem('gh-branch', document.getElementById('gh-branch-input').value.trim() || 'main');
+        localStorage.setItem('gh-token',  document.getElementById('gh-token-input').value.trim());
+        toast('GitHub settings saved.');
+      });
+
+      document.getElementById('btn-test-conn').addEventListener('click', async function () {
+        var owner = document.getElementById('gh-owner-input').value.trim();
+        var repo  = document.getElementById('gh-repo-input').value.trim();
+        var token = document.getElementById('gh-token-input').value.trim();
+        var status = document.getElementById('conn-status');
+        status.style.display = 'block';
+        status.className = 'settings-status';
+        status.textContent = 'Testing…';
+
+        try {
+          var res = await fetch('https://api.github.com/repos/' + owner + '/' + repo, {
+            headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+          });
+          if (res.ok) {
+            var data = await res.json();
+            status.className = 'settings-status ok';
+            status.textContent = '✓ Connected: ' + data.full_name + (data.private ? ' (private)' : ' (public)');
+          } else {
+            status.className = 'settings-status err';
+            status.textContent = '✗ Failed (' + res.status + '). Check your owner, repo, and PAT.';
+          }
+        } catch (e) {
+          status.className = 'settings-status err';
+          status.textContent = '✗ Network error: ' + e.message;
+        }
+      });
+
+      document.getElementById('btn-export-all').addEventListener('click', function () {
+        var data = {
+          blogPosts:     JSON.parse(localStorage.getItem(BLOG_KEY) || '[]'),
+          playbookPosts: JSON.parse(localStorage.getItem(PLAYBOOK_KEY) || '[]'),
+          exportedAt:    new Date().toISOString()
+        };
+        downloadFile('cms-backup-' + today() + '.json', JSON.stringify(data, null, 2));
+        toast('Exported.');
+      });
+
+      document.getElementById('btn-clear-all').addEventListener('click', function () {
+        if (!confirm('Delete ALL posts from local storage? This cannot be undone.\n\n(Published files on GitHub are NOT deleted.)')) return;
+        localStorage.removeItem(BLOG_KEY);
+        localStorage.removeItem(PLAYBOOK_KEY);
+        renderPostList();
+        showEmpty();
+        toast('All local data cleared.');
+      });
+    }
+
+    /* ----------------------------------------------------------
+       UTILITIES
+    ---------------------------------------------------------- */
+    function slugify(str) {
+      return str.toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    function today() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function setDate() {
+      var d = document.getElementById('meta-date');
+      if (d && !d.value) d.value = today();
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function downloadFile(filename, content) {
+      var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function toast(msg, isError) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'show' + (isError ? ' error' : '');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(function () { t.className = ''; }, 3000);
+    }
+
+  })();
+  </script>
+</body>
+</html>

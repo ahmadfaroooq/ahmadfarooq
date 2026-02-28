@@ -1,0 +1,483 @@
+RD & TRD — Ahmad Farooq Website Recreation
+PRODUCT REQUIREMENTS DOCUMENT (PRD)
+1. Product Overview
+Product: Personal brand website for Ahmad Farooq — Growth Strategist & Brand Builder
+Live URL: https://ahmadfarooq.vercel.app/
+Tagline: "Building brands that compound over time"
+Purpose: Convert visitors into strategy call bookings, demonstrate expertise, and distribute long-form content (Blog + Playbook).
+
+2. Goals & Success Metrics
+Goal	Metric
+Drive strategy call bookings	CTA click → Cal.com booking conversion
+Establish thought leadership	Blog/Playbook traffic and time-on-page
+Showcase design & case studies	Design portfolio modal opens
+Enable content publishing	Admin → GitHub publish cycle < 30s to live
+3. Target Audience
+Primary: Founders, executives, CMOs seeking growth marketing and brand strategy
+Secondary: VC-backed startups needing LinkedIn branding or content systems
+Tertiary: Marketers/founders consuming the free Playbook and Blog content
+4. Page Inventory & Feature Requirements
+4.1 Homepage (index.html)
+Hero section: H1 tagline + 2 CTAs (Book a Call → book.html, View Playbooks → playbook.html), profile photo with glow animation, 3 parallax decorative shapes
+Services grid (5 cards): Growth Marketing, LinkedIn Branding, Marketing Strategy, Content Writing, Graphic Design — each links to its dedicated service page
+Case Studies section (3 expandable): Coin Bureau, EdTech Founder, ZSourced — accordion expand/collapse with animated height
+Design portfolio grid (6 items): Opens modal overlay with design case study details (brief + rationale + color swatches + deliverables)
+Skills toolkit: 12-item 4-column grid of competencies
+CTA section: Full-width black band with heading + Book a Call button
+4.2 Blog (blog.html)
+Hero: "Thinking in systems." tagline
+Category filter bar (7 buttons): All, Growth Frameworks, Content Systems, Philosophy, Macroeconomics, Productivity Systems, Brand Strategy
+Blog grid: Dynamically fetched from cms/blog-posts.json, sorted newest first, client-side category filtering, each card links to blog/{slug}.html
+Empty state: Visible placeholder when JSON is empty
+4.3 Playbook (playbook.html)
+Hero: "The Playbook." tagline
+Playbook grid: One hardcoded card for equity-flywheel.html, expandable via CMS JSON (cms/playbook-posts.json)
+4.4 Equity Flywheel (equity-flywheel.html)
+Full playbook article: Inline CSS, flywheel diagram, 4 detailed stages, weekly workflow table, metrics section, common mistakes grid, 30-day launch plan, real-world case study
+No dependency on CMS — fully static, standalone HTML file
+4.5 Design (design.html)
+Portfolio grid (6 items): Mixed column spans (ZSourced spans 2 cols)
+Modal overlays (6): Each with hero section, brief, rationale, color swatches, deliverables list
+4.6 Behind the Build (behind-the-build.html)
+Founder profile: 2-column layout (profile.png + story text)
+Working principles: 6 cards in grid
+Selected clients: 4-client name grid
+CTA: Book a Strategy Call
+4.7 Service Pages (5 pages: growth.html, linkedin.html, strategy.html, content-writing.html, graphic-design.html)
+All 5 share a consistent template:
+
+Page hero: Service name + description
+Case studies (3 expandable): Client-specific outcomes
+Process timeline (5 steps): Discovery → Strategy → Build/Design → Launch → Scale
+Ideal Client (2 cards): "Built for you if…" / "Not right fit if…"
+CTA section: Book a Strategy Call
+4.8 Book a Call (book.html)
+Hero: "Let's talk strategy"
+Cal.com embed: ahmad-farooq/30min, month_view layout, responsive slots
+4.9 Admin CMS (admin.html)
+Tab navigation: Blog | Playbook | Settings
+Sidebar: Post list with Draft/Published badges, delete (hover), + New button
+Editor: Markdown textarea with formatting toolbar (H2, H3, Bold, Italic, Quote, Code, Link, HR), Split/Write/Preview view toggle, live preview via marked.js
+Meta panel: Title, Slug (auto-generated, manual override), Excerpt, Category (tag grid), Date, Read Time (auto-calculated), Draft/Published toggle, Save/Publish/Export buttons
+GitHub Settings: Owner, Repo, Branch, PAT input, Test Connection button, Export All fallback, Clear All Data
+Publish modal: Shows step-by-step commit progress
+5. Navigation Requirements
+Global navigation (all pages):
+
+Logo → index.html
+Home → index.html
+Behind the Build → behind-the-build.html
+Services (dropdown) → Growth, LinkedIn, Strategy, Content Writing, Graphic Design
+Design → design.html
+Blog → blog.html
+Playbook → playbook.html
+Book → book.html
+Footer (all pages):
+
+Logo + social links (LinkedIn, Twitter/X, Email)
+Copyright: © 2026 Ahmad Farooq. All rights reserved.
+6. Content Requirements
+Profile image: profile.png — requires transparent/dark background (CSS blend mode handles this)
+Favicon: Inline SVG (orange rect + green diamond + black circle)
+Social links:
+
+LinkedIn: https://www.linkedin.com/in/byahmad/
+Twitter/X: https://x.com/ahmaddfaroooq
+Email: hello@ahmadfarooq.com
+7. Design Direction
+Aesthetic: Neo-brutalist — heavy 2px black borders, bold neon accents, flat offset shadows, structured asymmetry
+Background: Warm cream (#F5F0E8) with subtle 40px grid overlay micro-pattern
+No images (except profile.png) — all design is CSS-only
+
+8. Third-Party Integrations
+Integration	Page	Purpose
+Cal.com	book.html	30-min strategy call booking
+Google Fonts	All (via CSS)	Sora, DM Sans, Caveat, Playfair Display
+marked.js (CDN)	admin.html	Markdown parser for CMS preview + HTML generation
+GitHub Contents API	admin.html	Publish posts directly to repo
+Vercel	Deploy pipeline	Auto-deploy on GitHub push
+TECHNICAL REQUIREMENTS DOCUMENT (TRD)
+1. Architecture Decision
+Framework: Zero-framework — pure static HTML/CSS/JS
+No build step: No npm, no webpack, no TypeScript, no React
+Deployment: Vercel static hosting, GitHub-connected (auto-deploy on main push)
+CMS: Custom localStorage admin with GitHub API as publish layer
+
+Rationale: Maximum simplicity, zero dependency maintenance, instant Vercel deploys, full design control without framework constraints.
+
+2. File Structure
+
+/
+├── index.html
+├── blog.html
+├── playbook.html
+├── equity-flywheel.html
+├── design.html
+├── behind-the-build.html
+├── growth.html
+├── linkedin.html
+├── strategy.html
+├── content-writing.html
+├── graphic-design.html
+├── book.html
+├── admin.html
+├── styles.css                 ← Single global stylesheet
+├── scripts.js                 ← Single global JS file
+├── profile.png                ← Headshot (dark bg, mix-blend-mode handles)
+├── cms/
+│   ├── blog-posts.json        ← Blog index (auto-generated by CMS)
+│   └── playbook-posts.json    ← Playbook index (auto-generated by CMS)
+├── blog/
+│   └── {slug}.html            ← Individual blog post pages (auto-generated)
+└── playbook/
+    └── {slug}.html            ← Individual playbook pages (auto-generated)
+3. Design System Tokens
+All tokens defined as CSS custom properties in :root of styles.css:
+
+Color Palette
+
+:root {
+  --bg:        #F5F0E8;  /* warm cream — primary bg */
+  --bg-dark:   #EDE8DC;  /* darker cream — secondary bg */
+  --text:      #1A1A1A;  /* near-black — primary text */
+  --text-light:#4A4A4A;  /* dark gray — body text */
+  --text-muted:#7A7A7A;  /* medium gray — labels, muted */
+  --lime:      #BFFF00;  /* neon lime — primary accent */
+  --orange:    #FF6700;  /* vibrant orange — secondary accent */
+  --mint:      #00FFAB;  /* bright cyan-green — tertiary accent */
+  --white:     #FFF;
+  --black:     #000;
+  --border:    #1A1A1A;  /* border color (matches --text) */
+}
+Typography Tokens
+
+:root {
+  --font-heading: 'Sora', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-accent:  'Caveat', cursive;
+  --font-display: 'Playfair Display', serif;
+  --max-width:    1200px;
+  --header-h:     72px;
+  --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+Font Scale
+h1: clamp(2.4rem, 5vw, 3.8rem), weight 700, line-height 1.2, letter-spacing -0.02em
+h2: clamp(1.8rem, 3.5vw, 2.8rem), same
+h3: clamp(1.3rem, 2.5vw, 1.8rem), same
+h4: clamp(1.1rem, 2vw, 1.4rem), same
+Body: 1rem, DM Sans, line-height 1.7
+Google Fonts Import
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+4. Component Specifications
+Header
+Fixed, height 72px, z-index 1000
+Background: rgba(245,240,232,0.92) + backdrop-filter: blur(16px)
+Bottom border: 2px solid --border
+Inner: .header-inner — max-width 1200px, flex, space-between, 0 24px padding
+Logo: SVG 36×36 + Playfair Display 1.25rem span
+Nav links: Flex, hover state = lime underline (::after pseudo, scale 0→1)
+Active link: underline always visible
+Dropdown: Absolute, white bg, 2px border, hover = 10% lime bg tint, arrow icon rotates
+Mobile toggle (≤900px): Hamburger 3-bar button, nav slides from right (transform translateX)
+Buttons
+Base: inline-flex, 14px/28px padding, 2px border, Sora 0.88rem weight 600
+.btn-primary: --lime bg, black text → hover: black bg, lime text, translate(-2px,-2px), box-shadow 4px 4px 0 --lime
+.btn-secondary: Transparent bg → hover: black bg, cream text, translate(-2px,-2px), box-shadow 4px 4px 0 --orange
+Cards
+Base .card: white bg, 2px border, 32px padding
+Hover: translate(-3px,-3px), box-shadow 6px 6px 0 --lime
+.card-orange:hover: shadow uses --orange
+.card-mint:hover: shadow uses --mint
+Tag variants: .tag-lime (lime bg), .tag-orange (orange bg + white text), .tag-mint (mint bg)
+Tag spec: 4px/12px padding, Sora 0.7rem weight 600 uppercase, 1.5px border
+Hero Section
+Min-height: calc(100vh - 72px), padding-top 72px
+Grid: 2-column 1fr 1fr (stacked on mobile, image first via order:-1)
+Profile frame: 340×440px (260×340 mobile), mix-blend-mode: screen
+Image glow: multiple drop-shadow filters, animated via silhouetteGlow 4s alternate
+Parallax shapes: 3 absolute decorators (lime border square, mint circle, orange line strip)
+Services Grid
+3-column CSS grid, 24px gap → 1-column on mobile
+Service icon: 48×48px, contains 36px SVG, stroke 1.5
+Arrow link: gap animates 6px→12px on hover
+Case Studies (Accordion)
+Each .case-study: white bg, 2px border
+Header: 24px/32px padding, cursor pointer, hover 5% lime tint
+Toggle button: 32px square, 2px border → open state: lime bg, rotate 45deg
+Body: max-height 0→scrollHeight animated 0.5s cubic-bezier
+One open at a time (JS collapses others)
+Blog Cards
+Grid of flex columns, 20px gap
+Card: 2-column layout (auto + 1fr), 28px/32px padding, 2px border, white bg
+Hover: translate(-3px,-3px), box-shadow 6px 6px 0 lime
+Reading time: Sora 0.72rem weight 500, no-wrap
+Playbook Cards
+3-column grid (icon | content | action), 24px gap, 32px padding
+Icon: 64×64px, mint bg, 2px border, 1.6rem emoji
+Hover: translate(-3px,-3px), box-shadow 6px 6px 0 mint
+Timeline
+40px left padding, ::before vertical 2px line
+Steps: white bg, 2px border, 24px padding, 40px margin-bottom
+Dot: 12px circle, positioned left
+Color alternation: nth-child(2n) orange, nth-child(3n) mint
+Modal
+Overlay: fixed inset, 60% black, z-index 2000
+Default: opacity 0, visibility hidden → .open: opacity 1, visibility visible
+Modal body: 90% width, max 800px, 48px padding, max-height 85vh overflow-y auto, 2px border
+Transform: translateY(20px) default → 0 when open
+Close: 36px square button, hover lime bg
+Footer
+Black bg, 3px top border lime
+Inner: flex space-between (column on mobile)
+Logo: Playfair Display white + SVG 32px
+Socials: 40×40px links, 2px border 30% white → hover lime bg
+Copyright: 0.8rem, 40% opacity
+Reveal Animation
+.reveal: opacity 0, translateY(30px)
+.reveal.visible: opacity 1, translateY(0), transition 0.7s cubic-bezier(0.4,0,0.2,1)
+Triggered by IntersectionObserver (10% threshold, -40px rootMargin)
+Page Transition
+.page-transition: opacity 0 (starts hidden)
+.page-transition.fonts-ready: runs pageIn animation (0.5s ease-out)
+pageIn: opacity 0 + translateY(10px) → opacity 1 + translateY(0)
+Class applied by document.fonts.ready.then() in scripts.js
+Background Grid Pattern
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,0,0,0.025) 39px, rgba(0,0,0,0.025) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,0,0,0.025) 39px, rgba(0,0,0,0.025) 40px);
+  z-index: 0;
+}
+body > * { position: relative; z-index: 1; }
+5. scripts.js Requirements
+Single shared JS file loaded via <script src="scripts.js"></script> in every page footer.
+
+Functions:
+
+Font FOUT guard: document.fonts.ready.then(() => document.body.classList.add('fonts-ready'))
+Mobile menu: Toggle .open on .nav-links and .active on .menu-toggle on click
+Dropdown toggle (≤900px): Toggle open class on parent li for .dropdown-toggle buttons
+Case study accordion: One-at-a-time expand/collapse using max-height: scrollHeight
+Scroll reveal: IntersectionObserver on all .reveal elements → add .visible
+Blog filter: .filter-btn click → filter .blog-card by data-category, toggle .active on button
+Parallax: Passive scroll listener → translateY(scrollY * (i+1) * 0.03) per .parallax-shape
+Modal open/close: [data-modal] triggers open; overlay click and .modal-close trigger close
+Active nav: Compare window.location.pathname.split('/').pop() to link href → add .active
+6. Page Template Structure
+Every page follows this HTML shell:
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{Page Title} — Ahmad Farooq</title>
+  <meta name="description" content="{description}">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,{encoded-favicon-svg}">
+  <link rel="stylesheet" href="styles.css">   <!-- or ../styles.css for nested pages -->
+</head>
+<body class="page-transition">
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <!-- Logo SVG + text -->
+      <!-- Hamburger button -->
+      <!-- Nav with dropdown -->
+    </div>
+  </header>
+
+  <!-- Page-specific content sections -->
+
+  <footer class="site-footer" role="contentinfo">
+    <!-- Footer logo + socials + copyright -->
+  </footer>
+  <script src="scripts.js"></script>  <!-- or ../scripts.js -->
+</body>
+</html>
+Page-specific patterns:
+Static content pages (service pages, behind-the-build): .page-hero + .section divs
+Dynamic content pages (blog): Inline <script> with fetch + render logic
+Rich playbook pages (equity-flywheel): Inline <style> for page-specific CSS + full article markup
+Embed pages (book): Minimal content + third-party script init
+7. CMS Architecture
+Data Model
+Blog Post object (stored in localStorage['cms-blog-posts']):
+
+
+{
+  "title": "string",
+  "slug": "kebab-case-string",
+  "excerpt": "string",
+  "category": "growth-frameworks|content-systems|philosophy|macroeconomics|productivity-systems|brand-strategy",
+  "date": "YYYY-MM-DD",
+  "readTime": "5 min read",
+  "status": "draft|published",
+  "content": "markdown string"
+}
+Playbook Post object (stored in localStorage['cms-playbook-posts']):
+
+
+{
+  "title": "string",
+  "slug": "kebab-case-string",
+  "excerpt": "string",
+  "category": "content-system|growth|strategy|linkedin|branding",
+  "date": "YYYY-MM-DD",
+  "status": "draft|published",
+  "content": "markdown string"
+}
+JSON Index entries (written to cms/blog-posts.json on publish):
+
+
+{ "title": "...", "slug": "...", "excerpt": "...", "category": "...", "readTime": "...", "date": "..." }
+localStorage Keys
+
+cms-blog-posts        → JSON array of blog post objects
+cms-playbook-posts    → JSON array of playbook post objects
+gh-owner              → GitHub org/username (default: "ahmadfaroooq")
+gh-repo               → GitHub repo name (default: "ahmadfarooq")
+gh-branch             → Branch (default: "main")
+gh-token              → GitHub PAT (never pre-seeded, entered by user)
+GitHub API Integration
+Class: GitHubCMS
+
+Base URL: https://api.github.com/repos/{owner}/{repo}/contents
+Auth: Authorization: token {PAT} header
+getFile(path): GET file + SHA (returns null on 404)
+putFile(path, content, message): GET existing SHA → PUT with base64 content
+Encoding: btoa(unescape(encodeURIComponent(str))) — Unicode-safe base64
+
+Seeded config (injected on first page open):
+
+
+if (!localStorage.getItem('gh-owner')) {
+  localStorage.setItem('gh-owner', 'ahmadfaroooq');
+  localStorage.setItem('gh-repo', 'ahmadfarooq');
+  localStorage.setItem('gh-branch', 'main');
+}
+Publish Flow
+Validate: title, slug, GitHub config must exist
+Open modal showing "Commit '{title}' to {owner}/{repo} ({branch})"
+On confirm:
+Save post to localStorage with status: 'published'
+Generate HTML via buildBlogHTML(post) or buildPlaybookHTML(post)
+Commit to blog/{slug}.html or playbook/{slug}.html
+Filter all published posts → build index array
+Commit cms/blog-posts.json or cms/playbook-posts.json
+Show step progress (✓ HTML committed, ✓ JSON updated)
+Close modal → Vercel auto-deploys in ~30s
+HTML Generator Output Paths
+Blog posts: blog/{slug}.html (relative paths use ../styles.css, ../scripts.js)
+Playbook posts: playbook/{slug}.html (same ../ relative paths)
+Generated HTML includes: full site header, nav, page-hero, prose section, footer
+8. Third-Party Integration Specs
+Cal.com (book.html)
+
+<script src="https://app.cal.com/embed/embed.js"></script>
+<script>
+Cal("init","30min",{origin:"https://app.cal.com"});
+Cal.ns["30min"]("inline",{
+  elementOrSelector:"#my-cal-inline-30min",
+  config:{"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+  calLink:"ahmad-farooq/30min"
+});
+</script>
+Wrapper: .cal-embed-wrap — 2px border, mint glow box-shadow
+
+marked.js (admin.html only)
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+Usage: marked.parse(post.content) for live preview and published HTML generation
+
+9. Responsive Breakpoints
+Breakpoint	Layout Changes
+≤900px	Mobile nav (hamburger), dropdown accordion
+≤768px	Hero 1-column, services 1-col, metrics 2-col, design 2-col, section padding 60px
+≤480px	Skills 1-col, metrics 1-col, design 1-col
+10. Performance Requirements
+No build step — all files served as-is
+IntersectionObserver for scroll animations (no scroll event spam)
+Passive scroll listener for parallax
+document.fonts.ready prevents animation before fonts load (eliminates FOUT)
+Backdrop-filter hardware accelerated on header
+Images: Only profile.png — all other "graphics" are pure CSS/SVG
+11. Animations Specification
+Name	Element	Duration	Type
+pageIn	body.page-transition.fonts-ready	0.5s ease-out	opacity + translateY
+silhouetteGlow	.profile-frame img	4s ease-in-out infinite alternate	drop-shadow filter
+flywheelSpin	Flywheel diagram rings	25-30s linear infinite	rotate
+Reveal	.reveal → .reveal.visible	0.7s cubic-bezier	opacity + translateY(30px)
+Card hover	All .card	0.3s cubic-bezier	translate + box-shadow
+Button hover	.btn-*	0.3s cubic-bezier	translate + box-shadow
+Case study	.case-study-body	0.5s cubic-bezier	max-height
+Toggle	.case-study-toggle	0.3s	rotate 45deg
+Nav underline	.nav-links a::after	0.3s	scaleX
+Dropdown arrow	.dropdown-toggle svg	0.3s	rotate
+Modal	.modal-overlay / .modal	0.3s	opacity + translateY
+Nav open	.nav-links (mobile)	0.3s	translateX
+12. Deployment Pipeline
+
+Local edit → admin.html publish button
+   → GitHub Contents API → PUT blog/{slug}.html
+   → PUT cms/blog-posts.json
+   → Vercel webhook detects commit
+   → Vercel rebuilds static site (~30s)
+   → Live at https://ahmadfarooq.vercel.app/
+For code/design changes:
+
+
+Local edit → git commit → git push origin main
+   → Vercel auto-deploy
+13. Security Notes
+admin.html not publicly linked from the main nav (direct URL access only)
+GitHub PAT: Stored in localStorage (plain text) — acceptable for single-user personal site
+No server-side secrets: All credentials client-side by design
+Content HTML: Generated with escHtml() function to prevent XSS in metadata fields
+14. Known Limitations / Future Improvements
+Item	Current	Ideal
+CMS storage	localStorage (browser-only)	Sanity or Contentful
+Image uploads	Not supported	File upload to GitHub via API
+Post versioning	None	Git history serves as version history
+Multi-user	No	Not needed for single author
+Scheduled publish	No	Post-dated JSON date filtering
+Search	No	Client-side JSON search
+Analytics	None	Vercel Analytics or Plausible
+SEO meta	Basic	Open Graph + Twitter Card tags
+PRD + TRD Generated: 2026-02-26
+Website: https://ahmadfarooq.vercel.app/
+Based on complete codebase audit of all 13 HTML pages, styles.css, scripts.js, and admin.html
+
+User approved the plan
+Here's what the documents cover:
+
+PRD (Product Requirements Document)
+Documents the what and why:
+
+Product overview, goals, and success metrics
+Target audience (3 tiers: clients, startups, content consumers)
+Full page inventory with feature requirements for all 13 pages
+Navigation map (global header + footer)
+Content requirements (profile.png, favicon, social links)
+Design direction (neo-brutalist aesthetic rules)
+Third-party integrations table (Cal.com, Google Fonts, marked.js, GitHub API, Vercel)
+TRD (Technical Requirements Document)
+Documents the how:
+
+Architecture decision (zero-framework, pure static) + rationale
+Complete file structure
+Full design system tokens (all CSS variables, font scale, Google Fonts import string)
+Component-by-component specs (header, buttons, cards, hero, accordion, modals, footer, etc.) with exact pixel values, colors, and behavior
+scripts.js function inventory (all 9 behaviors)
+Universal HTML page template shell
+CMS data models (blog post, playbook post, JSON index formats)
+localStorage key registry
+GitHub API class spec + publish flow (step by step)
+Responsive breakpoints (900px / 768px / 480px)
+Full animations table (12 animations with durations and types)
+Deployment pipeline diagram
+Security notes + future improvement roadmap
+The plan file is saved at reactive-inventing-church.md for reference.
