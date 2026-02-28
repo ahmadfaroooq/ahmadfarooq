@@ -1096,8 +1096,6 @@ strong { font-weight: 700; color: var(--text); }
 .about-photo-frame {
   width: 100%;
   aspect-ratio: 3/4;
-  border: 2px solid var(--border);
-  background: #111;
   overflow: hidden;
   position: sticky;
   top: calc(var(--header-h) + 24px);
@@ -1107,7 +1105,6 @@ strong { font-weight: 700; color: var(--text); }
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  mix-blend-mode: screen;
 }
 .about-story h2 { margin-bottom: 20px; }
 .about-story p { margin-bottom: 16px; }
