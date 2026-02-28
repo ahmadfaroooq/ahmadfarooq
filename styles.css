@@ -1200,8 +1200,27 @@ strong { font-weight: 700; color: var(--text); }
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 48px;
-  padding-bottom: 32px;
+  margin-bottom: 0;
+}
+
+/* Featured image on blog/playbook post pages */
+.post-featured-image {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 40px;
+  border: 2px solid var(--border);
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
+/* Thumbnail in blog/playbook list cards */
+.blog-card-thumb,
+.playbook-card-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-bottom: 2px solid var(--border);
 }
 

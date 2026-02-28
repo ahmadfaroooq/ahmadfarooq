@@ -170,6 +170,7 @@
         card.href = 'blog/' + post.slug + '.html';
         card.setAttribute('data-category', post.category);
         card.innerHTML =
+          (post.imageUrl ? '<img class="blog-card-thumb" src="' + post.imageUrl + '" alt="' + post.title + '">' : '') +
           '<div class="blog-card-content">' +
             '<div style="margin-bottom:10px;">' +
               '<span class="tag tag-ghost">' + post.category.replace(/-/g,' ') + '</span>' +

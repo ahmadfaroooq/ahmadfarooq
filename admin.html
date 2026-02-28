@@ -695,6 +695,12 @@
           </div>
 
           <div class="meta-section">
+            <span class="meta-label">Cover Image URL</span>
+            <input type="url" class="meta-input" id="meta-imageurl" placeholder="https://…">
+            <small style="display:block;margin-top:4px;font-size:0.72rem;color:var(--text-muted);">Paste a direct image URL for the featured image.</small>
+          </div>
+
+          <div class="meta-section">
             <span class="meta-label">Status</span>
             <div class="status-toggle">
               <button class="status-opt active-draft" data-status="draft">Draft</button>
@@ -1015,6 +1021,7 @@
       document.getElementById('meta-excerpt').value  = post.excerpt || '';
       document.getElementById('meta-date').value     = post.date || today();
       document.getElementById('meta-readtime').value = post.readTime || '';
+      document.getElementById('meta-imageurl').value  = post.imageUrl || '';
       document.getElementById('content-textarea').value = post.content || '';
       updatePreview();
 
@@ -1067,6 +1074,11 @@
 
       document.getElementById('meta-readtime').addEventListener('input', function () {
         if (currentPost) currentPost.readTime = this.value;
+      });
+
+      document.getElementById('meta-imageurl').addEventListener('input', function () {
+        if (currentPost) currentPost.imageUrl = this.value;
+        isDirty = true;
       });
 
       document.getElementById('content-textarea').addEventListener('input', function () {
@@ -1128,6 +1140,7 @@
       currentPost.excerpt = document.getElementById('meta-excerpt').value;
       currentPost.date    = document.getElementById('meta-date').value || today();
       currentPost.readTime = document.getElementById('meta-readtime').value || calcReadTime(currentPost.content);
+      currentPost.imageUrl = document.getElementById('meta-imageurl').value;
       currentPost.content = document.getElementById('content-textarea').value;
 
       var posts = getPosts();
@@ -1342,7 +1355,7 @@
 
         var published = posts.filter(function (p) { return p.status === 'published'; });
         var indexArr  = published.map(function (p) {
-          return { title: p.title, slug: p.slug, excerpt: p.excerpt, category: p.category, readTime: p.readTime || '', date: p.date };
+          return { title: p.title, slug: p.slug, excerpt: p.excerpt, category: p.category, readTime: p.readTime || '', date: p.date, imageUrl: p.imageUrl || '' };
         });
         indexArr.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
 
@@ -1448,8 +1461,9 @@
       var cat     = escHtml(post.category || '');
       var date    = escHtml(post.date || '');
       var rt      = escHtml(post.readTime || '');
+      var imageUrl = post.imageUrl || '';
 
-      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + title + ' \u2014 Ahmad Farooq</title>\n  <meta name="description" content="' + excerpt + '">\n  <meta name="robots" content="index, follow">\n  <link rel="canonical" href="https://ahmadfarooq.vercel.app/blog/' + post.slug + '.html">\n  <meta property="og:type" content="article">\n  <meta property="og:title" content="' + title + '">\n  <meta property="og:description" content="' + excerpt + '">\n  <meta property="og:url" content="https://ahmadfarooq.vercel.app/blog/' + post.slug + '.html">\n  <meta property="og:image" content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="' + title + '">\n  <meta name="twitter:description" content="' + excerpt + '">\n  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"' + post.title + '","description":"' + post.excerpt + '","datePublished":"' + post.date + '","author":{"@type":"Person","name":"Ahmad Farooq","url":"https://ahmadfarooq.vercel.app"}}<\/script>\n  <link rel="icon" type="image/svg+xml" href="' + FAVICON + '">\n  <link rel="stylesheet" href="../styles.css">\n</head>\n<body class="page-transition">\n' + HEADER_HTML + '\n  <main>\n    <section class="page-hero">\n      <div class="page-hero-inner">\n        <span class="page-hero-label">' + cat.replace(/-/g,' ') + '</span>\n        <h1 class="page-hero-title">' + title + '</h1>\n        <div class="post-meta-row">\n          <span class="tag tag-ghost">' + date + '</span>\n          <span class="tag tag-mint">' + rt + '</span>\n        </div>\n      </div>\n    </section>\n    <section class="section">\n      <div class="container">\n        <article class="post-prose reveal">' + content + '</article>\n        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">\n          <a href="../blog.html" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">\u2190 Back to Blog</a>\n        </div>\n      </div>\n    </section>\n    <section class="cta-band"><div class="container"><h2 class="reveal">Ready to apply this?</h2><p class="reveal">Book a free strategy call.</p><a href="../book.html" class="btn btn-primary reveal">Book a Call</a></div></section>\n  </main>\n' + FOOTER_HTML + '\n  <script src="../scripts.js"><\/script>\n</body>\n</html>';
+      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + title + ' | Ahmad Farooq</title>\n  <meta name="description" content="' + excerpt + '">\n  <meta name="robots" content="index, follow">\n  <link rel="canonical" href="https://ahmadfarooq.vercel.app/blog/' + post.slug + '.html">\n  <meta property="og:type" content="article">\n  <meta property="og:title" content="' + title + '">\n  <meta property="og:description" content="' + excerpt + '">\n  <meta property="og:url" content="https://ahmadfarooq.vercel.app/blog/' + post.slug + '.html">\n  <meta property="og:image" content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="' + title + '">\n  <meta name="twitter:description" content="' + excerpt + '">\n  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"' + post.title + '","description":"' + post.excerpt + '","datePublished":"' + post.date + '","author":{"@type":"Person","name":"Ahmad Farooq","url":"https://ahmadfarooq.vercel.app"}}<\/script>\n  <link rel="icon" type="image/svg+xml" href="' + FAVICON + '">\n  <link rel="stylesheet" href="../styles.css">\n</head>\n<body class="page-transition">\n' + HEADER_HTML + '\n  <main>\n    <section class="page-hero">\n      <div class="page-hero-inner">\n        <span class="page-hero-label">' + cat.replace(/-/g,' ') + '</span>\n        <h1 class="page-hero-title">' + title + '</h1>\n        <div class="post-meta-row">\n          <span class="tag tag-ghost">' + date + '</span>\n          <span class="tag tag-mint">' + rt + '</span>\n        </div>\n      </div>\n    </section>\n    <section class="section">\n      <div class="container">\n        ' + (imageUrl ? '<img class="post-featured-image" src="' + imageUrl + '" alt="' + title + '">' : '') + '<article class="post-prose reveal">' + content + '</article>\n        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">\n          <a href="../blog.html" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">\u2190 Back to Blog</a>\n        </div>\n      </div>\n    </section>\n    <section class="cta-band"><div class="container"><h2 class="reveal">Ready to apply this?</h2><p class="reveal">Book a free strategy call.</p><a href="../book.html" class="btn btn-primary reveal">Book a Call</a></div></section>\n  </main>\n' + FOOTER_HTML + '\n  <script src="../scripts.js"><\/script>\n</body>\n</html>';
     }
 
     function buildPlaybookHTML(post) {
@@ -1457,8 +1471,9 @@
       var title   = escHtml(post.title || '');
       var excerpt = escHtml(post.excerpt || '');
       var cat     = escHtml(post.category || '');
+      var imageUrl = post.imageUrl || '';
 
-      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + title + ' \u2014 The Playbook \u2014 Ahmad Farooq</title>\n  <meta name="description" content="' + excerpt + '">\n  <meta name="robots" content="index, follow">\n  <link rel="canonical" href="https://ahmadfarooq.vercel.app/playbook/' + post.slug + '.html">\n  <meta property="og:type" content="article">\n  <meta property="og:title" content="' + title + '">\n  <meta property="og:description" content="' + excerpt + '">\n  <meta property="og:url" content="https://ahmadfarooq.vercel.app/playbook/' + post.slug + '.html">\n  <meta property="og:image" content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="' + title + '">\n  <meta name="twitter:description" content="' + excerpt + '">\n  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"' + post.title + '","description":"' + post.excerpt + '","datePublished":"' + (post.date||'') + '","author":{"@type":"Person","name":"Ahmad Farooq","url":"https://ahmadfarooq.vercel.app"}}<\/script>\n  <link rel="icon" type="image/svg+xml" href="' + FAVICON + '">\n  <link rel="stylesheet" href="../styles.css">\n</head>\n<body class="page-transition">\n' + HEADER_HTML + '\n  <main>\n    <section class="page-hero">\n      <div class="page-hero-inner">\n        <span class="page-hero-label">Playbook \u00B7 ' + cat.replace(/-/g,' ') + '</span>\n        <h1 class="page-hero-title">' + title + '</h1>\n        <p class="page-hero-desc">' + excerpt + '</p>\n      </div>\n    </section>\n    <section class="section">\n      <div class="container">\n        <article class="post-prose reveal">' + content + '</article>\n        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">\n          <a href="../playbook.html" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">\u2190 Back to Playbooks</a>\n        </div>\n      </div>\n    </section>\n    <section class="cta-band"><div class="container"><h2 class="reveal">Want help implementing this?</h2><p class="reveal">Book a free strategy call.</p><a href="../book.html" class="btn btn-primary reveal">Book a Call</a></div></section>\n  </main>\n' + FOOTER_HTML + '\n  <script src="../scripts.js"><\/script>\n</body>\n</html>';
+      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>' + title + ' | The Playbook | Ahmad Farooq</title>\n  <meta name="description" content="' + excerpt + '">\n  <meta name="robots" content="index, follow">\n  <link rel="canonical" href="https://ahmadfarooq.vercel.app/playbook/' + post.slug + '.html">\n  <meta property="og:type" content="article">\n  <meta property="og:title" content="' + title + '">\n  <meta property="og:description" content="' + excerpt + '">\n  <meta property="og:url" content="https://ahmadfarooq.vercel.app/playbook/' + post.slug + '.html">\n  <meta property="og:image" content="https://ahmadfarooq.vercel.app/Transparent BG - Ahmad.png">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:title" content="' + title + '">\n  <meta name="twitter:description" content="' + excerpt + '">\n  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"' + post.title + '","description":"' + post.excerpt + '","datePublished":"' + (post.date||'') + '","author":{"@type":"Person","name":"Ahmad Farooq","url":"https://ahmadfarooq.vercel.app"}}<\/script>\n  <link rel="icon" type="image/svg+xml" href="' + FAVICON + '">\n  <link rel="stylesheet" href="../styles.css">\n</head>\n<body class="page-transition">\n' + HEADER_HTML + '\n  <main>\n    <section class="page-hero">\n      <div class="page-hero-inner">\n        <span class="page-hero-label">Playbook \u00B7 ' + cat.replace(/-/g,' ') + '</span>\n        <h1 class="page-hero-title">' + title + '</h1>\n        <p class="page-hero-desc">' + excerpt + '</p>\n      </div>\n    </section>\n    <section class="section">\n      <div class="container">\n        ' + (imageUrl ? '<img class="post-featured-image" src="' + imageUrl + '" alt="' + title + '">' : '') + '<article class="post-prose reveal">' + content + '</article>\n        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">\n          <a href="../playbook.html" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">\u2190 Back to Playbooks</a>\n        </div>\n      </div>\n    </section>\n    <section class="cta-band"><div class="container"><h2 class="reveal">Want help implementing this?</h2><p class="reveal">Book a free strategy call.</p><a href="../book.html" class="btn btn-primary reveal">Book a Call</a></div></section>\n  </main>\n' + FOOTER_HTML + '\n  <script src="../scripts.js"><\/script>\n</body>\n</html>';
     }
 
     /* ----------------------------------------------------------

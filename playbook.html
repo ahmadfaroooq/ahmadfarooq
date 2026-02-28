@@ -164,7 +164,7 @@
         card.className = 'playbook-card reveal';
         card.href = 'playbook/' + post.slug + '.html';
         card.innerHTML =
-          '<div class="playbook-icon">' + (icons[post.category] || '📋') + '</div>' +
+          (post.imageUrl ? '<img class="playbook-card-thumb" src="' + post.imageUrl + '" alt="' + post.title + '">' : '<div class="playbook-icon">' + (icons[post.category] || '📋') + '</div>') +
           '<div>' +
             '<div style="margin-bottom:8px;"><span class="tag tag-mint">' + post.category.replace(/-/g,' ') + '</span></div>' +
             '<h3>' + post.title + '</h3>' +
