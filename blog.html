@@ -85,7 +85,7 @@
       <div class="page-hero-inner">
         <span class="page-hero-label">Blog</span>
         <h1 class="page-hero-title">Thinking in systems.</h1>
-        <p class="page-hero-desc">Long-form essays on growth marketing, brand strategy, content systems, macroeconomics, and the mental models behind building things that compound.</p>
+        <p class="page-hero-desc">Growth is rarely where people look for it. Brand value compounds in ways most strategists miss. The macroeconomic forces shaping your market don't care about your quarterly plan. These essays are about those gaps — the systems beneath the surface. If they shift how you think, <a href="book.html" style="color:inherit; text-decoration:underline; text-underline-offset:3px;">we should talk about your business →</a></p>
       </div>
     </section>
 
@@ -110,8 +110,8 @@
 
         <!-- Empty State -->
         <div class="blog-empty" id="blog-empty" style="display:none;" aria-live="polite">
-          <h3>Nothing here yet.</h3>
-          <p>Check back soon — new essays drop regularly.</p>
+          <h3>The archive is growing.</h3>
+          <p>Follow the work on <a href="https://www.linkedin.com/in/byahmad/" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:underline; text-underline-offset:3px;">LinkedIn</a> for updates as new essays drop.</p>
         </div>
 
         <!-- Loading State -->
@@ -119,6 +119,20 @@
           <p style="color: var(--text-muted); font-family: var(--font-heading); font-size: 0.9rem; letter-spacing: 0.05em;">Loading posts…</p>
         </div>
 
+      </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="section" style="border-top: 2px solid var(--border);" aria-label="Newsletter signup">
+      <div class="container" style="max-width: 720px;">
+        <div class="section-header reveal" style="margin-bottom: 32px;">
+          <span class="section-label">The List</span>
+          <h2>Think alongside me.</h2>
+        </div>
+        <div class="reveal">
+          <iframe data-tally-src="https://tally.so/embed/xXakVv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="216" frameborder="0" marginheight="0" marginwidth="0" title="Playbook Page"></iframe>
+          <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        </div>
       </div>
     </section>
 
@@ -133,7 +147,7 @@
       <ul class="footer-socials" role="list">
         <li><a href="https://www.linkedin.com/in/byahmad/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
         <li><a href="https://x.com/ahmaddfaroooq" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
-        <li><a href="mailto:hello@ahmadfarooq.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a></li>
+        <li><a href="mailto:byahmadfarooq@outlook.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a></li>
       </ul>
       <p class="footer-copy">© 2026 Ahmad Farooq. All rights reserved.</p>
     </div>
@@ -178,8 +192,12 @@
         .then(function (posts) {
           loading.style.display = 'none';
 
-          /* Sort newest first */
-          posts.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+          /* Sort newest first; use insertion order as tiebreaker for same-date posts */
+          posts.forEach(function (p, i) { p._idx = i; });
+          posts.sort(function (a, b) {
+            var dateD = new Date(b.date) - new Date(a.date);
+            return dateD !== 0 ? dateD : b._idx - a._idx;
+          });
 
           if (posts.length === 0) {
             empty.style.display = 'block';

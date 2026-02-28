@@ -129,7 +129,6 @@
         "all" shows everything.
   ---------------------------------------------------------- */
   var filterBtns  = document.querySelectorAll('.filter-btn');
-  var blogCards   = document.querySelectorAll('.blog-card');
   var blogEmpty   = document.querySelector('.blog-empty');
 
   if (filterBtns.length > 0) {
@@ -141,14 +140,16 @@
         var cat = btn.dataset.category;
         var visible = 0;
 
-        blogCards.forEach(function (card) {
+        /* Re-query live so dynamically injected cards are included */
+        document.querySelectorAll('.blog-card').forEach(function (card) {
           var match = (cat === 'all' || card.dataset.category === cat);
           card.style.display = match ? '' : 'none';
           if (match) visible++;
         });
 
         if (blogEmpty) {
-          blogEmpty.style.display = (visible === 0) ? 'block' : 'none';
+          /* Only show empty state when "All" is selected and truly no posts exist */
+          blogEmpty.style.display = (visible === 0 && cat === 'all') ? 'block' : 'none';
         }
       });
     });
