@@ -1,26 +1,34 @@
 {
   "heroLabel": "LinkedIn Branding",
-  "heroTitle": "Your LinkedIn is your highest-ROI asset. Treat it that way.",
-  "heroDesc": "Stop posting into the void. Build a LinkedIn presence that positions you as the authority in your space and generates inbound without a sales team.",
-  "process": [
-    { "num": "01", "title": "Audit", "body": "Full analysis of your current LinkedIn profile, content history, and positioning vs. competitors in your space." },
-    { "num": "02", "title": "Positioning", "body": "Define your unique point of view, audience persona, and the one thing you want to be known for." },
-    { "num": "03", "title": "Profile", "body": "Optimise every element: headline, about section, banner, and featured section, for maximum first-impression impact." },
-    { "num": "04", "title": "Content System", "body": "Build your 5-pillar content system, posting schedule, and hook framework. Create 30 days of initial content." },
-    { "num": "05", "title": "Grow", "body": "Execute consistently, engage strategically, and scale what works. Monthly reviews to refine and improve." }
+  "heroTitle": "Your LinkedIn profile is the first thing people see. Right now it might be sending them away.",
+  "heroDesc": "I help coaches, consultants, and founders build a LinkedIn presence that attracts the right people and moves them toward a conversation — without posting every day and hoping for the best.",
+  "problemHeading": "Here is what most LinkedIn profiles are doing wrong.",
+  "problemBody": "Your headline does not say who you help. Your about section talks about you instead of your reader. Your featured section is empty or points nowhere. And your content is too broad to make anyone feel like you are speaking directly to them.\n\nNone of this is your fault. Nobody sat you down and showed you how a LinkedIn profile is supposed to work as a system. They just told you to post more.",
+  "mainLabel": "The Approach",
+  "mainHeading": "How I fix it.",
+  "mainItems": [
+    {
+      "num": "01",
+      "title": "Foundation",
+      "body": "We start with your positioning. Who you help, what problem you solve, and what makes you different. This becomes the backbone of everything on your profile."
+    },
+    {
+      "num": "02",
+      "title": "Profile Build",
+      "body": "We rewrite the five most important sections of your LinkedIn profile. Headline, About, Banner brief, Featured section strategy, and Services section. Every word is written to speak directly to your ideal client."
+    },
+    {
+      "num": "03",
+      "title": "Content System",
+      "body": "Using the Equity Flywheel Content System, we build your content plan so you always know what to post, who you are posting for, and how each piece leads someone closer to working with you."
+    }
   ],
-  "goodFit": [
-    { "item": "Founders, executives, and consultants who want inbound from LinkedIn" },
-    { "item": "People with genuine expertise but no platform yet" },
-    { "item": "Those willing to post consistently for 90+ days" },
-    { "item": "Anyone who understands brand-building is a long game" }
+  "resultsHeading": "What this looks like when it works.",
+  "results": [
+    "10x newsletter growth for Coin Bureau through a complete content system rebuild.",
+    "$300,000 inbound pipeline for an EdTech founder in 90 days starting from 300 followers.",
+    "60% drop in client acquisition cost for Zedsource after a full brand and LinkedIn rebuild."
   ],
-  "badFit": [
-    { "item": "People who want followers but no engagement strategy" },
-    { "item": "Those expecting viral results in 2 weeks" },
-    { "item": "Brands without a clear point of view or expertise" },
-    { "item": "Anyone who won't commit to consistent posting" }
-  ],
-  "ctaHeadline": "Ready to turn LinkedIn into your best acquisition channel?",
-  "ctaSubtext": "Let's build a LinkedIn presence that generates leads while you sleep."
+  "ctaHeadline": "Want to know exactly what needs fixing on your LinkedIn?",
+  "ctaSubtext": "Book a free 30-minute call and we will walk through your profile, your content, and what to do next."
 }

@@ -219,8 +219,42 @@
   });
 
   /* ----------------------------------------------------------
-     9. ACTIVE NAV LINK
-        Compares current filename to each nav link's href.
+     9. FAQ ACCORDION
+        Toggle open/close on .faq-item elements.
+  ---------------------------------------------------------- */
+  var faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(function (item) {
+    var question = item.querySelector('.faq-question');
+    if (!question) return;
+
+    question.addEventListener('click', function () {
+      var isOpen = item.classList.contains('open');
+      /* Close all */
+      faqItems.forEach(function (other) {
+        other.classList.remove('open');
+        var toggle = other.querySelector('.faq-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      });
+      /* Open this one if it wasn't open */
+      if (!isOpen) {
+        item.classList.add('open');
+        var toggle = item.querySelector('.faq-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    question.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        question.click();
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------
+     10. ACTIVE NAV LINK
+         Compares current filename to each nav link's href.
   ---------------------------------------------------------- */
   var currentFile = window.location.pathname.split('/').pop() || 'index.html';
   var navAnchors  = document.querySelectorAll('.nav-links a');

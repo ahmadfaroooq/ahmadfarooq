@@ -1,72 +1,53 @@
 {
   "heroLabel": "Growth & Brand Strategist",
-  "heroTitle": "Building brands that compound.",
-  "heroTagline": "Not campaigns that spike. Systems that scale.",
-  "heroCTA1Text": "Book a Strategy Call",
-  "heroCTA2Text": "View Playbooks",
-  "servicesHeadline": "Five disciplines.One compounding system.",
-  "casesHeadline": "Real work.Real results.",
-  "skillsHeadline": "The full stack.",
-  "ctaHeadline": "Ready to build somethingthat compounds?",
-  "ctaSubtext": "30 minutes. No pitch. Just strategy.",
+  "heroTitle": "Your LinkedIn is not getting you clients because you have no system underneath it.",
+  "heroTagline": "I help coaches, consultants, and founders build a LinkedIn presence that actually works — through the Growth Architecture System and the Equity Flywheel Content System.",
+  "heroCTA1Text": "Book a Free Strategy Call",
+  "heroCTA2Text": "See How It Works",
+  "servicesHeadline": "Five disciplines. One compounding system.",
+  "casesHeadline": "Real people. Real results.",
+  "skillsHeadline": "What is in the toolkit.",
+  "ctaHeadline": "Ready to build something that compounds?",
+  "ctaSubtext": "30 minutes. No pitch. Just an honest look at what is broken and how to fix it.",
   "services": [
     {
-      "title": "Growth Marketing",
-      "description": "Systematic acquisition and retention strategies that build compounding revenue, not one-off campaigns that spike and vanish.",
-      "link": "/growth"
-    },
-    {
       "title": "LinkedIn Branding",
-      "description": "Turn your LinkedIn into an inbound machine: positioning, content systems, and profile architecture that attract the right clients.",
+      "description": "Turn your LinkedIn into an inbound machine. We fix your profile, build your content system, and set up a clear path for visitors to become clients.",
       "link": "/linkedin"
     },
     {
-      "title": "Marketing Strategy",
-      "description": "Go-to-market strategy, positioning, and channel architecture built for the long game, not the next quarter.",
+      "title": "Content Strategy",
+      "description": "Using the Equity Flywheel Content System, one piece of content becomes 30 or more posts. You never start from zero again.",
+      "link": "/content-writing"
+    },
+    {
+      "title": "Brand Strategy",
+      "description": "Before content comes clarity. We figure out who you are, who you help, and what makes you different — so everything you say lands with the right people.",
       "link": "/strategy"
     },
     {
-      "title": "Content Writing",
-      "description": "Long-form articles, thought leadership pieces, and brand copy that builds authority and drives organic traffic without burning out.",
-      "link": "/content-writing"
+      "title": "Growth Marketing",
+      "description": "Systematic strategies that build compounding revenue over time — not campaigns that spike once and disappear.",
+      "link": "/growth"
+    },
+    {
+      "title": "Funnel Architecture",
+      "description": "A simple, clear path that takes someone from seeing your content for the first time to booking a call with you. No dead ends.",
+      "link": "/book"
     }
   ],
   "skills": [
-    {
-      "name": "Growth Marketing"
-    },
-    {
-      "name": "LinkedIn Strategy"
-    },
-    {
-      "name": "Content Systems"
-    },
-    {
-      "name": "Brand Strategy"
-    },
-    {
-      "name": "Funnel Architecture"
-    },
-    {
-      "name": "SEO, AEO & GEO"
-    },
-    {
-      "name": "Copywriting"
-    },
-    {
-      "name": "Visual Identity"
-    },
-    {
-      "name": "Market Research"
-    },
-    {
-      "name": "Analytics & Data"
-    },
-    {
-      "name": "Community Building"
-    },
-    {
-      "name": "Pitch Decks"
-    }
+    { "name": "LinkedIn Strategy" },
+    { "name": "Content Systems" },
+    { "name": "Brand Strategy" },
+    { "name": "Funnel Architecture" },
+    { "name": "Growth Marketing" },
+    { "name": "Copywriting" },
+    { "name": "Visual Identity" },
+    { "name": "SEO and AEO" },
+    { "name": "Market Research" },
+    { "name": "Analytics" },
+    { "name": "Community Building" },
+    { "name": "Pitch Decks" }
   ]
 }

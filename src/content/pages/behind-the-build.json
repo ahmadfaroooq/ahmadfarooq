@@ -1,41 +1,48 @@
 {
-  "heroTitle": "The person behind\nthe strategy.",
-  "heroDesc": "Not an agency. Not a tool. A single practitioner obsessed with building brands that actually compound.",
-  "storyHeadline": "I build brands like systems,\nnot like campaigns.",
-  "bio": "Most marketing is designed to spike: a launch, a campaign, a viral moment. It works once and then you're back to zero. I got tired of watching founders rebuild their growth strategy from scratch every 90 days.\n\nI'm Ahmad Farooq. I've spent 4 years working inside growth teams, advising founders, and building my own content systems from the ground up. The pattern I kept seeing: brands that compounded treated every piece of content, every channel, every partnership as infrastructure, not an event.\n\nThat's the lens I bring. Whether I'm building a LinkedIn content system, redesigning a brand identity, or building a full growth funnel, I'm asking: does this compound? Does this get easier over time, not harder?\n\nI work with a small number of clients at a time. Not because I can't scale. Depth produces better results than breadth. When I take on a project, I'm all in.",
-  "principlesHeadline": "Six principles.\nNon-negotiable.",
+  "heroTitle": "I did not have it all figured out from day one.",
+  "heroDesc": "Here is the real story of how the Growth Architecture System was built — and why I built it.",
+  "storyHeadline": "It started with the same problem my clients have now.",
+  "bio": "Four years ago I was doing everything I was supposed to be doing. Posting on LinkedIn. Writing content. Engaging with other people. Following every piece of advice I could find.\n\nAnd nothing was working.\n\nNo leads coming in. No clear direction. Just a lot of effort going nowhere.\n\nThe more I studied what was actually working for the people who were getting results, the more I noticed the same pattern. It was never about posting more. It was never about a specific format or a trending topic.\n\nThe people who were consistently getting inbound leads and building real businesses from LinkedIn had one thing everyone else did not.\n\nA system underneath everything.\n\nSo I built one.\n\nI spent two years testing, breaking, rebuilding, and refining. I studied how the best personal brands were structured. I looked at what made content convert versus what just got likes. I figured out how to connect a profile to content to a clear path in a way that actually moved people toward a decision.\n\nThat became the Growth Architecture System.\n\nThen I hit the next problem. Creating content every single day was exhausting. Even with a system, showing up consistently felt like running on a treadmill — you had to keep going just to stay in place.\n\nThat is when I built the Equity Flywheel Content System. The idea was simple. Create one solid piece of content and break it down into 30 or more pieces automatically. Stop starting from zero every day. Build content equity that keeps working long after you publish it.\n\nTogether these two systems changed everything. Not just for me — but for every client I have worked with since.\n\nCoin Bureau used it to grow their newsletter 10x. An EdTech founder used it to build a $300,000 pipeline in 90 days. Zedsource used the brand foundation layer to cut their client acquisition cost by 60%.\n\nThe systems work because they are built around one simple truth. You do not need to do more. You need the right structure underneath what you are already doing.",
+  "principlesHeadline": "A few things I believe that most people disagree with.",
   "principles": [
     {
       "num": "01",
-      "title": "Systems > Sprints",
-      "body": "Build it once, make it repeatable, let it compound. One well-designed system outperforms ten one-off campaigns every time."
+      "title": "Posting more is almost never the answer.",
+      "body": "If the foundation is broken, more content just means more effort with the same disappointing results. Fix the foundation first. Always."
     },
     {
       "num": "02",
-      "title": "Distribution Is the Product",
-      "body": "The best content without distribution is noise. Getting something in front of the right people consistently is half the battle. Most brands ignore it."
+      "title": "Viral moments do not build businesses. Systems do.",
+      "body": "A post that gets 50,000 impressions and sends nobody to your offer has done nothing for your business. Consistency beats virality every time."
     },
     {
       "num": "03",
-      "title": "Data-Informed, Not Data-Driven",
-      "body": "Numbers guide, judgment decides. I use data to validate and improve, not to replace thinking. Metrics are inputs, not answers."
+      "title": "Simple beats clever.",
+      "body": "The best headline is the one a stranger understands in three seconds. The best offer name is the one a 10 year old could read and know exactly what it means. Clarity converts. Clever confuses."
     },
     {
       "num": "04",
-      "title": "Compound Thinking",
-      "body": "Every piece of work should make the next piece easier. Content should feed strategy. Strategy should inform design. Design should amplify content."
-    },
-    {
-      "num": "05",
-      "title": "Specificity Converts",
-      "body": "Vague messaging loses deals. The more precise you are about who you serve and what result you deliver, the faster the right clients find you."
-    },
-    {
-      "num": "06",
-      "title": "Execution Is the Strategy",
-      "body": "Ideas are cheap. The clearest thinker in the room loses to the best executor every time. Brilliant strategy unpublished is worth nothing."
+      "title": "Your best content deserves more than one life.",
+      "body": "If you wrote something good, more people should see it. In more formats. On more days. The Equity Flywheel is built on this idea entirely."
     }
   ],
-  "ctaHeadline": "Let's build something\nthat lasts.",
-  "ctaSubtext": "One conversation. Zero pressure. Maximum clarity."
+  "howIWorkHeading": "How I actually work with people.",
+  "howIWorkBody": "I work with a small number of clients at a time. Not because I cannot handle more, but because I actually care about what happens after we finish. Every project gets my full attention. Every strategy is built specifically for that person, their audience, and their offer.\n\nI do not hand you a generic template and call it a deliverable. I build the exact thing you need to move forward.",
+  "skillsHeadline": "What is in the toolkit.",
+  "skills": [
+    "LinkedIn Strategy",
+    "Content Systems",
+    "Brand Strategy",
+    "Funnel Architecture",
+    "Growth Marketing",
+    "Copywriting",
+    "Visual Identity",
+    "SEO and AEO",
+    "Market Research",
+    "Analytics",
+    "Community Building",
+    "Pitch Decks"
+  ],
+  "ctaHeadline": "If any of this sounds like what you have been looking for, let's talk.",
+  "ctaSubtext": "Book a free 30-minute call. No pitch. Just an honest conversation about where you are and what needs to happen next."
 }

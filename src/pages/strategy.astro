@@ -5,39 +5,16 @@ import Footer from '../components/Footer.astro';
 import ServicePage from '../components/ServicePage.astro';
 import data from '../content/pages/strategy.json';
 
-const caseStudies = [
-  {
-    client: 'Zedsource',
-    title: 'Go-to-Market Strategy for a Digital Staffing Launch',
-    challenge: 'Zedsource was launching into a crowded market with no differentiated position, no defined ICP, and no clear channel strategy.',
-    approach: 'Led a 2-week strategy sprint. Defined ICP, mapped competitive positioning, identified the white space in the market, and built a 6-month GTM roadmap with prioritised channels.',
-    results: ['3-week brand-to-launch execution', '#1 positioning claim in their niche', '40% of initial clients from strategy-guided LinkedIn programme'],
-  },
-  {
-    client: 'EdTech Founder',
-    title: 'B2C to B2B Pivot: 3× MRR in 6 Months',
-    challenge: 'An EdTech company was burning cash on consumer marketing for a product that was actually best suited to enterprise.',
-    approach: 'Conducted a full market repositioning exercise. Identified the enterprise use case, rebuilt the ICP, redesigned the sales motion, and built a new content strategy aimed at L&D decision-makers.',
-    results: ['3× MRR in 6 months post-pivot', 'Enterprise ACV increased 8×', 'CAC halved'],
-  },
-  {
-    client: 'Coin Bureau',
-    title: 'Content Strategy Becomes Core Revenue Engine',
-    challenge: 'Coin Bureau\'s content was excellent but the monetisation strategy was fragmented across affiliate, sponsorship, and product revenue.',
-    approach: 'Built a unified content monetisation strategy that aligned editorial calendar with partnership windows, newsletter growth, and product launch cycles.',
-    results: ['40% of total revenue attributable to content strategy', '3× newsletter revenue year-on-year', 'Predictable quarterly revenue from strategic partnerships'],
-  },
-];
 ---
 
 <BaseLayout
-  title="Marketing Strategy | Ahmad Farooq"
-  description="Strategy first. Tactics second. Go-to-market strategy, positioning, and channel architecture built for the long game."
+  title="Brand Strategy | Ahmad Farooq"
+  description="Brand strategy is not a logo. It is the foundation that makes everything else work. I help founders build clarity before they build content."
   canonicalPath="/strategy"
 >
   <Header />
   <main>
-    <ServicePage data={data} caseStudies={caseStudies} />
+    <ServicePage data={data} />
   </main>
   <Footer />
 </BaseLayout>

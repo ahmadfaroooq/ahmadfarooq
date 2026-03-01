@@ -19,7 +19,7 @@ const icons: Record<string, string> = {
 
 <BaseLayout
   title="Playbook | Ahmad Farooq"
-  description="Free playbooks on growth marketing, brand strategy, LinkedIn branding, and content systems. Actionable frameworks you can implement today."
+  description="Free frameworks, guides, and tools built from four years of working with real clients. Take what is useful and put it to work."
   canonicalPath="/playbook"
 >
   <Header />
@@ -29,13 +29,17 @@ const icons: Record<string, string> = {
     <section class="page-hero" aria-label="Page introduction">
       <div class="page-hero-inner">
         <span class="page-hero-label">The Playbook</span>
-        <h1 class="page-hero-title">Frameworks that actually work.</h1>
-        <p class="page-hero-desc">Free, actionable playbooks on growth, brand, and building systems that compound over time.</p>
+        <h1 class="page-hero-title">The Playbook</h1>
+        <p class="page-hero-desc">Free frameworks, guides, and tools built from four years of working with real clients. Take what is useful and put it to work.</p>
       </div>
     </section>
 
     <section class="section" aria-label="Playbooks">
       <div class="container">
+        <div class="prose reveal" style="max-width: 680px; margin-bottom: 48px;">
+          <p>Everything in the Playbook is free. No email required for most of it. These are the exact frameworks I use with paying clients, shared openly because I believe people should have access to the thinking before they decide to work together.</p>
+        </div>
+
         {posts.length === 0 ? (
           <p style="color:var(--text-muted);text-align:center;padding:64px 0;">New playbooks coming soon.</p>
         ) : (
@@ -77,7 +81,12 @@ const icons: Record<string, string> = {
       </div>
     </section>
 
-    <CTABand heading="Want help implementing this?" subtext="Book a free strategy call." btnText="Book a Call" />
+    <CTABand
+      heading="Want me to build this for you instead of doing it yourself?"
+      subtext="See the exact ways we can work together and pick what fits."
+      btnText="See How We Can Work Together"
+      btnHref="/work-with-me"
+    />
 
   </main>
 

@@ -7,12 +7,18 @@ import { getCollection } from 'astro:content';
 const allPosts = await getCollection('blog', ({ data }) => data.status === 'published');
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categories = ['growth-frameworks', 'content-systems', 'philosophy', 'macroeconomics', 'productivity-systems', 'brand-strategy'];
+const categories = [
+  { slug: 'linkedin-strategy', label: 'LinkedIn Strategy' },
+  { slug: 'content-systems', label: 'Content Systems' },
+  { slug: 'brand-building', label: 'Brand Building' },
+  { slug: 'growth-marketing', label: 'Growth Marketing' },
+  { slug: 'case-studies', label: 'Case Studies' },
+];
 ---
 
 <BaseLayout
   title="Blog | Ahmad Farooq"
-  description="Thoughts on growth marketing, brand strategy, LinkedIn, and building businesses that compound. Insights from Ahmad Farooq."
+  description="No fluff. No generic advice. Just clear thinking on LinkedIn, content systems, and building a personal brand that works."
   canonicalPath="/blog"
 >
   <Header />
@@ -22,8 +28,21 @@ const categories = ['growth-frameworks', 'content-systems', 'philosophy', 'macro
     <section class="page-hero" aria-label="Page introduction">
       <div class="page-hero-inner">
         <span class="page-hero-label">The Blog</span>
-        <h1 class="page-hero-title">Think before you build.<br>Then build anyway.</h1>
-        <p class="page-hero-desc">Frameworks, observations, and essays on growth, brand, and building things that last.</p>
+        <h1 class="page-hero-title">Ideas that actually help you grow.</h1>
+        <p class="page-hero-desc">No fluff. No generic advice. Just clear thinking on LinkedIn, content systems, and building a personal brand that works.</p>
+      </div>
+    </section>
+
+    <!-- FEATURED POST -->
+    <section class="section" style="border-bottom: 2px solid var(--border);" aria-label="Featured post">
+      <div class="container">
+        <a class="featured-post reveal" href="/blog/why-your-linkedin-is-not-getting-you-clients">
+          <span class="featured-post-label">Start Here</span>
+          <h2 class="featured-post-title">Why Your LinkedIn Is Not Getting You Clients (And It Has Nothing To Do With How Often You Post)</h2>
+          <p class="featured-post-desc">Almost every struggling LinkedIn profile has the same three problems underneath. None of them are fixed by posting more. This piece breaks down all three and shows you exactly what to do instead.</p>
+          <span class="featured-post-meta">8 minute read</span>
+          <span class="featured-post-cta">Read the Article &rarr;</span>
+        </a>
       </div>
     </section>
 
@@ -33,7 +52,7 @@ const categories = ['growth-frameworks', 'content-systems', 'philosophy', 'macro
         <div class="filter-bar" role="group" aria-label="Filter posts by category">
           <button class="filter-btn active" data-category="all">All</button>
           {categories.map(cat => (
-            <button class="filter-btn" data-category={cat}>{cat.replace(/-/g, ' ')}</button>
+            <button class="filter-btn" data-category={cat.slug}>{cat.label}</button>
           ))}
         </div>
 
@@ -68,12 +87,13 @@ const categories = ['growth-frameworks', 'content-systems', 'philosophy', 'macro
       </div>
     </section>
 
-    <!-- Newsletter -->
-    <section class="section" style="border-top: 2px solid var(--border);" aria-label="Newsletter signup">
+    <!-- Email Signup -->
+    <section class="section" style="border-top: 2px solid var(--border);" aria-label="Email signup">
       <div class="container" style="max-width: 720px;">
         <div class="section-header reveal" style="margin-bottom: 32px;">
           <span class="section-label">The List</span>
-          <h2>Think alongside me.</h2>
+          <h2>Get new articles before anyone else.</h2>
+          <p style="margin-top: 12px; color: var(--text-muted);">New pieces go to the email list first. No spam. Just useful thinking on building a personal brand that compounds.</p>
         </div>
         <div class="reveal">
           <iframe data-tally-src="https://tally.so/embed/xXakVv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="216" frameborder="0" marginheight="0" marginwidth="0" title="Newsletter signup"></iframe>

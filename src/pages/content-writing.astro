@@ -5,39 +5,16 @@ import Footer from '../components/Footer.astro';
 import ServicePage from '../components/ServicePage.astro';
 import data from '../content/pages/content-writing.json';
 
-const caseStudies = [
-  {
-    client: 'Coin Bureau',
-    title: '100+ Articles Driving 2M+ Organic Impressions Monthly',
-    challenge: 'Coin Bureau needed a high-volume content programme that maintained editorial quality while covering the breadth of topics their audience expected.',
-    approach: 'Built a content framework for fast production without quality compromise. Developed topic clusters, internal linking strategy, and an editorial workflow that scaled. Wrote 100+ long-form articles across a 12-month engagement.',
-    results: ['2M+ monthly organic impressions', 'Top 3 rankings for 200+ keywords', '22% of total site traffic from SEO articles'],
-  },
-  {
-    client: 'EdTech Founder',
-    title: 'Blog Content Converting at 8%, 4× Industry Average',
-    challenge: 'The EdTech company had a blog but it was purely informational with no conversion architecture. Visitors read and left.',
-    approach: 'Restructured the content strategy around the buyer\'s journey. Mapped content types to funnel stages, added strategic CTAs, built internal linking for authority, and introduced lead magnet content.',
-    results: ['8% content-to-demo conversion', '4× industry average conversion rate', 'Blog becomes #2 traffic source'],
-  },
-  {
-    client: 'Zedsource',
-    title: 'Brand Voice Guide + 6-Month Content Calendar',
-    challenge: 'Zedsource had no defined brand voice. Their communications ranged from overly formal to too casual depending on who wrote them.',
-    approach: 'Developed a comprehensive brand voice guide covering tone principles, vocabulary standards, and example rewrites across 10 content types. Built a 6-month editorial calendar aligned to their GTM strategy.',
-    results: ['Consistent brand voice across all channels', '6-month content pipeline built', '3× increase in LinkedIn engagement post brand voice alignment'],
-  },
-];
 ---
 
 <BaseLayout
-  title="Content Writing | Ahmad Farooq"
-  description="Content that compounds. Long-form articles, thought leadership, and brand copy that builds authority and drives organic traffic."
+  title="Content Strategy | Ahmad Farooq"
+  description="The Equity Flywheel Content System. One piece of content becomes 30. You create once and it keeps working for weeks."
   canonicalPath="/content-writing"
 >
   <Header />
   <main>
-    <ServicePage data={data} caseStudies={caseStudies} />
+    <ServicePage data={data} />
   </main>
   <Footer />
 </BaseLayout>

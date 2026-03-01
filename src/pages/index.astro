@@ -8,16 +8,17 @@ import settings from '../content/global/settings.json';
 import home from '../content/pages/home.json';
 
 const serviceIcons: Record<string, string> = {
-  'Growth Marketing': `<polyline points="2,22 8,14 14,18 20,8 26,4"/><circle cx="26" cy="4" r="2" fill="currentColor" stroke="none"/>`,
   'LinkedIn Branding': `<rect x="3" y="3" width="22" height="16" rx="2"/><path d="M9 25h10M14 19v6"/><circle cx="9" cy="11" r="2"/><path d="M14 11h7M14 14h5"/>`,
-  'Marketing Strategy': `<circle cx="14" cy="14" r="11"/><circle cx="14" cy="14" r="4"/><line x1="14" y1="3" x2="14" y2="10"/><line x1="14" y1="18" x2="14" y2="25"/><line x1="3" y1="14" x2="10" y2="14"/><line x1="18" y1="14" x2="25" y2="14"/>`,
-  'Content Writing': `<path d="M4 20l6-6 4 4 10-12"/><line x1="4" y1="24" x2="24" y2="24"/><circle cx="20" cy="6" r="2" fill="none"/>`,
+  'Content Strategy': `<path d="M4 20l6-6 4 4 10-12"/><line x1="4" y1="24" x2="24" y2="24"/><circle cx="20" cy="6" r="2" fill="none"/>`,
+  'Brand Strategy': `<circle cx="14" cy="14" r="11"/><circle cx="14" cy="14" r="4"/><line x1="14" y1="3" x2="14" y2="10"/><line x1="14" y1="18" x2="14" y2="25"/><line x1="3" y1="14" x2="10" y2="14"/><line x1="18" y1="14" x2="25" y2="14"/>`,
+  'Growth Marketing': `<polyline points="2,22 8,14 14,18 20,8 26,4"/><circle cx="26" cy="4" r="2" fill="currentColor" stroke="none"/>`,
+  'Funnel Architecture': `<polygon points="3,4 25,4 20,13 8,13"/><polygon points="8,14 20,14 17,20 11,20"/><polygon points="11,21 17,21 14,26"/>`,
 };
 ---
 
 <BaseLayout
   title="Ahmad Farooq | Growth Strategist & Brand Builder"
-  description="Ahmad Farooq helps founders, CMOs, and executives build brands that compound over time. Growth marketing, LinkedIn branding, content systems, and brand strategy."
+  description="Ahmad Farooq helps coaches, consultants, and founders build a LinkedIn presence that actually works — through the Growth Architecture System and the Equity Flywheel Content System."
   canonicalPath="/"
 >
   <Header />
@@ -29,12 +30,12 @@ const serviceIcons: Record<string, string> = {
       <div class="hero-wrap">
         <div class="hero-content">
           <span class="hero-label">{home.heroLabel}</span>
-          <h1 class="hero-title" set:html={home.heroTitle.replace(/\n/g, '<br>')}></h1>
+          <h1 class="hero-title">{home.heroTitle}</h1>
           <span class="hero-tagline">"{home.heroTagline}"</span>
 
           <div class="hero-actions">
             <a href="/book" class="btn btn-primary">{home.heroCTA1Text}</a>
-            <a href="/playbook" class="btn btn-secondary">{home.heroCTA2Text}</a>
+            <a href="#solution" class="btn btn-secondary">{home.heroCTA2Text}</a>
           </div>
 
           <div class="hero-metrics">
@@ -43,12 +44,12 @@ const serviceIcons: Record<string, string> = {
               <span class="hero-metric-label">Brands Grown</span>
             </div>
             <div>
-              <span class="hero-metric-num">{settings.stats.revenueLabel}</span>
-              <span class="hero-metric-label">Avg. Revenue Lift</span>
-            </div>
-            <div>
               <span class="hero-metric-num">{settings.stats.yearsInField}</span>
               <span class="hero-metric-label">In the Field</span>
+            </div>
+            <div>
+              <span class="hero-metric-num">{settings.stats.revenueLabel}</span>
+              <span class="hero-metric-label">Pipeline in 90 Days</span>
             </div>
           </div>
         </div>
@@ -56,6 +57,42 @@ const serviceIcons: Record<string, string> = {
         <div class="hero-visual">
           <div class="profile-frame">
             <img src="/images/ahmad-profile.png" alt="Ahmad Farooq, Growth Strategist" width="340" height="440" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PROBLEM -->
+    <section class="section" aria-labelledby="problem-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">The Problem</span>
+          <h2 id="problem-heading">You are already doing the work. So why is nothing happening?</h2>
+        </div>
+        <div class="prose reveal">
+          <p>Most coaches, consultants, and founders on LinkedIn are not lazy. They are posting. They are showing up. They are trying everything the LinkedIn gurus told them to try.</p>
+          <p>And still no leads are coming in.</p>
+          <p>The problem is not effort. The problem is that there is no system connecting everything together. Your profile is unclear. Your content is not speaking to the right people. And there is no path for interested visitors to follow.</p>
+          <p>That is exactly what I fix.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE SOLUTION -->
+    <section class="section" id="solution" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="solution-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">The Solution</span>
+          <h2 id="solution-heading">Two systems. One result. A LinkedIn that works for you every day.</h2>
+        </div>
+        <div class="systems-grid">
+          <div class="system-card reveal">
+            <h3>The Growth Architecture System</h3>
+            <p>A three-layer framework that builds your brand foundation first, then your content engine, then a simple path that turns your audience into paying clients. In that order. Every time.</p>
+          </div>
+          <div class="system-card reveal">
+            <h3>The Equity Flywheel Content System</h3>
+            <p>Most people write one post and then scramble to think of the next one. The Equity Flywheel flips that. You create one solid piece of content and it becomes 30 or more posts, carousels, and ideas automatically. You create once. It keeps working for weeks.</p>
           </div>
         </div>
       </div>
@@ -94,7 +131,7 @@ const serviceIcons: Record<string, string> = {
       <div class="container">
         <div class="section-header reveal">
           <span class="section-label">Case Studies</span>
-          <h2 id="cases-heading" set:html={home.casesHeadline.replace(/\n/g, '<br>')}></h2>
+          <h2 id="cases-heading">{home.casesHeadline}</h2>
         </div>
 
         <div class="case-studies-list">
@@ -103,7 +140,7 @@ const serviceIcons: Record<string, string> = {
             <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
               <div class="case-study-header-left">
                 <span class="case-study-client">Coin Bureau</span>
-                <span class="case-study-title">10× LinkedIn Growth for Crypto's Biggest Media Brand</span>
+                <span class="case-study-title">10x Newsletter Growth for a Financial Education Brand</span>
               </div>
               <div class="case-study-toggle" aria-hidden="true">+</div>
             </div>
@@ -111,25 +148,25 @@ const serviceIcons: Record<string, string> = {
               <div class="case-study-content">
                 <div class="case-study-detail">
                   <h4>The Challenge</h4>
-                  <p>Coin Bureau had massive YouTube and newsletter audiences but a dormant LinkedIn presence. They needed a systematic approach to content distribution that would drive newsletter subscribers from a professional audience without alienating their crypto-native following.</p>
+                  <p>Coin Bureau had a massive YouTube audience but their overall content strategy was fragmented. There was no system tying everything together.</p>
                   <br>
                   <h4>The Approach</h4>
-                  <p>Built a LinkedIn content system repurposing their existing research into executive-friendly formats. Defined audience segments, posting cadence, and hook frameworks. Launched a 90-day testing sprint across content types and engagement tactics.</p>
+                  <p>We rebuilt their entire content approach using the Equity Flywheel Content System, creating a clear distribution structure that turned their core content into consistent touchpoints across every channel.</p>
                 </div>
                 <div class="case-study-detail">
                   <h4>Results</h4>
                   <div class="case-study-outcomes">
                     <div class="outcome-item">
-                      <span class="outcome-num">10×</span>
-                      <span class="outcome-label">LinkedIn following in 6 months</span>
+                      <span class="outcome-num">10x</span>
+                      <span class="outcome-label">Newsletter growth</span>
                     </div>
                     <div class="outcome-item">
                       <span class="outcome-num">30%</span>
-                      <span class="outcome-label">Of newsletter subs from LinkedIn</span>
+                      <span class="outcome-label">Of newsletter subscribers now from content</span>
                     </div>
                     <div class="outcome-item">
-                      <span class="outcome-num">4.2×</span>
-                      <span class="outcome-label">Average engagement rate vs industry</span>
+                      <span class="outcome-num">4.2x</span>
+                      <span class="outcome-label">Average engagement rate versus industry</span>
                     </div>
                   </div>
                 </div>
@@ -141,7 +178,7 @@ const serviceIcons: Record<string, string> = {
             <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
               <div class="case-study-header-left">
                 <span class="case-study-client">EdTech Founder</span>
-                <span class="case-study-title">0 to Authority: Building a $300K Pipeline from LinkedIn</span>
+                <span class="case-study-title">From 300 Followers to a $300,000 Pipeline in 90 Days</span>
               </div>
               <div class="case-study-toggle" aria-hidden="true">+</div>
             </div>
@@ -149,25 +186,25 @@ const serviceIcons: Record<string, string> = {
               <div class="case-study-content">
                 <div class="case-study-detail">
                   <h4>The Challenge</h4>
-                  <p>A Series A EdTech founder had product-market fit but zero personal brand presence. Inbound leads were stagnant and they relied entirely on outbound SDRs burning through budget.</p>
+                  <p>A Series A EdTech founder had zero personal brand presence and a sales team burning through budget on cold outreach with nothing to show for it.</p>
                   <br>
                   <h4>The Approach</h4>
-                  <p>Repositioned the founder from "CEO of EdTech startup" to "the future of corporate learning". Built a 5-pillar content system, optimised the full LinkedIn profile, and established a 3× per week posting rhythm.</p>
+                  <p>Repositioned the founder's personal brand to speak directly to enterprise buyers. Built a five-pillar content system using the Growth Architecture System and set up a clear path from content to conversation.</p>
                 </div>
                 <div class="case-study-detail">
                   <h4>Results</h4>
                   <div class="case-study-outcomes">
                     <div class="outcome-item">
-                      <span class="outcome-num">12K</span>
-                      <span class="outcome-label">Followers in 90 days (from 300)</span>
+                      <span class="outcome-num">12,000</span>
+                      <span class="outcome-label">Followers in 90 days from 300</span>
                     </div>
                     <div class="outcome-item">
                       <span class="outcome-num">$300K</span>
-                      <span class="outcome-label">Pipeline attributed to LinkedIn</span>
+                      <span class="outcome-label">Pipeline attributed to inbound</span>
                     </div>
                     <div class="outcome-item">
                       <span class="outcome-num">3</span>
-                      <span class="outcome-label">Inbound partnership deals in 90 days</span>
+                      <span class="outcome-label">Partnership deals closed without a single cold call</span>
                     </div>
                   </div>
                 </div>
@@ -187,25 +224,25 @@ const serviceIcons: Record<string, string> = {
               <div class="case-study-content">
                 <div class="case-study-detail">
                   <h4>The Challenge</h4>
-                  <p>Zedsource launched in a commoditised staffing market with no visual identity, no positioning, and no brand system. Every competitor looked identical: generic blue logos and corporate stock photography.</p>
+                  <p>Zedsource launched in a market where every competitor looked exactly the same. No identity, no positioning, completely invisible.</p>
                   <br>
                   <h4>The Approach</h4>
-                  <p>Led a brand strategy sprint to define the positioning: "digital-first, founder-focused staffing." Designed a complete visual identity: logo, colour system, typography, and digital asset library.</p>
+                  <p>Led a brand strategy sprint to define positioning as "digital-first, founder-focused staffing." Designed a complete visual identity and relaunched them with a look and message that stood out immediately.</p>
                 </div>
                 <div class="case-study-detail">
                   <h4>Results</h4>
                   <div class="case-study-outcomes">
                     <div class="outcome-item">
-                      <span class="outcome-num">100%</span>
-                      <span class="outcome-label">Brand built from zero in 3 weeks</span>
+                      <span class="outcome-num">3 wks</span>
+                      <span class="outcome-label">Full brand built from zero</span>
                     </div>
                     <div class="outcome-item">
                       <span class="outcome-num">60%</span>
-                      <span class="outcome-label">Reduction in CAC post brand launch</span>
+                      <span class="outcome-label">Reduction in cost per client after launch</span>
                     </div>
                     <div class="outcome-item">
-                      <span class="outcome-num">5×</span>
-                      <span class="outcome-label">Profile visits after LinkedIn rebrand</span>
+                      <span class="outcome-num">5x</span>
+                      <span class="outcome-label">Profile visits after rebrand</span>
                     </div>
                   </div>
                 </div>
@@ -220,22 +257,7 @@ const serviceIcons: Record<string, string> = {
     <!-- SELECTED CLIENTS -->
     <ClientsGrid />
 
-    <!-- SKILLS TOOLKIT -->
-    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="skills-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Skills Toolkit</span>
-          <h2 id="skills-heading">{home.skillsHeadline}</h2>
-        </div>
-        <div class="skills-grid">
-          {home.skills.map(skill => (
-            <div class="skill-item reveal"><span class="skill-dot"></span>{skill.name}</div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <CTABand heading={home.ctaHeadline} subtext={home.ctaSubtext} />
+    <CTABand heading={home.ctaHeadline} subtext={home.ctaSubtext} btnText="Book a Free Strategy Call" />
 
   </main>
 

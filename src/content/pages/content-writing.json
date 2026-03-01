@@ -1,26 +1,20 @@
 {
-  "heroLabel": "Content Writing",
-  "heroTitle": "Every word should build authority, not just fill space.",
-  "heroDesc": "Content that compounds. Long-form articles, thought leadership pieces, and brand copy that positions you as the obvious expert in your field.",
-  "process": [
-    { "num": "01", "title": "Audit", "body": "Review existing content, identify performance patterns, and map gaps in the content library." },
-    { "num": "02", "title": "Voice Definition", "body": "Define your brand voice, tone principles, and writing standards so every piece sounds like you." },
-    { "num": "03", "title": "Content Pillars", "body": "Build your topic clusters, keyword strategy, and content hierarchy so everything connects." },
-    { "num": "04", "title": "Production", "body": "Write and publish. Long-form articles, thought leadership pieces, lead magnets, and distribution copy." },
-    { "num": "05", "title": "Distribution", "body": "Content without distribution is noise. Build the amplification system across LinkedIn, email, and SEO." }
+  "heroLabel": "Content Strategy",
+  "heroTitle": "Most people treat content like a treadmill. Post today. Start over tomorrow.",
+  "heroDesc": "The Equity Flywheel Content System gives you a smarter way. One piece of content becomes 30. You create once and it keeps working for weeks.",
+  "problemHeading": "Why most content strategies fail.",
+  "problemBody": "The problem is not that people are lazy. The problem is that they are creating content the hard way. Writing something new every day from scratch. Trying to think of fresh ideas every single time. Posting without any clear system connecting one piece to the next.\n\nThat is exhausting. And it is why most people go quiet on LinkedIn after three months.",
+  "mainLabel": "The Solution",
+  "mainHeading": "The Equity Flywheel Content System.",
+  "mainBody": "The Equity Flywheel is a content multiplication system. You create one cornerstone piece of content — a detailed blog post or long form article — and then break it down into 30 or more smaller pieces across every platform you want to show up on.\n\nFive LinkedIn posts. Two carousels. Ten short post ideas. One newsletter. One lead magnet. All from one morning of focused writing.\n\nYour content starts to build on itself. Older pieces keep bringing new people to your profile. You are not starting from zero every day. You are building equity that compounds over time. That is the flywheel. And once it starts spinning, it does not stop.",
+  "deliverablesLabel": "What You Get",
+  "deliverablesHeading": "What a content strategy with me looks like.",
+  "deliverables": [
+    "A clear set of content pillars built around your specific offer and audience.",
+    "A cornerstone content framework so every piece you create is built to multiply.",
+    "A posting schedule and idea bank so you never sit down and wonder what to write.",
+    "Content that is written to move your ideal client from a stranger to someone ready to book a call."
   ],
-  "goodFit": [
-    { "item": "Founders and executives who have ideas but no time to write" },
-    { "item": "Companies that need a consistent content programme, not one-off pieces" },
-    { "item": "Brands building a content moat for long-term organic growth" },
-    { "item": "Anyone who values quality over volume" }
-  ],
-  "badFit": [
-    { "item": "Businesses wanting generic AI-generated content in bulk" },
-    { "item": "Teams with no clear audience or positioning defined" },
-    { "item": "Anyone who won't give input, feedback, or interviews" },
-    { "item": "Companies without a distribution channel to publish to" }
-  ],
-  "ctaHeadline": "Ready to build content that earns authority?",
-  "ctaSubtext": "Let's build a content system that positions you as the obvious expert."
+  "ctaHeadline": "Ready to stop starting from scratch every day?",
+  "ctaSubtext": "Book a free call and we will map out a content system built around what you are already doing."
 }

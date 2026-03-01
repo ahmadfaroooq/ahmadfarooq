@@ -4,40 +4,16 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ServicePage from '../components/ServicePage.astro';
 import data from '../content/pages/linkedin.json';
-
-const caseStudies = [
-  {
-    client: 'EdTech Founder',
-    title: '0 to 12K Followers and $300K Pipeline in 90 Days',
-    challenge: 'The founder had a brilliant product story but couldn\'t tell it in a way that resonated with enterprise buyers on LinkedIn. Posts got no traction.',
-    approach: 'Repositioned from "CEO of startup" to "the future of corporate learning". Redesigned the profile top to bottom. Built a 5-pillar content system with hooks and formats proven to drive engagement.',
-    results: ['12K followers in 90 days', '$300K pipeline from LinkedIn', '3 inbound enterprise deals'],
-  },
-  {
-    client: 'Coin Bureau',
-    title: 'LinkedIn Becomes Their #2 Newsletter Growth Channel',
-    challenge: 'Coin Bureau\'s LinkedIn page had 8K followers and posted inconsistently with no engagement strategy.',
-    approach: 'Repositioned LinkedIn as a premium distribution channel. Built a repurposing system, defined the audience persona, and established a consistent posting rhythm with engagement tactics.',
-    results: ['80K followers in 6 months', '30% of newsletter subs from LinkedIn', '4.2× average engagement rate'],
-  },
-  {
-    client: 'VC-Backed SaaS Founder',
-    title: 'Personal Brand Generates 5 Inbound Investment Conversations',
-    challenge: 'A second-time founder raising their Series A had zero LinkedIn presence. VCs were Googling them and finding nothing.',
-    approach: 'Established a thought leadership programme around their expertise in product-led growth. Defined their investor-facing narrative and built a consistent presence.',
-    results: ['5 inbound VC conversations', '8K followers in 60 days', 'Series A closed 3 months ahead of schedule'],
-  },
-];
 ---
 
 <BaseLayout
   title="LinkedIn Branding | Ahmad Farooq"
-  description="Turn your LinkedIn into an inbound machine. Positioning, content systems, and profile architecture that attract the right clients."
+  description="Turn your LinkedIn into an inbound machine. I help coaches, consultants, and founders build a LinkedIn presence that attracts the right people and moves them toward a conversation."
   canonicalPath="/linkedin"
 >
   <Header />
   <main>
-    <ServicePage data={data} caseStudies={caseStudies} />
+    <ServicePage data={data} />
   </main>
   <Footer />
 </BaseLayout>

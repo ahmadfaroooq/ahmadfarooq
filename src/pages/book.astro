@@ -8,8 +8,8 @@ const numColors: Record<string, string> = { '01': 'var(--lime)', '02': 'var(--or
 ---
 
 <BaseLayout
-  title="Book a Strategy Call | Ahmad Farooq"
-  description="Book a free 30-minute strategy call with Ahmad Farooq. No pitch, no templates — just a focused conversation about your brand and growth."
+  title="Book a Call | Ahmad Farooq"
+  description="Book a free 30-minute call with Ahmad Farooq. No pitch, no pressure — just an honest conversation about where you are and what needs to happen next."
   canonicalPath="/book"
 >
   <Header />
@@ -18,52 +18,49 @@ const numColors: Record<string, string> = { '01': 'var(--lime)', '02': 'var(--or
 
     <section class="page-hero" aria-label="Page introduction">
       <div class="page-hero-inner">
-        <span class="page-hero-label">Strategy Call</span>
+        <span class="page-hero-label">Book a Call</span>
         <h1 class="page-hero-title">{book.heroTitle}</h1>
         <p class="page-hero-desc">{book.heroDesc}</p>
       </div>
     </section>
 
+    <!-- WHAT TO EXPECT -->
+    <section class="section" aria-labelledby="expect-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">What To Expect</span>
+          <h2 id="expect-heading">{book.expectationsHeading}</h2>
+        </div>
+        <div class="book-expect-grid reveal">
+          {book.expectations.map(exp => (
+            <div class="book-expect-card">
+              <span class="principle-num" style={`color: ${numColors[exp.num] || 'var(--lime)'};`}>{exp.num}</span>
+              <div>
+                <strong style="display: block; font-family: var(--font-heading); margin-bottom: 6px;">{exp.title}</strong>
+                <p style="margin: 0;">{exp.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- REASSURANCE -->
+    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-label="Reassurance">
+      <div class="container">
+        <div class="prose reveal" style="max-width: 680px;">
+          <h2 style="margin-bottom: 20px;">{book.reassuranceHeading}</h2>
+          <p>{book.reassuranceBody}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
     <section class="section" aria-label="Booking calendar">
       <div class="container">
-
-        <div class="book-expect-grid reveal">
-          <div>
-            <h2 style="margin-bottom: 24px;">What to expect</h2>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-              {book.expectations.map(exp => (
-                <div style="display: flex; gap: 16px; padding: 20px; background: var(--white); border: 2px solid var(--border);">
-                  <span style={`font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: ${numColors[exp.num] || 'var(--lime)'}; flex-shrink: 0; line-height: 1;`}>{exp.num}</span>
-                  <div>
-                    <strong style="display: block; font-family: var(--font-heading); margin-bottom: 4px;">{exp.title}</strong>
-                    <p style="font-size: 0.9rem; margin: 0;">{exp.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div style="background: var(--white); border: 2px solid var(--border); padding: 28px;">
-            <p style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">Quick details</p>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-              <div style="display: flex; gap: 12px; align-items: flex-start;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <div><strong style="display: block; font-size: 0.9rem;">30 minutes</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">Calendar invite sent automatically</p></div>
-              </div>
-              <div style="display: flex; gap: 12px; align-items: flex-start;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <div><strong style="display: block; font-size: 0.9rem;">Video call</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">Google Meet or Zoom, your choice</p></div>
-              </div>
-              <div style="display: flex; gap: 12px; align-items: flex-start;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <div><strong style="display: block; font-size: 0.9rem;">Any timezone</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">Available slots shown in your local time</p></div>
-              </div>
-              <div style="display: flex; gap: 12px; align-items: flex-start;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                <div><strong style="display: block; font-size: 0.9rem;">Zero cost</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">No catch. No follow-up spam.</p></div>
-              </div>
-            </div>
-          </div>
+        <div class="section-header reveal">
+          <span class="section-label">Schedule</span>
+          <h2>{book.calLabel}</h2>
         </div>
 
         <div class="cal-embed-wrap reveal">
@@ -80,6 +77,30 @@ const numColors: Record<string, string> = { '01': 'var(--lime)', '02': 'var(--or
           </script>
         </div>
 
+        <p class="reveal" style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">{book.calNote}</p>
+
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="faq-heading">{book.faqHeading}</h2>
+        </div>
+        <div class="faq-list">
+          {book.faqs.map(faq => (
+            <div class="faq-item reveal">
+              <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                <span>{faq.q}</span>
+                <span class="faq-toggle" aria-hidden="true">+</span>
+              </div>
+              <div class="faq-answer" role="region">
+                <p>{faq.a}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 

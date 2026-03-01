@@ -1,21 +1,41 @@
 {
-  "heroTitle": "Let's talk strategy.",
-  "heroDesc": "30 minutes. No templates, no decks, no sales pitch. Just a focused conversation about your brand, your growth, and what's actually blocking you.",
+  "heroTitle": "Let's figure out exactly what needs to happen next.",
+  "heroDesc": "30 minutes. No pitch. No pressure. Just an honest look at where you are and what is getting in the way.",
+  "expectationsHeading": "Here is what we will cover in 30 minutes.",
   "expectations": [
     {
       "num": "01",
-      "title": "You talk, I listen",
-      "body": "First 10 minutes are yours. Tell me where you are, what's not working, and what you actually want to achieve."
+      "title": "Where you are right now",
+      "body": "A quick look at your LinkedIn profile, your current content, and what is and is not working."
     },
     {
       "num": "02",
-      "title": "I diagnose, honestly",
-      "body": "I'll tell you what I see, including if I'm not the right fit. No false positives to land a deal."
+      "title": "What is actually broken",
+      "body": "I will tell you honestly what the real problem is. Not a vague answer. A specific diagnosis."
     },
     {
       "num": "03",
-      "title": "You leave with clarity",
-      "body": "Whether we work together or not, you'll have a clearer picture of what to do next. That's the minimum outcome."
+      "title": "What to do next",
+      "body": "Whether we work together or not, you will leave the call with a clear next step you can take immediately."
+    }
+  ],
+  "reassuranceHeading": "This is not a sales call.",
+  "reassuranceBody": "I do not use discovery calls as a pitch session. If what I offer is a good fit for where you are, I will let you know and tell you exactly how. If it is not the right time or the right fit, I will tell you that too and point you somewhere useful. The only goal of this call is to give you something valuable in 30 minutes.",
+  "calLabel": "Pick a time that works for you.",
+  "calNote": "You will get a confirmation email right away. If you need to reschedule, there is a link in that email.",
+  "faqHeading": "Quick answers.",
+  "faqs": [
+    {
+      "q": "Do I need to prepare anything before the call?",
+      "a": "Just come as you are. If you want to share your LinkedIn profile link beforehand that is helpful but not required."
+    },
+    {
+      "q": "What if I am not ready to invest in anything right now?",
+      "a": "That is completely fine. The call is still worth your time. You will leave with a clear picture of what needs fixing and you can decide what to do about it on your own timeline."
+    },
+    {
+      "q": "How quickly can we get started after the call?",
+      "a": "For one-time projects I can usually start within a few days of the call. For monthly plans we agree on a start date that works for both of us."
     }
   ]
 }

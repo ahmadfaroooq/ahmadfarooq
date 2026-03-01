@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+---
+
+<BaseLayout
+  title="Work With Me | Ahmad Farooq"
+  description="Two ways to work with Ahmad Farooq. One-time projects to build the foundation. Monthly plans to keep everything growing."
+  canonicalPath="/work-with-me"
+>
+  <Header />
+
+  <main>
+
+    <section class="page-hero" aria-label="Page introduction">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">Work With Me</span>
+        <h1 class="page-hero-title">Work With Me</h1>
+        <p class="page-hero-desc">Two ways to get started. One-time projects to build the foundation. Monthly plans to keep everything growing.</p>
+      </div>
+    </section>
+
+    <!-- ONE-TIME PROJECTS -->
+    <section class="section" aria-labelledby="one-time-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">One-Time Projects</span>
+          <h2 id="one-time-heading">Not sure where to start? These two projects fix the most common problems first. Most people start here.</h2>
+        </div>
+
+        <div class="offers-grid">
+
+          <article class="offer-card reveal">
+            <div class="offer-card-header">
+              <h3 class="offer-name">Fix My LinkedIn Profile</h3>
+              <div class="offer-price">
+                <span class="offer-price-usd">$200</span>
+                <span class="offer-price-pkr">Rs. 55,800</span>
+              </div>
+            </div>
+            <p class="offer-tagline">Your profile is the first thing people see. Let's make it impossible to ignore.</p>
+            <div class="offer-divider"></div>
+            <p class="offer-list-label">What you get:</p>
+            <ul class="offer-list">
+              <li>New headline that clearly says what you do and who you help</li>
+              <li>About section rewritten to tell your story and attract the right people</li>
+              <li>Banner concept brief — what it should say and look like</li>
+              <li>Featured section strategy — what to put there and why</li>
+              <li>Services section setup</li>
+            </ul>
+            <p class="offer-delivery">Delivered in 5 days. Includes one round of revisions.</p>
+            <a href="/book" class="btn btn-primary">Get Started</a>
+          </article>
+
+          <article class="offer-card reveal">
+            <div class="offer-card-header">
+              <h3 class="offer-name">Build My Growth Strategy</h3>
+              <div class="offer-price">
+                <span class="offer-price-usd">$450</span>
+                <span class="offer-price-pkr">Rs. 125,550</span>
+              </div>
+            </div>
+            <p class="offer-tagline">A complete game plan so you always know what to post, who to target, and how to turn followers into clients.</p>
+            <div class="offer-divider"></div>
+            <p class="offer-list-label">What you get:</p>
+            <ul class="offer-list">
+              <li>Brand story and positioning — who you are, who you help, what makes you different</li>
+              <li>Three content pillars tailored to your business</li>
+              <li>20 post ideas mapped to your audience's buying journey</li>
+              <li>Posting schedule and hook templates</li>
+              <li>A simple funnel map showing how your content leads to clients</li>
+            </ul>
+            <p class="offer-delivery">Delivered in 10 days. Includes one round of revisions.</p>
+            <a href="/book" class="btn btn-primary">Get Started</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MONTHLY PLANS -->
+    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="monthly-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Monthly Plans</span>
+          <h2 id="monthly-heading">Already have a foundation? These plans keep you consistent, growing, and top of mind every single month. Pick the level that fits where you are right now.</h2>
+        </div>
+
+        <div class="offers-grid offers-grid-3">
+
+          <article class="offer-card reveal">
+            <div class="offer-card-header">
+              <h3 class="offer-name">Keep Me Consistent</h3>
+              <div class="offer-price">
+                <span class="offer-price-usd">$200 / mo</span>
+                <span class="offer-price-pkr">Rs. 55,800 / mo</span>
+              </div>
+            </div>
+            <p class="offer-tagline">For people who know what to say but keep running out of time or ideas.</p>
+            <div class="offer-divider"></div>
+            <p class="offer-list-label">What you get every month:</p>
+            <ul class="offer-list">
+              <li>12 post ideas with hooks and outlines already written — 3 per week</li>
+              <li>Monthly content calendar</li>
+              <li>One 30-minute strategy call</li>
+            </ul>
+            <p class="offer-delivery">Month to month. Cancel anytime.</p>
+            <a href="/book" class="btn btn-primary">Get Started</a>
+          </article>
+
+          <article class="offer-card reveal">
+            <div class="offer-card-header">
+              <h3 class="offer-name">Write It For Me</h3>
+              <div class="offer-price">
+                <span class="offer-price-usd">$400 / mo</span>
+                <span class="offer-price-pkr">Rs. 111,600 / mo</span>
+              </div>
+            </div>
+            <p class="offer-tagline">For people who want to show up on LinkedIn every week without writing a single word themselves.</p>
+            <div class="offer-divider"></div>
+            <p class="offer-list-label">What you get every month:</p>
+            <ul class="offer-list">
+              <li>12 fully written, ready-to-post LinkedIn posts</li>
+              <li>Posts optimized for reach and written to attract your ideal client</li>
+              <li>Monthly content calendar</li>
+              <li>One 45-minute strategy and review call</li>
+            </ul>
+            <p class="offer-delivery">Month to month. Cancel anytime.</p>
+            <a href="/book" class="btn btn-primary">Get Started</a>
+          </article>
+
+          <article class="offer-card reveal">
+            <div class="offer-card-header">
+              <h3 class="offer-name">Run It All For Me</h3>
+              <div class="offer-price">
+                <span class="offer-price-usd">$700 / mo</span>
+                <span class="offer-price-pkr">Rs. 195,300 / mo</span>
+              </div>
+            </div>
+            <p class="offer-tagline">For people who want LinkedIn to actively grow their business, completely hands off.</p>
+            <div class="offer-divider"></div>
+            <p class="offer-list-label">What you get every month:</p>
+            <ul class="offer-list">
+              <li>16 fully written and posted LinkedIn posts</li>
+              <li>Profile monitoring and optimization as needed</li>
+              <li>Engagement management — replies and comments handled for you</li>
+              <li>Monthly performance report — what is working and what to adjust</li>
+              <li>Two 45-minute strategy calls every month</li>
+            </ul>
+            <p class="offer-delivery">Minimum 3-month commitment.</p>
+            <a href="/book" class="btn btn-primary">Get Started</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <CTABand
+      heading="Not sure which one is right for you?"
+      subtext="Book a free 30-minute call and we will figure it out together. No pitch. Just an honest conversation about where you are and what needs to happen next."
+      btnText="Book a Free Call"
+    />
+
+  </main>
+
+  <Footer />
+</BaseLayout>
