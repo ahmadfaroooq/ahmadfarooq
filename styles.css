@@ -135,7 +135,7 @@ strong { font-weight: 700; color: var(--text); }
   font-size: 1.1rem;
   color: var(--orange);
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .section-header h2 { margin-bottom: 16px; }
 .section-header p { max-width: 560px; }
@@ -533,7 +533,7 @@ strong { font-weight: 700; color: var(--text); }
   stroke-width: 1.5;
   fill: none;
 }
-.service-card h3 { font-size: 1.1rem; }
+.service-card h3 { font-size: 1.2rem; }
 .service-card p { font-size: 0.9rem; flex-grow: 1; }
 .service-link {
   display: inline-flex;
@@ -591,14 +591,14 @@ strong { font-weight: 700; color: var(--text); }
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--orange);
   white-space: nowrap;
   flex-shrink: 0;
 }
 .case-study-title {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--text);
 }
 .case-study-toggle {
@@ -858,7 +858,7 @@ strong { font-weight: 700; color: var(--text); }
   white-space: nowrap;
 }
 .blog-card-content h3 {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   margin-bottom: 8px;
   transition: color var(--transition);
 }
@@ -894,7 +894,7 @@ strong { font-weight: 700; color: var(--text); }
   font-size: 1.6rem;
   flex-shrink: 0;
 }
-.playbook-card h3 { font-size: 1.05rem; margin-bottom: 6px; transition: color var(--transition); }
+.playbook-card h3 { font-size: 1.1rem; margin-bottom: 6px; transition: color var(--transition); }
 .playbook-card:hover h3 { color: var(--orange); }
 .playbook-card p { font-size: 0.88rem; }
 .playbook-card-action {
@@ -1140,7 +1140,7 @@ strong { font-weight: 700; color: var(--text); }
 .principle-card {
   background: var(--white);
   border: 2px solid var(--border);
-  padding: 28px;
+  padding: 32px;
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .principle-card:hover { transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--mint); }
@@ -1360,6 +1360,8 @@ strong { font-weight: 700; color: var(--text); }
   .hero-metric-num { font-size: 1.6rem; }
   .modal { padding: 24px; width: 100%; }
   .case-study-header { padding: 16px 20px; }
+  .case-study-header-left { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .case-study-client { white-space: normal; }
   .case-study-content { padding: 0 20px 20px; }
   .filter-bar { gap: 6px; }
   .filter-btn { padding: 7px 14px; font-size: 0.78rem; }
