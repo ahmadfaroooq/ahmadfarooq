@@ -9,13 +9,29 @@
     "yearsInField": "4 yrs"
   },
   "clients": [
-    { "name": "Big O Soft" },
-    { "name": "Zedsource" },
-    { "name": "AllRCM" },
-    { "name": "OneSoft" },
-    { "name": "Coin Bureau" },
-    { "name": "Klip AI" },
-    { "name": "Trade Travel Chill" },
-    { "name": "RS Gonzales" }
+    {
+      "name": "Big O Soft"
+    },
+    {
+      "name": "Zedsource"
+    },
+    {
+      "name": "AllRCM"
+    },
+    {
+      "name": "OneSoft"
+    },
+    {
+      "name": "Coin Bureau"
+    },
+    {
+      "name": "Klip AI"
+    },
+    {
+      "name": "Trade Travel Chill"
+    },
+    {
+      "name": "RS Gonzales"
+    }
   ]
 }
