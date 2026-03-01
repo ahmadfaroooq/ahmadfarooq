@@ -4,6 +4,28 @@
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Shadcn/Tailwind CSS variable tokens */
+:root {
+  --tw-background: 0 0% 100%;
+  --tw-foreground: 0 0% 10%;
+  --tw-primary: 75 100% 50%;
+  --tw-primary-foreground: 0 0% 0%;
+  --tw-secondary: 0 0% 15%;
+  --tw-secondary-foreground: 0 0% 100%;
+  --tw-muted: 0 0% 30%;
+  --tw-muted-foreground: 0 0% 60%;
+  --tw-accent: 75 100% 50%;
+  --tw-accent-foreground: 0 0% 0%;
+  --tw-destructive: 0 84% 60%;
+  --tw-destructive-foreground: 0 0% 100%;
+  --tw-border: 0 0% 15%;
+  --tw-input: 0 0% 15%;
+  --tw-ring: 75 100% 50%;
+}
 
 /* ============================================================
    DESIGN TOKENS
