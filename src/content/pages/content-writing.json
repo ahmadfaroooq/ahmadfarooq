@@ -1,25 +1,61 @@
 {
-  "heroLabel": "Content Writing",
+  "heroLabel": "Copy Writing",
   "heroTitle": "Every word should build authority, not just fill space.",
-  "heroDesc": "Content that compounds. Long-form articles, thought leadership pieces, and brand copy that positions you as the obvious expert in your field.",
+  "heroDesc": "Copy that compounds. Long-form articles, thought leadership pieces, and brand copy that position you as the obvious expert in your field.",
   "process": [
-    { "num": "01", "title": "Audit", "body": "Review existing content, identify performance patterns, and map gaps in the content library." },
-    { "num": "02", "title": "Voice Definition", "body": "Define your brand voice, tone principles, and writing standards so every piece sounds like you." },
-    { "num": "03", "title": "Content Pillars", "body": "Build your topic clusters, keyword strategy, and content hierarchy so everything connects." },
-    { "num": "04", "title": "Production", "body": "Write and publish. Long-form articles, thought leadership pieces, lead magnets, and distribution copy." },
-    { "num": "05", "title": "Distribution", "body": "Content without distribution is noise. Build the amplification system across LinkedIn, email, and SEO." }
+    {
+      "num": "01",
+      "title": "Audit",
+      "body": "Review existing content, identify performance patterns, and map gaps in the content library."
+    },
+    {
+      "num": "02",
+      "title": "Voice Definition",
+      "body": "Define your brand voice, tone principles, and writing standards so every piece sounds like you."
+    },
+    {
+      "num": "03",
+      "title": "Content Pillars",
+      "body": "Build your topic clusters, keyword strategy, and content hierarchy so everything connects."
+    },
+    {
+      "num": "04",
+      "title": "Production",
+      "body": "Write and publish. Long-form articles, thought leadership pieces, lead magnets, and distribution copy."
+    },
+    {
+      "num": "05",
+      "title": "Distribution",
+      "body": "Content without distribution is noise. Build the amplification system across LinkedIn, email, and SEO."
+    }
   ],
   "goodFit": [
-    { "item": "Founders and executives who have ideas but no time to write" },
-    { "item": "Companies that need a consistent content programme, not one-off pieces" },
-    { "item": "Brands building a content moat for long-term organic growth" },
-    { "item": "Anyone who values quality over volume" }
+    {
+      "item": "Founders and executives who have ideas but no time to write"
+    },
+    {
+      "item": "Companies that need a consistent content programme, not one-off pieces"
+    },
+    {
+      "item": "Brands building a content moat for long-term organic growth"
+    },
+    {
+      "item": "Anyone who values quality over volume"
+    }
   ],
   "badFit": [
-    { "item": "Businesses wanting generic AI-generated content in bulk" },
-    { "item": "Teams with no clear audience or positioning defined" },
-    { "item": "Anyone who won't give input, feedback, or interviews" },
-    { "item": "Companies without a distribution channel to publish to" }
+    {
+      "item": "Businesses wanting generic AI-generated content in bulk"
+    },
+    {
+      "item": "Teams with no clear audience or positioning defined"
+    },
+    {
+      "item": "Anyone who won't give input, feedback, or interviews"
+    },
+    {
+      "item": "Companies without a distribution channel to publish to"
+    }
   ],
   "ctaHeadline": "Ready to build content that earns authority?",
   "ctaSubtext": "Let's build a content system that positions you as the obvious expert."
