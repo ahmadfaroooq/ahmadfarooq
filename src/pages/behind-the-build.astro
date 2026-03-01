@@ -34,8 +34,8 @@ import about from '../content/pages/behind-the-build.json';
 
           <div class="about-story reveal">
             <h2 id="story-heading" set:html={about.storyHeadline.replace(/\n/g, '<br>')}></h2>
-            {about.bio.children.map((block: any) => (
-              <p>{block.children[0].text}</p>
+            {about.bio.split('\n\n').map((p: string) => (
+              <p>{p}</p>
             ))}
             <div style="margin-top: 32px;">
               <a href="/book" class="btn btn-primary">Book a Strategy Call</a>

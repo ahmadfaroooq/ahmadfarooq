@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMS — Ahmad Farooq</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f36f21'/></svg>">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0f;--surface:#1a1a1a;--surface2:#222;--border:#2e2e2e;
+  --text:#e8e8e8;--muted:#888;--lime:#BFFF00;--orange:#FF6700;--mint:#00FFAB;
+  --red:#ff4444;--font:'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--bg)}
+.login-box{background:var(--surface);border:2px solid var(--border);padding:40px;width:360px}
+.login-box h1{font-size:1.4rem;font-weight:700;margin-bottom:4px}
+.login-box p{color:var(--muted);font-size:0.85rem;margin-bottom:28px}
+.login-box label{display:block;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.login-box input{width:100%;background:var(--bg);border:2px solid var(--border);color:var(--text);padding:10px 12px;font-size:0.9rem;font-family:var(--font);outline:none;margin-bottom:16px}
+.login-box input:focus{border-color:var(--lime)}
+.login-box button{width:100%;background:var(--lime);color:#000;border:none;padding:12px;font-weight:700;font-size:0.9rem;cursor:pointer;margin-top:4px}
+.login-box button:hover{background:#d4e600}
+#login-error{color:var(--red);font-size:0.83rem;margin-top:10px;display:none}
+
+/* LAYOUT */
+#app{display:none;height:100vh;flex-direction:column}
+#topbar{height:52px;background:var(--surface);border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+#topbar .logo{font-weight:800;font-size:1rem;letter-spacing:0.02em}
+#topbar .logo span{color:var(--lime)}
+#topbar-right{display:flex;align-items:center;gap:16px}
+#save-status{font-size:0.78rem;color:var(--muted)}
+.btn-signout{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;font-size:0.8rem;cursor:pointer;font-family:var(--font)}
+.btn-signout:hover{border-color:var(--text);color:var(--text)}
+
+#workspace{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+#sidebar{width:220px;background:var(--surface);border-right:2px solid var(--border);overflow-y:auto;flex-shrink:0;padding:16px 0}
+.nav-group{margin-bottom:8px}
+.nav-group-label{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);padding:8px 16px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;font-size:0.87rem;color:var(--muted);transition:color 0.15s,background 0.15s;border-left:3px solid transparent}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--surface2);color:var(--lime);border-left-color:var(--lime)}
+.nav-item svg{width:15px;height:15px;flex-shrink:0}
+
+/* MAIN CONTENT */
+#main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+
+/* POST EDITOR LAYOUT */
+#post-editor{display:none;flex:1;overflow:hidden}
+#post-list-panel{width:260px;background:var(--surface);border-right:2px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+#post-list-header{padding:16px;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+#post-list-header h3{font-size:0.9rem;font-weight:700}
+.btn-new{background:var(--lime);color:#000;border:none;padding:6px 12px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:var(--font)}
+.btn-new:hover{background:#d4e600}
+#post-list{flex:1;overflow-y:auto}
+.post-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;position:relative}
+.post-item:hover{background:var(--surface2)}
+.post-item.active{background:var(--surface2);border-left:3px solid var(--lime)}
+.post-item-title{font-size:0.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:24px}
+.post-item-meta{font-size:0.73rem;color:var(--muted);margin-top:3px;display:flex;gap:8px;align-items:center}
+.status-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 6px}
+.status-badge.published{background:var(--lime);color:#000}
+.status-badge.draft{background:var(--border);color:var(--muted)}
+.post-delete{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:4px;line-height:1}
+.post-delete:hover{color:var(--red)}
+
+/* EDITOR + META */
+#editor-area{flex:1;display:flex;overflow:hidden}
+#editor-col{flex:1;display:flex;flex-direction:column;overflow:hidden;border-right:2px solid var(--border)}
+#editor-toolbar{padding:10px 16px;border-bottom:2px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;background:var(--surface)}
+.toolbar-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:4px 10px;font-size:0.78rem;cursor:pointer;font-family:var(--font)}
+.toolbar-btn:hover{border-color:var(--text);color:var(--text)}
+#editor-modes{display:flex;gap:0;border-left:1px solid var(--border);margin-left:auto}
+.mode-btn{background:none;border:none;border-left:1px solid var(--border);color:var(--muted);padding:4px 12px;font-size:0.78rem;cursor:pointer;font-family:var(--font)}
+.mode-btn.active{background:var(--surface2);color:var(--lime)}
+#editor-panes{flex:1;display:flex;overflow:hidden}
+#write-pane{flex:1;display:flex;flex-direction:column}
+#write-pane textarea{flex:1;background:var(--bg);color:var(--text);border:none;padding:20px;font-family:'Fira Code','Consolas',monospace;font-size:0.88rem;line-height:1.7;resize:none;outline:none}
+#preview-pane{flex:1;padding:20px;overflow-y:auto;display:none}
+#preview-pane h1,#preview-pane h2{margin:1.2em 0 0.5em;font-size:1.4rem}
+#preview-pane h3{margin:1em 0 0.4em}
+#preview-pane p{margin-bottom:1em;line-height:1.7}
+#preview-pane blockquote{border-left:3px solid var(--lime);padding-left:16px;color:var(--muted);margin:1em 0}
+#preview-pane code{background:var(--surface2);padding:2px 6px;font-size:0.85em}
+#preview-pane pre{background:var(--surface2);padding:16px;margin:1em 0;overflow-x:auto}
+#meta-panel{width:280px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px;background:var(--surface);flex-shrink:0}
+.meta-label{font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:block}
+.meta-input{width:100%;background:var(--bg);border:2px solid var(--border);color:var(--text);padding:8px 10px;font-size:0.85rem;font-family:var(--font);outline:none}
+.meta-input:focus{border-color:var(--lime)}
+.meta-textarea{resize:vertical;min-height:70px}
+.cat-grid{display:flex;flex-wrap:wrap;gap:6px}
+.cat-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:4px 10px;font-size:0.75rem;cursor:pointer;font-family:var(--font)}
+.cat-btn.active{background:var(--lime);color:#000;border-color:var(--lime)}
+.status-row{display:flex;gap:0}
+.status-opt{flex:1;text-align:center;padding:8px;border:2px solid var(--border);cursor:pointer;font-size:0.8rem;font-weight:600;background:none;color:var(--muted);font-family:var(--font)}
+.status-opt:first-child{border-right:none}
+.status-opt.active-draft{background:var(--border);color:var(--text)}
+.status-opt.active-pub{background:var(--lime);color:#000;border-color:var(--lime)}
+.meta-actions{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.btn-save{background:var(--lime);color:#000;border:none;padding:11px;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:var(--font);width:100%}
+.btn-save:hover{background:#d4e600}
+.btn-delete-post{background:none;border:2px solid var(--border);color:var(--muted);padding:9px;font-size:0.85rem;cursor:pointer;font-family:var(--font);width:100%}
+.btn-delete-post:hover{border-color:var(--red);color:var(--red)}
+
+/* PAGE EDITOR */
+#page-editor{display:none;flex:1;overflow-y:auto;padding:32px}
+.page-editor-inner{max-width:760px}
+.page-section-title{font-size:1.2rem;font-weight:800;margin-bottom:4px}
+.page-section-sub{color:var(--muted);font-size:0.85rem;margin-bottom:28px}
+.field-group{margin-bottom:20px}
+.field-label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field-input{width:100%;background:var(--surface);border:2px solid var(--border);color:var(--text);padding:10px 12px;font-size:0.88rem;font-family:var(--font);outline:none}
+.field-input:focus{border-color:var(--lime)}
+.field-textarea{resize:vertical;min-height:80px;line-height:1.6}
+.field-textarea.tall{min-height:160px}
+.divider{border:none;border-top:2px solid var(--border);margin:28px 0}
+.array-section h4{font-size:0.85rem;font-weight:700;margin-bottom:12px}
+.array-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.array-row{background:var(--surface2);border:1px solid var(--border);padding:12px;display:flex;gap:10px;align-items:flex-start}
+.array-row-fields{flex:1;display:flex;flex-direction:column;gap:8px}
+.array-row-fields input,.array-row-fields textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:7px 10px;font-size:0.84rem;font-family:var(--font);outline:none}
+.array-row-fields input:focus,.array-row-fields textarea:focus{border-color:var(--lime)}
+.array-row-fields textarea{resize:vertical;min-height:60px}
+.btn-remove-row{background:none;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;cursor:pointer;font-size:1rem;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.btn-remove-row:hover{border-color:var(--red);color:var(--red)}
+.btn-add-row{background:none;border:2px dashed var(--border);color:var(--muted);padding:8px 16px;font-size:0.82rem;cursor:pointer;font-family:var(--font);width:100%;margin-bottom:20px}
+.btn-add-row:hover{border-color:var(--lime);color:var(--lime)}
+.save-bar{display:flex;align-items:center;gap:16px;margin-top:32px;padding-top:24px;border-top:2px solid var(--border)}
+.btn-save-page{background:var(--lime);color:#000;border:none;padding:12px 28px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:var(--font)}
+.btn-save-page:hover{background:#d4e600}
+.save-hint{font-size:0.8rem;color:var(--muted)}
+
+/* EMPTY STATE */
+#empty-state{display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;gap:12px;color:var(--muted)}
+#empty-state p{font-size:0.9rem}
+
+/* IMAGE UPLOAD FLOAT */
+#img-upload-btn{position:fixed;bottom:24px;right:24px;background:var(--surface);border:2px solid var(--border);color:var(--text);padding:10px 16px;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:var(--font);z-index:100;display:none}
+#img-upload-btn:hover{border-color:var(--lime);color:var(--lime)}
+#img-upload-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center}
+.img-modal-box{background:var(--surface);border:2px solid var(--border);padding:28px;width:420px}
+.img-modal-box h3{font-size:1rem;font-weight:700;margin-bottom:16px}
+.img-modal-box input[type=file]{width:100%;background:var(--bg);border:2px dashed var(--border);color:var(--text);padding:10px;font-size:0.85rem;font-family:var(--font);cursor:pointer;margin-bottom:12px}
+#img-result{background:var(--bg);border:2px solid var(--border);padding:10px;font-size:0.82rem;font-family:monospace;color:var(--lime);word-break:break-all;display:none;margin-top:12px}
+.img-modal-actions{display:flex;gap:8px;margin-top:16px}
+.btn-upload{background:var(--lime);color:#000;border:none;padding:10px 20px;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:var(--font)}
+.btn-close-modal{background:none;border:2px solid var(--border);color:var(--muted);padding:10px 16px;font-size:0.85rem;cursor:pointer;font-family:var(--font)}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;border:2px solid var(--lime);color:var(--lime);padding:12px 24px;font-size:0.85rem;font-weight:600;z-index:999;display:none;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>CMS Login</h1>
+    <p>Ahmad Farooq — Site Admin</p>
+    <label>Username</label>
+    <input type="text" id="login-user" autocomplete="username">
+    <label>Password</label>
+    <input type="password" id="login-pass" autocomplete="current-password">
+    <button onclick="doLogin()">Sign In</button>
+    <div id="login-error">Incorrect credentials.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div id="topbar">
+    <div class="logo">Ahmad Farooq <span>CMS</span></div>
+    <div id="topbar-right">
+      <span id="save-status"></span>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+  <div id="workspace">
+
+    <!-- SIDEBAR -->
+    <nav id="sidebar">
+      <div class="nav-group">
+        <div class="nav-group-label">Content</div>
+        <div class="nav-item" data-section="blog" onclick="switchSection('blog')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Blog Posts
+        </div>
+        <div class="nav-item" data-section="playbook" onclick="switchSection('playbook')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Playbook
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Pages</div>
+        <div class="nav-item" data-section="home" onclick="switchSection('home')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Homepage
+        </div>
+        <div class="nav-item" data-section="about" onclick="switchSection('about')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Behind the Build
+        </div>
+        <div class="nav-item" data-section="growth" onclick="switchSection('growth')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Growth
+        </div>
+        <div class="nav-item" data-section="linkedin" onclick="switchSection('linkedin')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </div>
+        <div class="nav-item" data-section="strategy" onclick="switchSection('strategy')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Strategy
+        </div>
+        <div class="nav-item" data-section="content-writing" onclick="switchSection('content-writing')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Content Writing
+        </div>
+        <div class="nav-item" data-section="book" onclick="switchSection('book')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book a Call
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-label">Global</div>
+        <div class="nav-item" data-section="settings" onclick="switchSection('settings')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Settings
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <div id="main">
+
+      <!-- POST EDITOR (blog + playbook) -->
+      <div id="post-editor">
+        <div id="post-list-panel">
+          <div id="post-list-header">
+            <h3 id="post-list-title">Blog Posts</h3>
+            <button class="btn-new" onclick="newPost()">+ New</button>
+          </div>
+          <div id="post-list"></div>
+        </div>
+        <div id="editor-area">
+          <div id="editor-col">
+            <div id="editor-toolbar">
+              <button class="toolbar-btn" onclick="fmt('## ','')">H2</button>
+              <button class="toolbar-btn" onclick="fmt('### ','')">H3</button>
+              <button class="toolbar-btn" onclick="fmt('**','**')"><b>B</b></button>
+              <button class="toolbar-btn" onclick="fmt('*','*')"><em>I</em></button>
+              <button class="toolbar-btn" onclick="fmt('> ','')">Quote</button>
+              <button class="toolbar-btn" onclick="fmt('`','`')">Code</button>
+              <button class="toolbar-btn" onclick="insertLink()">Link</button>
+              <button class="toolbar-btn" onclick="fmt('\n---\n','')">HR</button>
+              <div id="editor-modes">
+                <button class="mode-btn active" onclick="setMode('write')">Write</button>
+                <button class="mode-btn" onclick="setMode('preview')">Preview</button>
+              </div>
+            </div>
+            <div id="editor-panes">
+              <div id="write-pane"><textarea id="editor-body" placeholder="Write in markdown..." oninput="onBodyChange()"></textarea></div>
+              <div id="preview-pane"></div>
+            </div>
+          </div>
+          <div id="meta-panel">
+            <div>
+              <span class="meta-label">Title</span>
+              <input class="meta-input" id="meta-title" type="text" placeholder="Post title" oninput="onTitleChange()">
+            </div>
+            <div>
+              <span class="meta-label">Slug (URL)</span>
+              <input class="meta-input" id="meta-slug" type="text" placeholder="url-slug">
+            </div>
+            <div>
+              <span class="meta-label">Excerpt</span>
+              <textarea class="meta-input meta-textarea" id="meta-excerpt" placeholder="Short description..."></textarea>
+            </div>
+            <div>
+              <span class="meta-label">Category</span>
+              <div class="cat-grid" id="cat-grid"></div>
+            </div>
+            <div>
+              <span class="meta-label">Date</span>
+              <input class="meta-input" id="meta-date" type="date">
+            </div>
+            <div>
+              <span class="meta-label">Read Time</span>
+              <input class="meta-input" id="meta-readtime" type="text" placeholder="e.g. 3 min read">
+            </div>
+            <div>
+              <span class="meta-label">Cover Image URL</span>
+              <input class="meta-input" id="meta-image" type="text" placeholder="/images/filename.jpg">
+            </div>
+            <div>
+              <span class="meta-label">Status</span>
+              <div class="status-row">
+                <button class="status-opt active-draft" id="status-draft" onclick="setStatus('draft')">Draft</button>
+                <button class="status-opt" id="status-pub" onclick="setStatus('published')">Published</button>
+              </div>
+            </div>
+            <div class="meta-actions">
+              <button class="btn-save" onclick="savePost()">Save to GitHub</button>
+              <button class="btn-delete-post" onclick="deletePost()">Delete Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE EDITOR -->
+      <div id="page-editor">
+        <div class="page-editor-inner" id="page-editor-content"></div>
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="empty-state">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <p>Select a section from the sidebar</p>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /workspace -->
+</div><!-- /app -->
+
+<!-- IMAGE UPLOAD -->
+<button id="img-upload-btn" onclick="openImgModal()">↑ Upload Image</button>
+<div id="img-upload-modal">
+  <div class="img-modal-box">
+    <h3>Upload Image</h3>
+    <input type="file" id="img-file" accept="image/*">
+    <div id="img-result"></div>
+    <div class="img-modal-actions">
+      <button class="btn-upload" onclick="uploadImage()">Upload to GitHub</button>
+      <button class="btn-close-modal" onclick="closeImgModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─── AUTH ────────────────────────────────────────────────────────────────────
+const VALID_USER = 'YWhtYWQ=';
+const VALID_PASS = 'QGhtYWQ1MjI1TWF2';
+
+function doLogin() {
+  const u = document.getElementById('login-user').value;
+  const p = document.getElementById('login-pass').value;
+  if (btoa(u) === VALID_USER && btoa(p) === VALID_PASS) {
+    sessionStorage.setItem('cms-auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    document.getElementById('img-upload-btn').style.display = 'block';
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function signOut() {
+  sessionStorage.removeItem('cms-auth');
+  location.reload();
+}
+
+document.getElementById('login-pass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// ─── GITHUB API ───────────────────────────────────────────────────────────────
+function ghConfig() {
+  return {
+    owner: localStorage.getItem('gh-owner') || 'ahmadfaroooq',
+    repo:  localStorage.getItem('gh-repo')  || 'ahmadfarooq',
+    branch:localStorage.getItem('gh-branch')|| 'main',
+    token: localStorage.getItem('gh-token') || ''
+  };
+}
+
+async function ghGet(path) {
+  const c = ghConfig();
+  const res = await fetch(`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${path}?ref=${c.branch}`, {
+    headers: { Authorization: `token ${c.token}`, Accept: 'application/vnd.github+json' }
+  });
+  if (!res.ok) throw new Error(`GitHub GET failed: ${res.status} ${path}`);
+  return res.json();
+}
+
+async function ghPut(path, content, sha, message) {
+  const c = ghConfig();
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: c.branch };
+  if (sha) body.sha = sha;
+  const res = await fetch(`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${path}`, {
+    method: 'PUT',
+    headers: { Authorization: `token ${c.token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) { const err = await res.json(); throw new Error(err.message || 'GitHub PUT failed'); }
+  return res.json();
+}
+
+async function ghDelete(path, sha, message) {
+  const c = ghConfig();
+  const res = await fetch(`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${path}`, {
+    method: 'DELETE',
+    headers: { Authorization: `token ${c.token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, sha, branch: c.branch })
+  });
+  if (!res.ok) throw new Error('GitHub DELETE failed');
+  return res.json();
+}
+
+function ghDecode(b64) {
+  return decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+let _toastTimer;
+function toast(msg, isErr) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  t.style.color = isErr ? 'var(--red)' : 'var(--lime)';
+  t.style.borderColor = isErr ? 'var(--red)' : 'var(--lime)';
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.style.display = 'none', 3000);
+}
+
+function setSaveStatus(msg) {
+  document.getElementById('save-status').textContent = msg;
+}
+
+// ─── SECTION ROUTING ──────────────────────────────────────────────────────────
+let currentSection = null;
+
+function switchSection(name) {
+  currentSection = name;
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.section === name);
+  });
+  document.getElementById('post-editor').style.display = 'none';
+  document.getElementById('page-editor').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+
+  if (name === 'blog' || name === 'playbook') {
+    document.getElementById('post-editor').style.display = 'flex';
+    loadPostSection(name);
+  } else {
+    document.getElementById('page-editor').style.display = 'flex';
+    loadPageSection(name);
+  }
+}
+
+// ─── POST EDITOR ──────────────────────────────────────────────────────────────
+const BLOG_CATS = ['growth-frameworks','content-systems','philosophy','macroeconomics','productivity-systems','brand-strategy'];
+const PLAYBOOK_CATS = ['growth','strategy','content-system','linkedin','branding'];
+let postType = 'blog';
+let currentPost = null;
+let postFiles = [];
+
+async function loadPostSection(type) {
+  postType = type;
+  document.getElementById('post-list-title').textContent = type === 'blog' ? 'Blog Posts' : 'Playbook Posts';
+  const cats = type === 'blog' ? BLOG_CATS : PLAYBOOK_CATS;
+  renderCatGrid(cats);
+  await loadPostList(type);
+  clearEditor();
+}
+
+async function loadPostList(type) {
+  const listEl = document.getElementById('post-list');
+  listEl.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.83rem">Loading...</div>';
+  try {
+    const dir = `src/content/${type}`;
+    const files = await ghGet(dir);
+    postFiles = Array.isArray(files) ? files.filter(f => f.name.endsWith('.mdx')) : [];
+    // Load each file to get title/status from frontmatter
+    const posts = await Promise.all(postFiles.map(async f => {
+      try {
+        const data = await ghGet(f.path);
+        const content = ghDecode(data.content);
+        const fm = parseFrontmatter(content);
+        return { sha: data.sha, path: f.path, name: f.name, title: fm.title || f.name, status: fm.status || 'draft', date: fm.date || '' };
+      } catch { return { path: f.path, name: f.name, title: f.name, status: 'draft', date: '' }; }
+    }));
+    posts.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    renderPostList(posts);
+  } catch (e) {
+    listEl.innerHTML = `<div style="padding:16px;color:var(--red);font-size:0.83rem">Error: ${e.message}</div>`;
+  }
+}
+
+function renderPostList(posts) {
+  const listEl = document.getElementById('post-list');
+  if (!posts.length) { listEl.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.83rem">No posts yet.</div>'; return; }
+  listEl.innerHTML = posts.map((p, i) => `
+    <div class="post-item" onclick="selectPostByPath('${p.path}')" data-path="${p.path}">
+      <div class="post-item-title">${escHtml(p.title)}</div>
+      <div class="post-item-meta">
+        <span class="status-badge ${p.status}">${p.status}</span>
+        <span>${p.date ? p.date.slice(0,10) : ''}</span>
+      </div>
+    </div>`).join('');
+}
+
+async function selectPostByPath(path) {
+  document.querySelectorAll('.post-item').forEach(el => el.classList.toggle('active', el.dataset.path === path));
+  try {
+    const data = await ghGet(path);
+    const raw = ghDecode(data.content);
+    currentPost = { path, sha: data.sha, raw };
+    loadPostIntoEditor(raw);
+  } catch(e) { toast('Failed to load post: ' + e.message, true); }
+}
+
+function loadPostIntoEditor(raw) {
+  const { frontmatter, body } = splitMdx(raw);
+  const fm = parseFrontmatter(raw);
+  document.getElementById('editor-body').value = body;
+  document.getElementById('meta-title').value = fm.title || '';
+  document.getElementById('meta-slug').value = fm.slug || '';
+  document.getElementById('meta-excerpt').value = fm.excerpt || '';
+  document.getElementById('meta-date').value = fm.date ? fm.date.slice(0,10) : '';
+  document.getElementById('meta-readtime').value = fm.readTime || '';
+  document.getElementById('meta-image').value = fm.imageUrl || '';
+  setStatus(fm.status || 'draft');
+  setActiveCat(fm.category || '');
+  updatePreview();
+}
+
+function clearEditor() {
+  currentPost = null;
+  document.getElementById('editor-body').value = '';
+  document.getElementById('meta-title').value = '';
+  document.getElementById('meta-slug').value = '';
+  document.getElementById('meta-excerpt').value = '';
+  document.getElementById('meta-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('meta-readtime').value = '';
+  document.getElementById('meta-image').value = '';
+  setStatus('draft');
+  setActiveCat('');
+  document.querySelectorAll('.post-item').forEach(el => el.classList.remove('active'));
+}
+
+function newPost() {
+  clearEditor();
+  currentPost = null;
+}
+
+function onTitleChange() {
+  const t = document.getElementById('meta-title').value;
+  if (!currentPost) document.getElementById('meta-slug').value = slugify(t);
+  autoReadTime();
+}
+
+function onBodyChange() {
+  autoReadTime();
+  if (document.getElementById('preview-pane').style.display !== 'none') updatePreview();
+}
+
+function slugify(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function autoReadTime() {
+  const words = document.getElementById('editor-body').value.trim().split(/\s+/).length;
+  const mins = Math.max(1, Math.ceil(words / 200));
+  document.getElementById('meta-readtime').value = `${mins} min read`;
+}
+
+function renderCatGrid(cats) {
+  document.getElementById('cat-grid').innerHTML = cats.map(c =>
+    `<button class="cat-btn" data-cat="${c}" onclick="setActiveCat('${c}')">${c.replace(/-/g,' ')}</button>`
+  ).join('');
+}
+
+function setActiveCat(cat) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+}
+
+function getActiveCat() {
+  const btn = document.querySelector('.cat-btn.active');
+  return btn ? btn.dataset.cat : '';
+}
+
+function setStatus(s) {
+  const isDraft = s === 'draft';
+  document.getElementById('status-draft').className = 'status-opt' + (isDraft ? ' active-draft' : '');
+  document.getElementById('status-pub').className = 'status-opt' + (!isDraft ? ' active-pub' : '');
+}
+
+function getStatus() {
+  return document.getElementById('status-pub').classList.contains('active-pub') ? 'published' : 'draft';
+}
+
+// MDX parsing helpers
+function splitMdx(raw) {
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (!match) return { frontmatter: '', body: raw };
+  return { frontmatter: match[1], body: match[2].trimStart() };
+}
+
+function parseFrontmatter(raw) {
+  const { frontmatter } = splitMdx(raw);
+  const result = {};
+  frontmatter.split('\n').forEach(line => {
+    const m = line.match(/^(\w+):\s*(.+)$/);
+    if (m) result[m[1]] = m[2].replace(/^["']|["']$/g, '').trim();
+  });
+  return result;
+}
+
+function buildMdx(fm, body) {
+  const lines = Object.entries(fm).map(([k, v]) => {
+    if (typeof v === 'string' && (v.includes(':') || v.includes('#') || v.includes('"')))
+      return `${k}: "${v.replace(/"/g, '\\"')}"`;
+    return `${k}: ${v}`;
+  });
+  return `---\n${lines.join('\n')}\n---\n\n${body}`;
+}
+
+async function savePost() {
+  const title = document.getElementById('meta-title').value.trim();
+  const slug = document.getElementById('meta-slug').value.trim() || slugify(title);
+  const excerpt = document.getElementById('meta-excerpt').value.trim();
+  const category = getActiveCat();
+  const date = document.getElementById('meta-date').value || new Date().toISOString().slice(0,10);
+  const readTime = document.getElementById('meta-readtime').value.trim();
+  const imageUrl = document.getElementById('meta-image').value.trim();
+  const status = getStatus();
+  const body = document.getElementById('editor-body').value;
+
+  if (!title) { toast('Title is required', true); return; }
+  if (!slug)  { toast('Slug is required', true); return; }
+
+  const fm = { title, slug, excerpt, category, date: `${date}T00:00:00.000Z`, readTime, status };
+  if (imageUrl) fm.imageUrl = imageUrl;
+
+  const content = buildMdx(fm, body);
+  const path = `src/content/${postType}/${slug}.mdx`;
+  setSaveStatus('Saving…');
+
+  try {
+    // Check if file exists at this path for sha
+    let sha = currentPost && currentPost.path === path ? currentPost.sha : null;
+    if (!sha) {
+      try { const existing = await ghGet(path); sha = existing.sha; } catch {}
+    }
+    await ghPut(path, content, sha, `${status === 'published' ? 'Publish' : 'Update'}: ${title}`);
+    currentPost = { path, sha: null, raw: content };
+    toast('Saved to GitHub ✓');
+    setSaveStatus('Saved');
+    await loadPostList(postType);
+    // Reselect the post to get fresh sha
+    selectPostByPath(path);
+  } catch(e) { toast('Save failed: ' + e.message, true); setSaveStatus(''); }
+}
+
+async function deletePost() {
+  if (!currentPost) return;
+  if (!confirm('Delete this post? This cannot be undone.')) return;
+  try {
+    await ghDelete(currentPost.path, currentPost.sha, `Delete post`);
+    toast('Post deleted');
+    clearEditor();
+    await loadPostList(postType);
+  } catch(e) { toast('Delete failed: ' + e.message, true); }
+}
+
+// Editor modes
+function setMode(m) {
+  document.querySelectorAll('.mode-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&m==='write')||(i===1&&m==='preview')));
+  const wp = document.getElementById('write-pane');
+  const pp = document.getElementById('preview-pane');
+  if (m === 'write') { wp.style.display = 'flex'; pp.style.display = 'none'; }
+  else { wp.style.display = 'none'; pp.style.display = 'block'; updatePreview(); }
+}
+
+function updatePreview() {
+  const md = document.getElementById('editor-body').value;
+  document.getElementById('preview-pane').innerHTML = mdToHtml(md);
+}
+
+function mdToHtml(md) {
+  return md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/^#{3}\s+(.+)$/gm,'<h3>$1</h3>')
+    .replace(/^#{2}\s+(.+)$/gm,'<h2>$1</h2>')
+    .replace(/^#{1}\s+(.+)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/`(.+?)`/g,'<code>$1</code>')
+    .replace(/^>\s+(.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^---$/gm,'<hr>')
+    .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2">$1</a>')
+    .replace(/\n\n/g,'</p><p>')
+    .replace(/^(?!<[h1-6bph])/gm, '')
+    .split('\n').filter(l=>l).map(l => l.startsWith('<') ? l : `<p>${l}</p>`).join('\n');
+}
+
+// Toolbar formatting
+function fmt(before, after) {
+  const ta = document.getElementById('editor-body');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.slice(s, e);
+  ta.value = ta.value.slice(0, s) + before + sel + after + ta.value.slice(e);
+  ta.selectionStart = s + before.length;
+  ta.selectionEnd = s + before.length + sel.length;
+  ta.focus();
+  onBodyChange();
+}
+
+function insertLink() {
+  const url = prompt('URL:');
+  if (!url) return;
+  const ta = document.getElementById('editor-body');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.slice(s, e) || 'Link text';
+  ta.value = ta.value.slice(0, s) + `[${sel}](${url})` + ta.value.slice(e);
+  ta.focus();
+}
+
+// ─── PAGE EDITOR ──────────────────────────────────────────────────────────────
+const PAGE_PATHS = {
+  home: 'src/content/pages/home.json',
+  about: 'src/content/pages/behind-the-build.json',
+  growth: 'src/content/pages/growth.json',
+  linkedin: 'src/content/pages/linkedin.json',
+  strategy: 'src/content/pages/strategy.json',
+  'content-writing': 'src/content/pages/content-writing.json',
+  book: 'src/content/pages/book.json',
+  settings: 'src/content/global/settings.json'
+};
+
+let pageData = {};
+let pageSha = null;
+
+async function loadPageSection(name) {
+  const path = PAGE_PATHS[name];
+  const el = document.getElementById('page-editor-content');
+  el.innerHTML = '<p style="color:var(--muted);padding:20px">Loading…</p>';
+  try {
+    const file = await ghGet(path);
+    pageSha = file.sha;
+    pageData = JSON.parse(ghDecode(file.content));
+    el.innerHTML = renderPageForm(name, pageData);
+  } catch(e) {
+    el.innerHTML = `<p style="color:var(--red)">Error loading: ${e.message}</p>`;
+  }
+}
+
+async function savePageSection() {
+  const name = currentSection;
+  const path = PAGE_PATHS[name];
+  const data = collectPageForm(name);
+  setSaveStatus('Saving…');
+  try {
+    await ghPut(path, JSON.stringify(data, null, 2), pageSha, `Update ${name} page content`);
+    pageSha = null; // will be refreshed on next load
+    toast('Saved to GitHub ✓');
+    setSaveStatus('Saved');
+    // Refresh sha
+    const f = await ghGet(path);
+    pageSha = f.sha;
+  } catch(e) { toast('Save failed: ' + e.message, true); setSaveStatus(''); }
+}
+
+// Render form based on section name
+function renderPageForm(name, d) {
+  const sp = (k, label, placeholder='') =>
+    `<div class="field-group"><label class="field-label">${label}</label><input class="field-input" data-key="${k}" value="${escAttr(d[k]||'')}" placeholder="${placeholder}"></div>`;
+  const ta = (k, label, tall=false, placeholder='') =>
+    `<div class="field-group"><label class="field-label">${label}</label><textarea class="field-input field-textarea${tall?' tall':''}" data-key="${k}" placeholder="${placeholder}">${escHtml(d[k]||'')}</textarea></div>`;
+
+  if (name === 'home') return `
+    <div class="page-section-title">Homepage</div>
+    <div class="page-section-sub">Hero copy, services, skills, and CTAs.</div>
+    ${sp('heroLabel','Hero Label')}
+    ${sp('heroTitle','Hero Title (use \\n for line break)')}
+    ${sp('heroTagline','Hero Tagline / Quote')}
+    ${sp('heroCTA1Text','Primary CTA Button Text')}
+    ${sp('heroCTA2Text','Secondary CTA Button Text')}
+    <hr class="divider">
+    ${sp('servicesHeadline','Services Section Headline')}
+    ${sp('casesHeadline','Case Studies Headline')}
+    ${sp('skillsHeadline','Skills Section Headline')}
+    ${sp('ctaHeadline','CTA Band Headline')}
+    ${sp('ctaSubtext','CTA Band Subtext')}
+    <hr class="divider">
+    <div class="array-section">
+      <h4>Services</h4>
+      <div class="array-rows" id="arr-services">${renderServiceRows(d.services||[])}</div>
+      <button class="btn-add-row" onclick="addServiceRow()">+ Add Service</button>
+    </div>
+    <div class="array-section">
+      <h4>Skills</h4>
+      <div class="array-rows" id="arr-skills">${renderSkillRows(d.skills||[])}</div>
+      <button class="btn-add-row" onclick="addSkillRow()">+ Add Skill</button>
+    </div>
+    ${saveBar()}`;
+
+  if (name === 'about') return `
+    <div class="page-section-title">Behind the Build</div>
+    <div class="page-section-sub">Your story, bio, and working principles.</div>
+    ${sp('heroTitle','Hero Title (use \\n for line break)')}
+    ${ta('heroDesc','Hero Description')}
+    ${sp('storyHeadline','Story Section Headline')}
+    ${ta('bio','Bio (paragraphs separated by blank line)',true,'Write your bio here...')}
+    <hr class="divider">
+    ${sp('principlesHeadline','Principles Section Headline')}
+    <div class="array-section">
+      <h4>Principles</h4>
+      <div class="array-rows" id="arr-principles">${renderPrincipleRows(d.principles||[])}</div>
+      <button class="btn-add-row" onclick="addPrincipleRow()">+ Add Principle</button>
+    </div>
+    <hr class="divider">
+    ${sp('ctaHeadline','CTA Headline')}
+    ${sp('ctaSubtext','CTA Subtext')}
+    ${saveBar()}`;
+
+  if (['growth','linkedin','strategy','content-writing'].includes(name)) {
+    const label = {growth:'Growth Marketing',linkedin:'LinkedIn Branding',strategy:'Marketing Strategy','content-writing':'Content Writing'}[name];
+    return `
+    <div class="page-section-title">${label}</div>
+    <div class="page-section-sub">Service page copy — hero, process steps, fit criteria.</div>
+    ${sp('heroLabel','Hero Label')}
+    ${sp('heroTitle','Hero Title')}
+    ${ta('heroDesc','Hero Description')}
+    <hr class="divider">
+    <div class="array-section">
+      <h4>Process Steps</h4>
+      <div class="array-rows" id="arr-process">${renderProcessRows(d.process||[])}</div>
+      <button class="btn-add-row" onclick="addProcessRow()">+ Add Step</button>
+    </div>
+    <hr class="divider">
+    <div class="array-section">
+      <h4>Good Fit (bullets)</h4>
+      <div class="array-rows" id="arr-goodFit">${renderItemRows(d.goodFit||[])}</div>
+      <button class="btn-add-row" onclick="addItemRow('goodFit')">+ Add Item</button>
+    </div>
+    <div class="array-section">
+      <h4>Not a Fit (bullets)</h4>
+      <div class="array-rows" id="arr-badFit">${renderItemRows(d.badFit||[])}</div>
+      <button class="btn-add-row" onclick="addItemRow('badFit')">+ Add Item</button>
+    </div>
+    <hr class="divider">
+    ${sp('ctaHeadline','CTA Headline')}
+    ${sp('ctaSubtext','CTA Subtext')}
+    ${saveBar()}`;
+  }
+
+  if (name === 'book') return `
+    <div class="page-section-title">Book a Call</div>
+    <div class="page-section-sub">Strategy call page copy and what-to-expect items.</div>
+    ${sp('heroTitle','Hero Title')}
+    ${ta('heroDesc','Hero Description')}
+    <hr class="divider">
+    <div class="array-section">
+      <h4>What to Expect Items</h4>
+      <div class="array-rows" id="arr-expectations">${renderPrincipleRows(d.expectations||[])}</div>
+      <button class="btn-add-row" onclick="addExpectationRow()">+ Add Item</button>
+    </div>
+    ${saveBar()}`;
+
+  if (name === 'settings') return `
+    <div class="page-section-title">Global Settings</div>
+    <div class="page-section-sub">Contact info, social links, stats, and clients. Used site-wide.</div>
+    ${sp('email','Email Address')}
+    ${sp('linkedinUrl','LinkedIn URL')}
+    ${sp('twitterUrl','Twitter / X URL')}
+    ${sp('twitterHandle','Twitter Handle (e.g. @ahmaddfaroooq)')}
+    <hr class="divider">
+    <div class="field-group"><label class="field-label">Stats</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <input class="field-input" data-key="stats.brandsCount" value="${escAttr((d.stats||{}).brandsCount||'')}" placeholder="e.g. 20">
+        <input class="field-input" data-key="stats.revenueLabel" value="${escAttr((d.stats||{}).revenueLabel||'')}" placeholder="e.g. 3×">
+        <input class="field-input" data-key="stats.yearsInField" value="${escAttr((d.stats||{}).yearsInField||'')}" placeholder="e.g. 4 yrs">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:4px">
+        <span style="font-size:0.72rem;color:var(--muted);text-align:center">Brands Count</span>
+        <span style="font-size:0.72rem;color:var(--muted);text-align:center">Revenue Label</span>
+        <span style="font-size:0.72rem;color:var(--muted);text-align:center">Years in Field</span>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="array-section">
+      <h4>Selected Clients</h4>
+      <div class="array-rows" id="arr-clients">${renderClientRows(d.clients||[])}</div>
+      <button class="btn-add-row" onclick="addClientRow()">+ Add Client</button>
+    </div>
+    <hr class="divider">
+    <div class="page-section-title" style="font-size:1rem;margin-bottom:4px">GitHub Config</div>
+    <div class="page-section-sub">Required to save changes.</div>
+    <div class="field-group"><label class="field-label">GitHub Owner</label><input class="field-input" id="gh-owner-in" value="${escAttr(localStorage.getItem('gh-owner')||'ahmadfaroooq')}"></div>
+    <div class="field-group"><label class="field-label">Repository</label><input class="field-input" id="gh-repo-in" value="${escAttr(localStorage.getItem('gh-repo')||'ahmadfarooq')}"></div>
+    <div class="field-group"><label class="field-label">Branch</label><input class="field-input" id="gh-branch-in" value="${escAttr(localStorage.getItem('gh-branch')||'main')}"></div>
+    <div class="field-group"><label class="field-label">GitHub Personal Access Token</label><input class="field-input" id="gh-token-in" type="password" value="${escAttr(localStorage.getItem('gh-token')||'')}"></div>
+    <button class="btn-add-row" style="margin-bottom:0" onclick="saveGhConfig()">Save GitHub Config</button>
+    ${saveBar('Save Settings to GitHub')}`;
+
+  return '<p style="color:var(--muted)">Unknown section.</p>';
+}
+
+function saveBar(label='Save Changes') {
+  return `<div class="save-bar"><button class="btn-save-page" onclick="savePageSection()">${label}</button><span class="save-hint">Saves directly to GitHub → Vercel auto-deploys</span></div>`;
+}
+
+// Array row renderers
+function renderServiceRows(items) {
+  return items.map((it, i) => `
+    <div class="array-row">
+      <div class="array-row-fields">
+        <input placeholder="Service title" value="${escAttr(it.title||'')}">
+        <textarea placeholder="Description">${escHtml(it.description||'')}</textarea>
+        <input placeholder="Link (e.g. /growth)" value="${escAttr(it.link||'')}">
+      </div>
+      <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+    </div>`).join('');
+}
+
+function addServiceRow() {
+  document.getElementById('arr-services').insertAdjacentHTML('beforeend', renderServiceRows([{title:'',description:'',link:''}]));
+}
+
+function renderSkillRows(items) {
+  return items.map(it => `
+    <div class="array-row">
+      <div class="array-row-fields"><input placeholder="Skill name" value="${escAttr(it.name||'')}"></div>
+      <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+    </div>`).join('');
+}
+
+function addSkillRow() {
+  document.getElementById('arr-skills').insertAdjacentHTML('beforeend', renderSkillRows([{name:''}]));
+}
+
+function renderPrincipleRows(items) {
+  return items.map(it => `
+    <div class="array-row">
+      <div class="array-row-fields">
+        <input placeholder="Number (e.g. 01)" value="${escAttr(it.num||'')}">
+        <input placeholder="Title" value="${escAttr(it.title||'')}">
+        <textarea placeholder="Body text">${escHtml(it.body||'')}</textarea>
+      </div>
+      <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+    </div>`).join('');
+}
+
+function addPrincipleRow() {
+  document.getElementById('arr-principles').insertAdjacentHTML('beforeend', renderPrincipleRows([{num:'',title:'',body:''}]));
+}
+
+function addExpectationRow() {
+  document.getElementById('arr-expectations').insertAdjacentHTML('beforeend', renderPrincipleRows([{num:'',title:'',body:''}]));
+}
+
+function renderProcessRows(items) {
+  return items.map(it => `
+    <div class="array-row">
+      <div class="array-row-fields">
+        <input placeholder="Step number (e.g. 01)" value="${escAttr(it.num||'')}">
+        <input placeholder="Step title" value="${escAttr(it.title||'')}">
+        <textarea placeholder="Step description">${escHtml(it.body||'')}</textarea>
+      </div>
+      <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+    </div>`).join('');
+}
+
+function addProcessRow() {
+  document.getElementById('arr-process').insertAdjacentHTML('beforeend', renderProcessRows([{num:'',title:'',body:''}]));
+}
+
+function renderItemRows(items) {
+  return items.map(it => `
+    <div class="array-row">
+      <div class="array-row-fields"><input placeholder="Bullet text" value="${escAttr(it.item||'')}"></div>
+      <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+    </div>`).join('');
+}
+
+function addItemRow(arrId) {
+  document.getElementById('arr-'+arrId).insertAdjacentHTML('beforeend', renderItemRows([{item:''}]));
+}
+
+function renderClientRows(items) {
+  return items.map(it => `
+    <div class="array-row">
+      <div class="array-row-fields"><input placeholder="Client name" value="${escAttr(it.name||'')}"></div>
+      <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+    </div>`).join('');
+}
+
+function addClientRow() {
+  document.getElementById('arr-clients').insertAdjacentHTML('beforeend', renderClientRows([{name:''}]));
+}
+
+function removeRow(btn) { btn.closest('.array-row').remove(); }
+
+// Collect form data back into object
+function collectPageForm(name) {
+  const data = JSON.parse(JSON.stringify(pageData)); // start from loaded data as base
+
+  // Simple string inputs
+  document.querySelectorAll('#page-editor-content [data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (key.includes('.')) {
+      const [parent, child] = key.split('.');
+      if (!data[parent]) data[parent] = {};
+      data[parent][child] = el.value;
+    } else {
+      data[key] = el.value;
+    }
+  });
+
+  // Arrays
+  if (name === 'home') {
+    data.services = [...document.querySelectorAll('#arr-services .array-row')].map(row => {
+      const ins = row.querySelectorAll('input,textarea');
+      return { title: ins[0].value, description: ins[1].value, link: ins[2].value };
+    });
+    data.skills = [...document.querySelectorAll('#arr-skills .array-row')].map(row => ({
+      name: row.querySelector('input').value
+    }));
+  }
+  if (name === 'about') {
+    data.principles = [...document.querySelectorAll('#arr-principles .array-row')].map(row => {
+      const ins = row.querySelectorAll('input,textarea');
+      return { num: ins[0].value, title: ins[1].value, body: ins[2].value };
+    });
+  }
+  if (['growth','linkedin','strategy','content-writing'].includes(name)) {
+    data.process = [...document.querySelectorAll('#arr-process .array-row')].map(row => {
+      const ins = row.querySelectorAll('input,textarea');
+      return { num: ins[0].value, title: ins[1].value, body: ins[2].value };
+    });
+    data.goodFit = [...document.querySelectorAll('#arr-goodFit .array-row')].map(row => ({
+      item: row.querySelector('input').value
+    }));
+    data.badFit = [...document.querySelectorAll('#arr-badFit .array-row')].map(row => ({
+      item: row.querySelector('input').value
+    }));
+  }
+  if (name === 'book') {
+    data.expectations = [...document.querySelectorAll('#arr-expectations .array-row')].map(row => {
+      const ins = row.querySelectorAll('input,textarea');
+      return { num: ins[0].value, title: ins[1].value, body: ins[2].value };
+    });
+  }
+  if (name === 'settings') {
+    data.clients = [...document.querySelectorAll('#arr-clients .array-row')].map(row => ({
+      name: row.querySelector('input').value
+    }));
+  }
+
+  return data;
+}
+
+function saveGhConfig() {
+  localStorage.setItem('gh-owner',  document.getElementById('gh-owner-in').value.trim());
+  localStorage.setItem('gh-repo',   document.getElementById('gh-repo-in').value.trim());
+  localStorage.setItem('gh-branch', document.getElementById('gh-branch-in').value.trim());
+  localStorage.setItem('gh-token',  document.getElementById('gh-token-in').value.trim());
+  toast('GitHub config saved locally ✓');
+}
+
+// ─── IMAGE UPLOAD ─────────────────────────────────────────────────────────────
+function openImgModal() { document.getElementById('img-upload-modal').style.display = 'flex'; }
+function closeImgModal() { document.getElementById('img-upload-modal').style.display = 'none'; document.getElementById('img-result').style.display = 'none'; }
+
+async function uploadImage() {
+  const file = document.getElementById('img-file').files[0];
+  if (!file) { toast('Select a file first', true); return; }
+  const reader = new FileReader();
+  reader.onload = async e => {
+    const b64 = e.target.result.split(',')[1];
+    const path = `public/images/${Date.now()}-${file.name.replace(/\s+/g,'-')}`;
+    try {
+      await ghPut(path, atob(b64) === b64 ? b64 : b64, null, `Upload image: ${file.name}`);
+      const url = `/images/${path.split('/').pop()}`;
+      const res = document.getElementById('img-result');
+      res.textContent = url;
+      res.style.display = 'block';
+      toast('Image uploaded ✓');
+    } catch(e) { toast('Upload failed: ' + e.message, true); }
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── UTILS ────────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+if (sessionStorage.getItem('cms-auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  document.getElementById('img-upload-btn').style.display = 'block';
+}
+</script>
+</body>
+</html>
