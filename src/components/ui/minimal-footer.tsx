@@ -15,6 +15,27 @@ interface MinimalFooterProps {
   twitterUrl: string;
 }
 
+const linkStyle: React.CSSProperties = {
+  fontFamily: 'Sora, sans-serif',
+  fontSize: '0.875rem',
+  color: 'rgba(255,255,255,0.6)',
+  textDecoration: 'none',
+  display: 'block',
+  padding: '4px 0',
+  transition: 'color 0.2s',
+};
+
+const columnLabelStyle: React.CSSProperties = {
+  fontFamily: 'Sora, sans-serif',
+  fontSize: '0.65rem',
+  fontWeight: 600,
+  textTransform: 'uppercase' as const,
+  letterSpacing: '0.1em',
+  color: 'rgba(255,255,255,0.28)',
+  display: 'block',
+  marginBottom: '12px',
+};
+
 export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterProps) {
   const year = new Date().getFullYear();
 
@@ -34,60 +55,95 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
   ];
 
   const socialLinks = [
-    { icon: <LinkedinIcon className="size-4" />, href: linkedinUrl, label: 'LinkedIn' },
-    { icon: <TwitterIcon className="size-4" />, href: twitterUrl, label: 'Twitter / X' },
-    { icon: <MailIcon className="size-4" />, href: `mailto:${email}`, label: 'Email' },
+    { icon: <LinkedinIcon size={16} />, href: linkedinUrl, label: 'LinkedIn' },
+    { icon: <TwitterIcon size={16} />, href: twitterUrl, label: 'Twitter / X' },
+    { icon: <MailIcon size={16} />, href: `mailto:${email}`, label: 'Email' },
   ];
 
   return (
     <footer
-      className="relative overflow-hidden"
-      style={{ background: '#0a0a0a', borderTop: '2px solid #bfff00' }}
+      style={{
+        background: '#0a0a0a',
+        borderTop: '2px solid #bfff00',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
       {/* Retro grid overlay */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
         style={{
+          position: 'absolute',
+          inset: 0,
           backgroundImage:
             'linear-gradient(rgba(191,255,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(191,255,0,0.06) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
+          pointerEvents: 'none',
         }}
       />
-
       {/* Neon glow line */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 right-0 top-0 h-px"
         style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 1,
           background: 'linear-gradient(90deg, transparent, #bfff00, transparent)',
           opacity: 0.5,
+          pointerEvents: 'none',
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        {/* Top border line */}
-        <div className="absolute inset-x-0 top-0 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+      <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
 
-        <div className="grid grid-cols-6 gap-6 py-12">
+        {/* Main grid: brand | pages | services */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 180px 180px',
+            gap: '48px',
+            padding: '56px 0 48px',
+            alignItems: 'start',
+          }}
+        >
           {/* Brand column */}
-          <div className="col-span-6 flex flex-col gap-5 md:col-span-4">
-            <a href="/" className="flex items-center gap-2 w-max" aria-label="Ahmad Farooq">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <a
+              href="/"
+              aria-label="Ahmad Farooq"
+              style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}
+            >
               <LogoMark />
               <span
-                className="text-lg font-bold tracking-tight"
-                style={{ fontFamily: 'Sora, sans-serif', color: '#ffffff' }}
+                style={{
+                  fontFamily: 'Sora, sans-serif',
+                  fontSize: '1.1rem',
+                  fontWeight: 700,
+                  color: '#fff',
+                  letterSpacing: '-0.02em',
+                }}
               >
                 Ahmad Farooq
               </span>
             </a>
+
             <p
-              className="max-w-sm text-sm"
-              style={{ fontFamily: 'DM Sans, sans-serif', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}
+              style={{
+                fontFamily: 'DM Sans, sans-serif',
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.4)',
+                lineHeight: 1.7,
+                maxWidth: 320,
+                margin: 0,
+              }}
             >
               Growth Strategist & Brand Builder. Helping founders and executives build brands that compound over time.
             </p>
-            <div className="flex gap-2">
+
+            {/* Social icons */}
+            <div style={{ display: 'flex', gap: 8 }}>
               {socialLinks.map((item, i) => (
                 <a
                   key={i}
@@ -95,20 +151,29 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
                   aria-label={item.label}
                   target={item.href.startsWith('mailto') ? undefined : '_blank'}
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center transition-all hover:-translate-x-0.5 hover:-translate-y-0.5"
                   style={{
                     width: 36,
                     height: 36,
-                    border: '2px solid #333',
-                    color: 'rgba(255,255,255,0.6)',
+                    border: '2px solid #2a2a2a',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'rgba(255,255,255,0.5)',
+                    textDecoration: 'none',
+                    transition: 'border-color 0.2s, color 0.2s, transform 0.2s',
+                    flexShrink: 0,
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = '#bfff00';
-                    (e.currentTarget as HTMLElement).style.color = '#bfff00';
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = '#bfff00';
+                    el.style.color = '#bfff00';
+                    el.style.transform = 'translate(-2px,-2px)';
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = '#333';
-                    (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)';
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.borderColor = '#2a2a2a';
+                    el.style.color = 'rgba(255,255,255,0.5)';
+                    el.style.transform = 'translate(0,0)';
                   }}
                 >
                   {item.icon}
@@ -118,20 +183,14 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
           </div>
 
           {/* Pages column */}
-          <div className="col-span-3 w-full md:col-span-1">
-            <span
-              className="mb-3 block text-xs uppercase tracking-widest"
-              style={{ fontFamily: 'Sora, sans-serif', color: 'rgba(255,255,255,0.3)' }}
-            >
-              Pages
-            </span>
-            <div className="flex flex-col gap-1">
+          <div>
+            <span style={columnLabelStyle}>Pages</span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {pages.map(({ href, title }, i) => (
                 <a
                   key={i}
                   href={href}
-                  className="w-max py-1 text-sm transition-colors duration-200"
-                  style={{ fontFamily: 'Sora, sans-serif', color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}
+                  style={linkStyle}
                   onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#bfff00')}
                   onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)')}
                 >
@@ -142,20 +201,14 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
           </div>
 
           {/* Services column */}
-          <div className="col-span-3 w-full md:col-span-1">
-            <span
-              className="mb-3 block text-xs uppercase tracking-widest"
-              style={{ fontFamily: 'Sora, sans-serif', color: 'rgba(255,255,255,0.3)' }}
-            >
-              Services
-            </span>
-            <div className="flex flex-col gap-1">
+          <div>
+            <span style={columnLabelStyle}>Services</span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {services.map(({ href, title }, i) => (
                 <a
                   key={i}
                   href={href}
-                  className="w-max py-1 text-sm transition-colors duration-200"
-                  style={{ fontFamily: 'Sora, sans-serif', color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}
+                  style={linkStyle}
                   onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#bfff00')}
                   onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)')}
                 >
@@ -168,23 +221,41 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
 
         {/* Bottom bar */}
         <div
-          className="border-t py-5 text-center"
-          style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+          style={{
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            padding: '20px 0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 12,
+          }}
         >
           <p
-            className="text-sm"
-            style={{ fontFamily: 'Sora, sans-serif', color: 'rgba(255,255,255,0.25)', fontWeight: 300 }}
+            style={{
+              fontFamily: 'Sora, sans-serif',
+              fontSize: '0.8rem',
+              color: 'rgba(255,255,255,0.25)',
+              fontWeight: 300,
+              margin: 0,
+            }}
           >
-            © {year} Ahmad Farooq. All rights reserved.{' '}
-            <a
-              href={`mailto:${email}`}
-              style={{ color: 'rgba(255,255,255,0.4)' }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#bfff00')}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)')}
-            >
-              {email}
-            </a>
+            © {year} Ahmad Farooq. All rights reserved.
           </p>
+          <a
+            href={`mailto:${email}`}
+            style={{
+              fontFamily: 'Sora, sans-serif',
+              fontSize: '0.8rem',
+              color: 'rgba(255,255,255,0.3)',
+              textDecoration: 'none',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#bfff00')}
+            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.3)')}
+          >
+            {email}
+          </a>
         </div>
       </div>
     </footer>
