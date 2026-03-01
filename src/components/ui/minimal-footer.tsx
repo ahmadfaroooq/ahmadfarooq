@@ -9,10 +9,17 @@ const LogoMark = () => (
   </svg>
 );
 
+export interface FooterLink {
+  label: string;
+  href: string;
+}
+
 interface MinimalFooterProps {
   email: string;
   linkedinUrl: string;
   twitterUrl: string;
+  footerPages: FooterLink[];
+  footerServices: FooterLink[];
 }
 
 const linkStyle: React.CSSProperties = {
@@ -36,23 +43,8 @@ const columnLabelStyle: React.CSSProperties = {
   marginBottom: '12px',
 };
 
-export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterProps) {
+export function MinimalFooter({ email, linkedinUrl, twitterUrl, footerPages, footerServices }: MinimalFooterProps) {
   const year = new Date().getFullYear();
-
-  const pages = [
-    { title: 'Home', href: '/' },
-    { title: 'Behind the Build', href: '/behind-the-build' },
-    { title: 'Blog', href: '/blog' },
-    { title: 'Playbook', href: '/playbook' },
-    { title: 'Book a Call', href: '/book' },
-  ];
-
-  const services = [
-    { title: 'Growth Marketing', href: '/growth' },
-    { title: 'LinkedIn Branding', href: '/linkedin' },
-    { title: 'Marketing Strategy', href: '/strategy' },
-    { title: 'Copy Writing', href: '/copy-writing' },
-  ];
 
   const socialLinks = [
     { icon: <LinkedinIcon size={16} />, href: linkedinUrl, label: 'LinkedIn' },
@@ -98,7 +90,7 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
 
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
 
-        {/* Main grid: brand | pages | services */}
+        {/* Main grid: brand | navigate | services */}
         <div
           style={{
             display: 'grid',
@@ -182,11 +174,11 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
             </div>
           </div>
 
-          {/* Pages column */}
+          {/* Navigate column */}
           <div>
-            <span style={columnLabelStyle}>Pages</span>
+            <span style={columnLabelStyle}>Navigate</span>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {pages.map(({ href, title }, i) => (
+              {footerPages.map(({ href, label }, i) => (
                 <a
                   key={i}
                   href={href}
@@ -194,7 +186,7 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
                   onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#bfff00')}
                   onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)')}
                 >
-                  {title}
+                  {label}
                 </a>
               ))}
             </div>
@@ -204,7 +196,7 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
           <div>
             <span style={columnLabelStyle}>Services</span>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {services.map(({ href, title }, i) => (
+              {footerServices.map(({ href, label }, i) => (
                 <a
                   key={i}
                   href={href}
@@ -212,7 +204,7 @@ export function MinimalFooter({ email, linkedinUrl, twitterUrl }: MinimalFooterP
                   onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#bfff00')}
                   onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)')}
                 >
-                  {title}
+                  {label}
                 </a>
               ))}
             </div>

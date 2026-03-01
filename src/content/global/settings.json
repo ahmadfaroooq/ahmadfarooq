@@ -8,6 +8,19 @@
     "revenueLabel": "3×",
     "yearsInField": "4 yrs"
   },
+  "footerPages": [
+    { "label": "Home", "href": "/" },
+    { "label": "Behind the Build", "href": "/behind-the-build" },
+    { "label": "Blog", "href": "/blog" },
+    { "label": "Playbook", "href": "/playbook" },
+    { "label": "Book a Call", "href": "/book" }
+  ],
+  "footerServices": [
+    { "label": "Growth Marketing", "href": "/growth" },
+    { "label": "LinkedIn Branding", "href": "/linkedin" },
+    { "label": "Marketing Strategy", "href": "/strategy" },
+    { "label": "Copy Writing", "href": "/copy-writing" }
+  ],
   "clients": [
     {
       "name": "Big O Soft"
