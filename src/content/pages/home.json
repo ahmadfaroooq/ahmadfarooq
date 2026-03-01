@@ -1,13 +1,13 @@
 {
-  "heroLabel": "Growth Strategist & Brand Builder",
-  "heroTitle": "Building brands\nthat compound.",
+  "heroLabel": "Growth & Brand Strategist",
+  "heroTitle": "Building brandsthat compound.",
   "heroTagline": "Not campaigns that spike. Systems that scale.",
   "heroCTA1Text": "Book a Strategy Call",
   "heroCTA2Text": "View Playbooks",
-  "servicesHeadline": "Five disciplines.\nOne compounding system.",
-  "casesHeadline": "Real work.\nReal results.",
+  "servicesHeadline": "Five disciplines.One compounding system.",
+  "casesHeadline": "Real work.Real results.",
   "skillsHeadline": "The full stack.",
-  "ctaHeadline": "Ready to build something\nthat compounds?",
+  "ctaHeadline": "Ready to build somethingthat compounds?",
   "ctaSubtext": "30 minutes. No pitch. Just strategy.",
   "services": [
     {
@@ -32,17 +32,41 @@
     }
   ],
   "skills": [
-    { "name": "Growth Marketing" },
-    { "name": "LinkedIn Strategy" },
-    { "name": "Content Systems" },
-    { "name": "Brand Strategy" },
-    { "name": "Funnel Architecture" },
-    { "name": "SEO, AEO & GEO" },
-    { "name": "Copywriting" },
-    { "name": "Visual Identity" },
-    { "name": "Market Research" },
-    { "name": "Analytics & Data" },
-    { "name": "Community Building" },
-    { "name": "Pitch Decks" }
+    {
+      "name": "Growth Marketing"
+    },
+    {
+      "name": "LinkedIn Strategy"
+    },
+    {
+      "name": "Content Systems"
+    },
+    {
+      "name": "Brand Strategy"
+    },
+    {
+      "name": "Funnel Architecture"
+    },
+    {
+      "name": "SEO, AEO & GEO"
+    },
+    {
+      "name": "Copywriting"
+    },
+    {
+      "name": "Visual Identity"
+    },
+    {
+      "name": "Market Research"
+    },
+    {
+      "name": "Analytics & Data"
+    },
+    {
+      "name": "Community Building"
+    },
+    {
+      "name": "Pitch Decks"
+    }
   ]
 }
