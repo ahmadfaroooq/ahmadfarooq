@@ -12,6 +12,10 @@
   --text:#e8e8e8;--muted:#888;--lime:#BFFF00;--orange:#FF6700;--mint:#00FFAB;
   --red:#ff4444;--font:'Segoe UI',system-ui,sans-serif;
 }
+body.light{
+  --bg:#f5f0e8;--surface:#ffffff;--surface2:#eee9e0;--border:#d0c9bc;
+  --text:#1a1a1a;--muted:#666;
+}
 body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
 
 /* LOGIN */
@@ -153,6 +157,31 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh
 
 /* TOAST */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111;border:2px solid var(--lime);color:var(--lime);padding:12px 24px;font-size:0.85rem;font-weight:600;z-index:999;display:none;white-space:nowrap}
+
+/* THEME TOGGLE */
+.btn-theme{background:none;border:1px solid var(--border);color:var(--muted);width:34px;height:34px;cursor:pointer;font-size:1rem;font-family:var(--font);display:flex;align-items:center;justify-content:center}
+.btn-theme:hover{border-color:var(--text);color:var(--text)}
+
+/* PREVIEW TOGGLE */
+.btn-preview{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 12px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:var(--font);letter-spacing:0.03em}
+.btn-preview:hover,.btn-preview.active{border-color:var(--lime);color:var(--lime)}
+
+/* PREVIEW PANEL */
+#preview-panel{width:0;flex-shrink:0;overflow:hidden;transition:width 0.25s ease;display:flex;flex-direction:column}
+#preview-panel.open{width:44%;border-left:2px solid var(--border)}
+#preview-panel-header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--surface);border-bottom:2px solid var(--border);flex-shrink:0;gap:10px}
+#preview-panel-header span{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.btn-preview-refresh{background:none;border:1px solid var(--border);color:var(--muted);padding:5px 11px;font-size:0.75rem;cursor:pointer;font-family:var(--font);white-space:nowrap}
+.btn-preview-refresh:hover{border-color:var(--lime);color:var(--lime)}
+.preview-device-btns{display:flex;gap:0;margin-left:auto}
+.btn-device{background:none;border:1px solid var(--border);color:var(--muted);padding:4px 8px;font-size:0.72rem;cursor:pointer;font-family:var(--font)}
+.btn-device:first-child{border-right:none}
+.btn-device.active{background:var(--lime);color:#000;border-color:var(--lime)}
+#preview-frame-wrap{flex:1;overflow:hidden;background:var(--surface2);display:flex;align-items:center;justify-content:center;padding:0}
+#preview-frame-wrap.mobile{padding:16px;background:var(--border)}
+#preview-frame{border:none;width:100%;height:100%;background:#fff}
+#preview-frame-wrap.mobile #preview-frame{width:390px;height:100%;max-height:100%;border:2px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,0.3)}
+#preview-status{font-size:0.75rem;color:var(--muted);padding:0 14px;height:28px;display:flex;align-items:center;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0}
 </style>
 </head>
 <body>
@@ -177,6 +206,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh
     <div class="logo">Ahmad Farooq <span>CMS</span></div>
     <div id="topbar-right">
       <span id="save-status"></span>
+      <button class="btn-preview" id="preview-toggle-btn" onclick="togglePreview()">⊞ Preview</button>
+      <button class="btn-theme" id="theme-btn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
       <button class="btn-signout" onclick="signOut()">Sign Out</button>
     </div>
   </div>
@@ -324,6 +355,23 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh
       </div>
 
     </div><!-- /main -->
+
+    <!-- PREVIEW PANEL -->
+    <div id="preview-panel">
+      <div id="preview-panel-header">
+        <span>Live Preview</span>
+        <button class="btn-preview-refresh" onclick="refreshPreview()">↻ Refresh</button>
+        <div class="preview-device-btns">
+          <button class="btn-device active" id="dev-desktop" onclick="setDevice('desktop')" title="Desktop">🖥</button>
+          <button class="btn-device" id="dev-mobile" onclick="setDevice('mobile')" title="Mobile">📱</button>
+        </div>
+      </div>
+      <div id="preview-frame-wrap">
+        <iframe id="preview-frame" src="about:blank" title="Site preview"></iframe>
+      </div>
+      <div id="preview-status">Showing live site — save &amp; wait ~60s for Vercel to rebuild</div>
+    </div>
+
   </div><!-- /workspace -->
 </div><!-- /app -->
 
@@ -433,6 +481,63 @@ function setSaveStatus(msg) {
   document.getElementById('save-status').textContent = msg;
 }
 
+// ─── THEME ────────────────────────────────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  localStorage.setItem('cms-theme', isLight ? 'light' : 'dark');
+  document.getElementById('theme-btn').textContent = isLight ? '🌙' : '☀';
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('cms-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('theme-btn').textContent = '🌙';
+  } else {
+    document.getElementById('theme-btn').textContent = '☀';
+  }
+}
+
+// ─── PREVIEW PANEL ────────────────────────────────────────────────────────────
+const PREVIEW_URLS = {
+  home: '/', about: '/behind-the-build',
+  growth: '/growth', linkedin: '/linkedin',
+  strategy: '/strategy', 'content-writing': '/content-writing',
+  book: '/book', blog: '/blog', playbook: '/playbook', settings: '/'
+};
+let previewOpen = false;
+
+function togglePreview() {
+  previewOpen = !previewOpen;
+  const panel = document.getElementById('preview-panel');
+  const btn = document.getElementById('preview-toggle-btn');
+  panel.classList.toggle('open', previewOpen);
+  btn.classList.toggle('active', previewOpen);
+  if (previewOpen && currentSection) updatePreviewUrl(currentSection);
+}
+
+function updatePreviewUrl(section) {
+  if (!previewOpen) return;
+  const url = PREVIEW_URLS[section] || '/';
+  document.getElementById('preview-frame').src = url;
+  document.getElementById('preview-status').textContent =
+    `Previewing: ${url} — save & wait ~60s for Vercel to rebuild`;
+}
+
+function refreshPreview() {
+  const frame = document.getElementById('preview-frame');
+  const src = frame.src;
+  frame.src = 'about:blank';
+  setTimeout(() => { frame.src = src; }, 80);
+}
+
+function setDevice(mode) {
+  const wrap = document.getElementById('preview-frame-wrap');
+  document.getElementById('dev-desktop').classList.toggle('active', mode === 'desktop');
+  document.getElementById('dev-mobile').classList.toggle('active', mode === 'mobile');
+  wrap.classList.toggle('mobile', mode === 'mobile');
+}
+
 // ─── SECTION ROUTING ──────────────────────────────────────────────────────────
 let currentSection = null;
 
@@ -452,6 +557,7 @@ function switchSection(name) {
     document.getElementById('page-editor').style.display = 'flex';
     loadPageSection(name);
   }
+  updatePreviewUrl(name);
 }
 
 // ─── POST EDITOR ──────────────────────────────────────────────────────────────
@@ -1098,6 +1204,7 @@ function escAttr(s) {
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
+initTheme();
 if (sessionStorage.getItem('cms-auth') === '1') {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'flex';
