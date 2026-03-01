@@ -1,5 +1,6 @@
 ---
 import settings from '../content/global/settings.json';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title: string;
@@ -69,5 +70,6 @@ const FAVICON = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' view
 <body class="page-transition">
   <slot />
   <script src="/scripts.js" is:inline></script>
+  <SpeedInsights />
 </body>
 </html>
