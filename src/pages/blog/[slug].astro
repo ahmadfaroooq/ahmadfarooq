@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CTABand from '../../components/CTABand.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.status === 'published');
+  return posts.map(post => ({
+    params: { slug: post.data.slug || post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { title, excerpt, category, date, readTime, imageUrl } = post.data;
+
+const formattedDate = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={`${title} | Ahmad Farooq`}
+  description={excerpt}
+  ogImage={imageUrl || '/images/ahmad-profile.png'}
+  canonicalPath={`/blog/${post.data.slug || post.slug}`}
+  type="article"
+>
+  <Header />
+
+  <main>
+
+    <section class="page-hero" aria-label="Post header">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">{category.replace(/-/g, ' ')}</span>
+        <h1 class="page-hero-title">{title}</h1>
+        <div class="post-meta-row">
+          <span class="tag tag-ghost">{formattedDate}</span>
+          {readTime && <span class="tag tag-mint">{readTime}</span>}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        {imageUrl && (
+          <img class="post-featured-image" src={imageUrl} alt={title}>
+        )}
+        <article class="post-prose reveal">
+          <Content />
+        </article>
+        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">
+          <a href="/blog" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">← Back to Blog</a>
+        </div>
+      </div>
+    </section>
+
+    <CTABand heading="Ready to apply this?" subtext="Book a free strategy call." btnText="Book a Call" />
+
+  </main>
+
+  <Footer />
+</BaseLayout>

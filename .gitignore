@@ -12,5 +12,13 @@ desktop.ini
 # Logs
 *.log
 
-# Node (if any tooling added later)
+# Node
 node_modules/
+dist/
+.astro/
+
+# Tina generated
+tina/__generated__/
+
+# Environment
+.env

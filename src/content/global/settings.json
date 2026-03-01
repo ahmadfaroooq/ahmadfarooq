@@ -1,0 +1,21 @@
+{
+  "email": "byahmadfarooq@outlook.com",
+  "linkedinUrl": "https://www.linkedin.com/in/byahmad/",
+  "twitterUrl": "https://x.com/ahmaddfaroooq",
+  "twitterHandle": "@ahmaddfaroooq",
+  "stats": {
+    "brandsCount": "20",
+    "revenueLabel": "3×",
+    "yearsInField": "4 yrs"
+  },
+  "clients": [
+    { "name": "Big O Soft" },
+    { "name": "Zedsource" },
+    { "name": "AllRCM" },
+    { "name": "OneSoft" },
+    { "name": "Coin Bureau" },
+    { "name": "Klip AI" },
+    { "name": "Trade Travel Chill" },
+    { "name": "RS Gonzales" }
+  ]
+}

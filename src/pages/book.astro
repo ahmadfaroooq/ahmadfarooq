@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import book from '../content/pages/book.json';
+
+const numColors: Record<string, string> = { '01': 'var(--lime)', '02': 'var(--orange)', '03': 'var(--mint)' };
+---
+
+<BaseLayout
+  title="Book a Strategy Call | Ahmad Farooq"
+  description="Book a free 30-minute strategy call with Ahmad Farooq. No pitch, no templates — just a focused conversation about your brand and growth."
+  canonicalPath="/book"
+>
+  <Header />
+
+  <main>
+
+    <section class="page-hero" aria-label="Page introduction">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">Strategy Call</span>
+        <h1 class="page-hero-title">{book.heroTitle}</h1>
+        <p class="page-hero-desc">{book.heroDesc}</p>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Booking calendar">
+      <div class="container">
+
+        <div class="book-expect-grid reveal">
+          <div>
+            <h2 style="margin-bottom: 24px;">What to expect</h2>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              {book.expectations.map(exp => (
+                <div style="display: flex; gap: 16px; padding: 20px; background: var(--white); border: 2px solid var(--border);">
+                  <span style={`font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: ${numColors[exp.num] || 'var(--lime)'}; flex-shrink: 0; line-height: 1;`}>{exp.num}</span>
+                  <div>
+                    <strong style="display: block; font-family: var(--font-heading); margin-bottom: 4px;">{exp.title}</strong>
+                    <p style="font-size: 0.9rem; margin: 0;">{exp.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style="background: var(--white); border: 2px solid var(--border); padding: 28px;">
+            <p style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">Quick details</p>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div><strong style="display: block; font-size: 0.9rem;">30 minutes</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">Calendar invite sent automatically</p></div>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <div><strong style="display: block; font-size: 0.9rem;">Video call</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">Google Meet or Zoom, your choice</p></div>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <div><strong style="display: block; font-size: 0.9rem;">Any timezone</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">Available slots shown in your local time</p></div>
+              </div>
+              <div style="display: flex; gap: 12px; align-items: flex-start;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <div><strong style="display: block; font-size: 0.9rem;">Zero cost</strong><p style="font-size: 0.85rem; margin: 0; color: var(--text-muted);">No catch. No follow-up spam.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cal-embed-wrap reveal">
+          <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
+          <script type="text/javascript">
+            (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+            Cal("init", "30min", {origin:"https://app.cal.com"});
+            Cal.ns["30min"]("inline", {
+              elementOrSelector:"#my-cal-inline-30min",
+              config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+              calLink: "ahmad-farooq/30min",
+            });
+            Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+          </script>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</BaseLayout>

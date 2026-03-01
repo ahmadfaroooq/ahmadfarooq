@@ -1,0 +1,32 @@
+---
+import settings from '../content/global/settings.json';
+
+const MONOGRAM = `<svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100" height="100" fill="#f36f21"/><rect x="2" y="2" width="96" height="96" fill="none" stroke="black" stroke-width="4"/><rect x="25" y="25" width="50" height="50" fill="#2ecc40" stroke="black" stroke-width="4" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="12" fill="black"/></svg>`;
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <a href="/" class="footer-logo" aria-label="Ahmad Farooq">
+      <Fragment set:html={MONOGRAM} />
+      <span class="footer-logo-text">Ahmad Farooq</span>
+    </a>
+    <ul class="footer-socials" role="list">
+      <li>
+        <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href={settings.twitterUrl} target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </li>
+      <li>
+        <a href={`mailto:${settings.email}`} aria-label="Email">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </li>
+    </ul>
+    <p class="footer-copy">© 2026 Ahmad Farooq. All rights reserved.</p>
+  </div>
+</footer>

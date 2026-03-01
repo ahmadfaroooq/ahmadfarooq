@@ -1,0 +1,26 @@
+{
+  "heroLabel": "LinkedIn Branding",
+  "heroTitle": "Your LinkedIn is your highest-ROI asset. Treat it that way.",
+  "heroDesc": "Stop posting into the void. Build a LinkedIn presence that positions you as the authority in your space and generates inbound without a sales team.",
+  "process": [
+    { "num": "01", "title": "Audit", "body": "Full analysis of your current LinkedIn profile, content history, and positioning vs. competitors in your space." },
+    { "num": "02", "title": "Positioning", "body": "Define your unique point of view, audience persona, and the one thing you want to be known for." },
+    { "num": "03", "title": "Profile", "body": "Optimise every element: headline, about section, banner, and featured section, for maximum first-impression impact." },
+    { "num": "04", "title": "Content System", "body": "Build your 5-pillar content system, posting schedule, and hook framework. Create 30 days of initial content." },
+    { "num": "05", "title": "Grow", "body": "Execute consistently, engage strategically, and scale what works. Monthly reviews to refine and improve." }
+  ],
+  "goodFit": [
+    { "item": "Founders, executives, and consultants who want inbound from LinkedIn" },
+    { "item": "People with genuine expertise but no platform yet" },
+    { "item": "Those willing to post consistently for 90+ days" },
+    { "item": "Anyone who understands brand-building is a long game" }
+  ],
+  "badFit": [
+    { "item": "People who want followers but no engagement strategy" },
+    { "item": "Those expecting viral results in 2 weeks" },
+    { "item": "Brands without a clear point of view or expertise" },
+    { "item": "Anyone who won't commit to consistent posting" }
+  ],
+  "ctaHeadline": "Ready to turn LinkedIn into your best acquisition channel?",
+  "ctaSubtext": "Let's build a LinkedIn presence that generates leads while you sleep."
+}
