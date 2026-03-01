@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ServicePage from '../components/ServicePage.astro';
+import data from '../content/pages/growth.json';
+
+const caseStudies = [
+  {
+    client: 'Coin Bureau',
+    title: 'Content-Led Growth Driving 40% of Total Revenue',
+    challenge: 'Coin Bureau had massive content but no systematic distribution strategy. Traffic came in bursts after YouTube uploads then flatlined.',
+    approach: 'Built a cross-platform content distribution engine that turned each YouTube video into 12+ touchpoints across LinkedIn, email, and SEO articles. Implemented a newsletter flywheel that converted viewers into subscribers.',
+    results: ['40% of revenue from content channel', '2.1M+ organic impressions/month', '8% email-to-customer conversion rate'],
+  },
+  {
+    client: 'EdTech Founder',
+    title: 'Built a $2M ARR Acquisition Funnel From Scratch',
+    challenge: 'The founder relied 100% on paid ads with rising CAC and zero organic moat. Growth was fragile and expensive.',
+    approach: 'Audited the full funnel and identified the LinkedIn organic channel as massively underutilised. Built a 90-day content-to-demo framework that warmed leads before any sales conversation.',
+    results: ['$2M ARR funnel built', 'CAC reduced by 45%', 'Demo-to-close rate increased to 38%'],
+  },
+  {
+    client: 'Zedsource',
+    title: '60% CAC Reduction Through Demand-Gen Led Growth',
+    challenge: 'Zedsource was spending aggressively on outbound with diminishing returns. Brand recognition was zero.',
+    approach: 'Shifted strategy from outbound-first to demand-gen led: built brand awareness assets, a LinkedIn presence, and a content programme that made inbound inevitable.',
+    results: ['60% CAC reduction', '5× inbound lead volume', '90-day payback period'],
+  },
+];
+---
+
+<BaseLayout
+  title="Growth Marketing | Ahmad Farooq"
+  description="Systematic acquisition and retention strategies that build compounding revenue. Not campaigns that spike — growth frameworks that last."
+  canonicalPath="/growth"
+>
+  <Header />
+  <main>
+    <ServicePage data={data} caseStudies={caseStudies} />
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,26 @@
+{
+  "heroLabel": "Growth Marketing",
+  "heroTitle": "Turning traffic into traction, systematically.",
+  "heroDesc": "Not campaigns that spike. Acquisition systems, retention loops, and growth frameworks that compound month after month.",
+  "process": [
+    { "num": "01", "title": "Discovery", "body": "Full audit of existing channels, funnel stages, and data. Map where revenue is coming from and where it's leaking." },
+    { "num": "02", "title": "Strategy", "body": "Build a growth model for your specific stage and market. Define channel priorities, testing cadence, and success metrics." },
+    { "num": "03", "title": "Build", "body": "Launch experiments, set up tracking infrastructure, and establish the content and distribution systems." },
+    { "num": "04", "title": "Launch", "body": "Execute campaigns, run A/B tests, and start generating data to learn from." },
+    { "num": "05", "title": "Scale", "body": "Double down on what's working. Kill what's not. Build repeatable systems that run without you." }
+  ],
+  "goodFit": [
+    { "item": "Founders or CMOs with product-market fit who want systematic growth" },
+    { "item": "Companies with €500K+ revenue ready to scale" },
+    { "item": "Businesses willing to invest 90+ days in a compounding strategy" },
+    { "item": "Teams that want to understand their growth model, not just outsource it" }
+  ],
+  "badFit": [
+    { "item": "Businesses wanting a one-time campaign with no measurement" },
+    { "item": "Pre-revenue startups without a validated offer" },
+    { "item": "Companies expecting 10× growth in 30 days" },
+    { "item": "Teams that won't give access to data and analytics" }
+  ],
+  "ctaHeadline": "Ready to build a growth system that compounds?",
+  "ctaSubtext": "Let's map out your growth model and identify the highest-leverage moves for your stage."
+}

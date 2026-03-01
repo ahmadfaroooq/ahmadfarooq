@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import ClientsGrid from '../components/ClientsGrid.astro';
+import about from '../content/pages/behind-the-build.json';
+---
+
+<BaseLayout
+  title="Behind the Build | Ahmad Farooq"
+  description="Ahmad Farooq is a Growth Strategist and Brand Builder. This is the story behind the strategy."
+  canonicalPath="/behind-the-build"
+>
+  <Header />
+
+  <main>
+
+    <section class="page-hero" aria-label="Page introduction">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">Behind the Build</span>
+        <h1 class="page-hero-title" set:html={about.heroTitle.replace(/\n/g, '<br>')}></h1>
+        <p class="page-hero-desc">{about.heroDesc}</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="story-heading">
+      <div class="container">
+        <div class="about-grid">
+
+          <div class="about-photo-frame reveal">
+            <img src="/images/ahmad-profile.png" alt="Ahmad Farooq, Growth Strategist" width="300" height="400" loading="lazy">
+          </div>
+
+          <div class="about-story reveal">
+            <h2 id="story-heading" set:html={about.storyHeadline.replace(/\n/g, '<br>')}></h2>
+            {about.bio.children.map((block: any) => (
+              <p>{block.children[0].text}</p>
+            ))}
+            <div style="margin-top: 32px;">
+              <a href="/book" class="btn btn-primary">Book a Strategy Call</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="principles-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">How I Work</span>
+          <h2 id="principles-heading" set:html={about.principlesHeadline.replace(/\n/g, '<br>')}></h2>
+        </div>
+
+        <div class="principles-grid">
+          {about.principles.map(p => (
+            <div class="principle-card reveal">
+              <span class="principle-num">{p.num}</span>
+              <h4>{p.title}</h4>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <ClientsGrid />
+
+    <CTABand heading={about.ctaHeadline} subtext={about.ctaSubtext} />
+
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+interface Props {
+  heading: string;
+  subtext: string;
+  btnText?: string;
+  btnHref?: string;
+}
+
+const {
+  heading,
+  subtext,
+  btnText = 'Book a Strategy Call',
+  btnHref = '/book',
+} = Astro.props;
+---
+
+<section class="cta-band" aria-label="Call to action">
+  <div class="container">
+    <h2 class="reveal" set:html={heading.replace(/\n/g, '<br>')}></h2>
+    <p class="reveal">{subtext}</p>
+    <a href={btnHref} class="btn btn-primary reveal">{btnText}</a>
+  </div>
+</section>

@@ -1,0 +1,117 @@
+---
+import ClientsGrid from './ClientsGrid.astro';
+import CTABand from './CTABand.astro';
+
+interface CaseStudy {
+  client: string;
+  title: string;
+  challenge: string;
+  approach: string;
+  results: string[];
+}
+
+interface Props {
+  data: {
+    heroLabel: string;
+    heroTitle: string;
+    heroDesc: string;
+    process: { num: string; title: string; body: string }[];
+    goodFit: { item: string }[];
+    badFit: { item: string }[];
+    ctaHeadline: string;
+    ctaSubtext: string;
+  };
+  caseStudies: CaseStudy[];
+}
+
+const { data, caseStudies } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-label">{data.heroLabel}</span>
+    <h1 class="page-hero-title">{data.heroTitle}</h1>
+    <p class="page-hero-desc">{data.heroDesc}</p>
+  </div>
+</section>
+
+<section class="section" id="case-studies">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Case Studies</span>
+      <h2>Real results, real clients.</h2>
+    </div>
+    <ul class="case-studies-list" role="list">
+      {caseStudies.map(cs => (
+        <li class="case-study reveal">
+          <div class="case-study-header">
+            <span class="case-study-client">{cs.client}</span>
+            <h3>{cs.title}</h3>
+          </div>
+          <div class="case-study-body">
+            <div class="case-study-content">
+              <div class="case-study-detail">
+                <h4>Challenge</h4>
+                <p>{cs.challenge}</p>
+                <h4>Approach</h4>
+                <p>{cs.approach}</p>
+              </div>
+              <div class="case-study-outcomes">
+                <h4>Results</h4>
+                <ul role="list">
+                  {cs.results.map(r => <li>{r}</li>)}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="section section--alt" id="process">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Process</span>
+      <h2>How we work together.</h2>
+    </div>
+    <ol class="timeline" role="list">
+      {data.process.map(step => (
+        <li class="timeline-step reveal">
+          <div class="timeline-dot" aria-hidden="true"></div>
+          <span class="timeline-step-num">{step.num}</span>
+          <h4>{step.title}</h4>
+          <p>{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="ideal-client">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Ideal Client</span>
+      <h2>Is this the right fit?</h2>
+    </div>
+    <div class="ideal-grid">
+      <div class="ideal-card good reveal">
+        <h3>Good fit</h3>
+        <ul role="list">
+          {data.goodFit.map(f => <li>{f.item}</li>)}
+        </ul>
+      </div>
+      <div class="ideal-card bad reveal">
+        <h3>Not a fit</h3>
+        <ul role="list">
+          {data.badFit.map(f => <li>{f.item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ClientsGrid />
+
+<CTABand heading={data.ctaHeadline} subtext={data.ctaSubtext} btnText="Book a Call" />

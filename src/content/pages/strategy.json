@@ -1,0 +1,26 @@
+{
+  "heroLabel": "Marketing Strategy",
+  "heroTitle": "Strategy first. Tactics second. Results always.",
+  "heroDesc": "Most marketing fails because it's tactics without strategy. Build the foundation right and every campaign, every post, every ad becomes 10× more effective.",
+  "process": [
+    { "num": "01", "title": "Research", "body": "Deep market analysis, competitor audit, customer interviews, and positioning landscape mapping." },
+    { "num": "02", "title": "Positioning", "body": "Define your unique market position, messaging hierarchy, and the single most compelling reason to choose you." },
+    { "num": "03", "title": "Channel Strategy", "body": "Identify the highest-leverage channels for your audience, stage, and resources. Build a prioritised roadmap." },
+    { "num": "04", "title": "Roadmap", "body": "90-day and 6-month execution plans with specific tactics, owners, budgets, and success metrics." },
+    { "num": "05", "title": "Review", "body": "Monthly strategic reviews to track progress, adjust positioning, and ensure tactics remain aligned with strategy." }
+  ],
+  "goodFit": [
+    { "item": "Founders launching into a new market or repositioning" },
+    { "item": "CMOs who need a clear strategic framework, not just more tactics" },
+    { "item": "Companies pivoting business model or targeting" },
+    { "item": "Teams who want a documented strategy they can execute independently" }
+  ],
+  "badFit": [
+    { "item": "Businesses that want tactics without strategy" },
+    { "item": "Teams that won't share data, metrics, or customer insights" },
+    { "item": "Companies not willing to make positioning decisions" },
+    { "item": "Anyone who thinks strategy is a one-time deliverable" }
+  ],
+  "ctaHeadline": "Ready to build a strategy that actually drives results?",
+  "ctaSubtext": "Let's define your market position and build an execution plan that compounds."
+}

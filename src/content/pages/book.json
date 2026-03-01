@@ -1,0 +1,21 @@
+{
+  "heroTitle": "Let's talk strategy.",
+  "heroDesc": "30 minutes. No templates, no decks, no sales pitch. Just a focused conversation about your brand, your growth, and what's actually blocking you.",
+  "expectations": [
+    {
+      "num": "01",
+      "title": "You talk, I listen",
+      "body": "First 10 minutes are yours. Tell me where you are, what's not working, and what you actually want to achieve."
+    },
+    {
+      "num": "02",
+      "title": "I diagnose, honestly",
+      "body": "I'll tell you what I see, including if I'm not the right fit. No false positives to land a deal."
+    },
+    {
+      "num": "03",
+      "title": "You leave with clarity",
+      "body": "Whether we work together or not, you'll have a clearer picture of what to do next. That's the minimum outcome."
+    }
+  ]
+}

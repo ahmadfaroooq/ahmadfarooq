@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CTABand from '../../components/CTABand.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('playbook', ({ data }) => data.status === 'published');
+  return posts.map(post => ({
+    params: { slug: post.data.slug || post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { title, excerpt, category, date, imageUrl } = post.data;
+---
+
+<BaseLayout
+  title={`${title} | The Playbook | Ahmad Farooq`}
+  description={excerpt}
+  ogImage={imageUrl || '/images/ahmad-profile.png'}
+  canonicalPath={`/playbook/${post.data.slug || post.slug}`}
+  type="article"
+>
+  <Header />
+
+  <main>
+
+    <section class="page-hero" aria-label="Post header">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">Playbook · {category.replace(/-/g, ' ')}</span>
+        <h1 class="page-hero-title">{title}</h1>
+        <p class="page-hero-desc">{excerpt}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        {imageUrl && (
+          <img class="post-featured-image" src={imageUrl} alt={title}>
+        )}
+        <article class="post-prose reveal">
+          <Content />
+        </article>
+        <div style="margin-top:48px;padding-top:32px;border-top:2px solid var(--border);">
+          <a href="/playbook" style="font-family:var(--font-heading);font-size:0.88rem;font-weight:600;">← Back to Playbooks</a>
+        </div>
+      </div>
+    </section>
+
+    <CTABand heading="Want help implementing this?" subtext="Book a free strategy call." btnText="Book a Call" />
+
+  </main>
+
+  <Footer />
+</BaseLayout>

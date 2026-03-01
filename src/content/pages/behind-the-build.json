@@ -1,0 +1,61 @@
+{
+  "heroTitle": "The person behind\nthe strategy.",
+  "heroDesc": "Not an agency. Not a tool. A single practitioner obsessed with building brands that actually compound.",
+  "storyHeadline": "I build brands like systems,\nnot like campaigns.",
+  "bio": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [{ "type": "text", "text": "Most marketing is designed to spike: a launch, a campaign, a viral moment. It works once and then you're back to zero. I got tired of watching founders rebuild their growth strategy from scratch every 90 days." }]
+      },
+      {
+        "type": "p",
+        "children": [{ "type": "text", "text": "I'm Ahmad Farooq. I've spent 4 years working inside growth teams, advising founders, and building my own content systems from the ground up. The pattern I kept seeing: brands that compounded treated every piece of content, every channel, every partnership as infrastructure, not an event." }]
+      },
+      {
+        "type": "p",
+        "children": [{ "type": "text", "text": "That's the lens I bring. Whether I'm building a LinkedIn content system, redesigning a brand identity, or building a full growth funnel, I'm asking: does this compound? Does this get easier over time, not harder?" }]
+      },
+      {
+        "type": "p",
+        "children": [{ "type": "text", "text": "I work with a small number of clients at a time. Not because I can't scale. Depth produces better results than breadth. When I take on a project, I'm all in." }]
+      }
+    ]
+  },
+  "principlesHeadline": "Six principles.\nNon-negotiable.",
+  "principles": [
+    {
+      "num": "01",
+      "title": "Systems > Sprints",
+      "body": "Build it once, make it repeatable, let it compound. One well-designed system outperforms ten one-off campaigns every time."
+    },
+    {
+      "num": "02",
+      "title": "Distribution Is the Product",
+      "body": "The best content without distribution is noise. Getting something in front of the right people consistently is half the battle. Most brands ignore it."
+    },
+    {
+      "num": "03",
+      "title": "Data-Informed, Not Data-Driven",
+      "body": "Numbers guide, judgment decides. I use data to validate and improve, not to replace thinking. Metrics are inputs, not answers."
+    },
+    {
+      "num": "04",
+      "title": "Compound Thinking",
+      "body": "Every piece of work should make the next piece easier. Content should feed strategy. Strategy should inform design. Design should amplify content."
+    },
+    {
+      "num": "05",
+      "title": "Specificity Converts",
+      "body": "Vague messaging loses deals. The more precise you are about who you serve and what result you deliver, the faster the right clients find you."
+    },
+    {
+      "num": "06",
+      "title": "Execution Is the Strategy",
+      "body": "Ideas are cheap. The clearest thinker in the room loses to the best executor every time. Brilliant strategy unpublished is worth nothing."
+    }
+  ],
+  "ctaHeadline": "Let's build something\nthat lasts.",
+  "ctaSubtext": "One conversation. Zero pressure. Maximum clarity."
+}

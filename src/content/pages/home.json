@@ -1,0 +1,48 @@
+{
+  "heroLabel": "Growth Strategist & Brand Builder",
+  "heroTitle": "Building brands\nthat compound.",
+  "heroTagline": "Not campaigns that spike. Systems that scale.",
+  "heroCTA1Text": "Book a Strategy Call",
+  "heroCTA2Text": "View Playbooks",
+  "servicesHeadline": "Five disciplines.\nOne compounding system.",
+  "casesHeadline": "Real work.\nReal results.",
+  "skillsHeadline": "The full stack.",
+  "ctaHeadline": "Ready to build something\nthat compounds?",
+  "ctaSubtext": "30 minutes. No pitch. Just strategy.",
+  "services": [
+    {
+      "title": "Growth Marketing",
+      "description": "Systematic acquisition and retention strategies that build compounding revenue, not one-off campaigns that spike and vanish.",
+      "link": "/growth"
+    },
+    {
+      "title": "LinkedIn Branding",
+      "description": "Turn your LinkedIn into an inbound machine: positioning, content systems, and profile architecture that attract the right clients.",
+      "link": "/linkedin"
+    },
+    {
+      "title": "Marketing Strategy",
+      "description": "Go-to-market strategy, positioning, and channel architecture built for the long game, not the next quarter.",
+      "link": "/strategy"
+    },
+    {
+      "title": "Content Writing",
+      "description": "Long-form articles, thought leadership pieces, and brand copy that builds authority and drives organic traffic without burning out.",
+      "link": "/content-writing"
+    }
+  ],
+  "skills": [
+    { "name": "Growth Marketing" },
+    { "name": "LinkedIn Strategy" },
+    { "name": "Content Systems" },
+    { "name": "Brand Strategy" },
+    { "name": "Funnel Architecture" },
+    { "name": "SEO, AEO & GEO" },
+    { "name": "Copywriting" },
+    { "name": "Visual Identity" },
+    { "name": "Market Research" },
+    { "name": "Analytics & Data" },
+    { "name": "Community Building" },
+    { "name": "Pitch Decks" }
+  ]
+}

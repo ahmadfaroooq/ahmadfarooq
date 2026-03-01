@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CTABand from '../../components/CTABand.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('playbook', ({ data }) => data.status === 'published');
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const icons: Record<string, string> = {
+  growth: '📈',
+  strategy: '🎯',
+  'content-system': '✍️',
+  linkedin: '💼',
+  branding: '🎨',
+};
+---
+
+<BaseLayout
+  title="Playbook | Ahmad Farooq"
+  description="Free playbooks on growth marketing, brand strategy, LinkedIn branding, and content systems. Actionable frameworks you can implement today."
+  canonicalPath="/playbook"
+>
+  <Header />
+
+  <main>
+
+    <section class="page-hero" aria-label="Page introduction">
+      <div class="page-hero-inner">
+        <span class="page-hero-label">The Playbook</span>
+        <h1 class="page-hero-title">Frameworks that actually work.</h1>
+        <p class="page-hero-desc">Free, actionable playbooks on growth, brand, and building systems that compound over time.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Playbooks">
+      <div class="container">
+        {posts.length === 0 ? (
+          <p style="color:var(--text-muted);text-align:center;padding:64px 0;">New playbooks coming soon.</p>
+        ) : (
+          <div class="playbook-grid">
+            {posts.map(post => {
+              const slug = post.data.slug || post.slug;
+              return (
+                <a class="playbook-card reveal" href={`/playbook/${slug}`}>
+                  {post.data.imageUrl ? (
+                    <img class="playbook-card-thumb" src={post.data.imageUrl} alt={post.data.title}>
+                  ) : (
+                    <div class="playbook-icon">{icons[post.data.category] || '📋'}</div>
+                  )}
+                  <div>
+                    <div style="margin-bottom:8px;"><span class="tag tag-mint">{post.data.category.replace(/-/g, ' ')}</span></div>
+                    <h3>{post.data.title}</h3>
+                    <p>{post.data.excerpt}</p>
+                  </div>
+                  <div class="playbook-card-action">Read →</div>
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section" style="border-top: 2px solid var(--border);" aria-label="Newsletter signup">
+      <div class="container" style="max-width: 720px;">
+        <div class="section-header reveal" style="margin-bottom: 32px;">
+          <span class="section-label">The List</span>
+          <h2>Get new playbooks first.</h2>
+        </div>
+        <div class="reveal">
+          <iframe data-tally-src="https://tally.so/embed/xXakVv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="216" frameborder="0" marginheight="0" marginwidth="0" title="Playbook Page"></iframe>
+          <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        </div>
+      </div>
+    </section>
+
+    <CTABand heading="Want help implementing this?" subtext="Book a free strategy call." btnText="Book a Call" />
+
+  </main>
+
+  <Footer />
+</BaseLayout>

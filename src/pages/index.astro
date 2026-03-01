@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import ClientsGrid from '../components/ClientsGrid.astro';
+import settings from '../content/global/settings.json';
+import home from '../content/pages/home.json';
+
+const serviceIcons: Record<string, string> = {
+  'Growth Marketing': `<polyline points="2,22 8,14 14,18 20,8 26,4"/><circle cx="26" cy="4" r="2" fill="currentColor" stroke="none"/>`,
+  'LinkedIn Branding': `<rect x="3" y="3" width="22" height="16" rx="2"/><path d="M9 25h10M14 19v6"/><circle cx="9" cy="11" r="2"/><path d="M14 11h7M14 14h5"/>`,
+  'Marketing Strategy': `<circle cx="14" cy="14" r="11"/><circle cx="14" cy="14" r="4"/><line x1="14" y1="3" x2="14" y2="10"/><line x1="14" y1="18" x2="14" y2="25"/><line x1="3" y1="14" x2="10" y2="14"/><line x1="18" y1="14" x2="25" y2="14"/>`,
+  'Content Writing': `<path d="M4 20l6-6 4 4 10-12"/><line x1="4" y1="24" x2="24" y2="24"/><circle cx="20" cy="6" r="2" fill="none"/>`,
+};
+---
+
+<BaseLayout
+  title="Ahmad Farooq | Growth Strategist & Brand Builder"
+  description="Ahmad Farooq helps founders, CMOs, and executives build brands that compound over time. Growth marketing, LinkedIn branding, content systems, and brand strategy."
+  canonicalPath="/"
+>
+  <Header />
+
+  <main>
+
+    <!-- HERO -->
+    <section aria-label="Introduction">
+      <div class="hero-wrap">
+        <div class="hero-content">
+          <span class="hero-label">{home.heroLabel}</span>
+          <h1 class="hero-title" set:html={home.heroTitle.replace(/\n/g, '<br>')}></h1>
+          <span class="hero-tagline">"{home.heroTagline}"</span>
+
+          <div class="hero-actions">
+            <a href="/book" class="btn btn-primary">{home.heroCTA1Text}</a>
+            <a href="/playbook" class="btn btn-secondary">{home.heroCTA2Text}</a>
+          </div>
+
+          <div class="hero-metrics">
+            <div>
+              <span class="hero-metric-num">{settings.stats.brandsCount}</span>
+              <span class="hero-metric-label">Brands Grown</span>
+            </div>
+            <div>
+              <span class="hero-metric-num">{settings.stats.revenueLabel}</span>
+              <span class="hero-metric-label">Avg. Revenue Lift</span>
+            </div>
+            <div>
+              <span class="hero-metric-num">{settings.stats.yearsInField}</span>
+              <span class="hero-metric-label">In the Field</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="profile-frame">
+            <img src="/images/ahmad-profile.png" alt="Ahmad Farooq, Growth Strategist" width="340" height="440" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES GRID -->
+    <section class="section" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">What I Do</span>
+          <h2 id="services-heading" set:html={home.servicesHeadline.replace(/\n/g, '<br>')}></h2>
+        </div>
+
+        <div class="services-grid">
+          {home.services.map(service => (
+            <article class="service-card reveal">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                  <Fragment set:html={serviceIcons[service.title] || ''} />
+                </svg>
+              </div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <a href={service.link} class="service-link">
+                Explore service
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="cases-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Case Studies</span>
+          <h2 id="cases-heading" set:html={home.casesHeadline.replace(/\n/g, '<br>')}></h2>
+        </div>
+
+        <div class="case-studies-list">
+
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left">
+                <span class="case-study-client">Coin Bureau</span>
+                <span class="case-study-title">10× LinkedIn Growth for Crypto's Biggest Media Brand</span>
+              </div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region">
+              <div class="case-study-content">
+                <div class="case-study-detail">
+                  <h4>The Challenge</h4>
+                  <p>Coin Bureau had massive YouTube and newsletter audiences but a dormant LinkedIn presence. They needed a systematic approach to content distribution that would drive newsletter subscribers from a professional audience without alienating their crypto-native following.</p>
+                  <br>
+                  <h4>The Approach</h4>
+                  <p>Built a LinkedIn content system repurposing their existing research into executive-friendly formats. Defined audience segments, posting cadence, and hook frameworks. Launched a 90-day testing sprint across content types and engagement tactics.</p>
+                </div>
+                <div class="case-study-detail">
+                  <h4>Results</h4>
+                  <div class="case-study-outcomes">
+                    <div class="outcome-item">
+                      <span class="outcome-num">10×</span>
+                      <span class="outcome-label">LinkedIn following in 6 months</span>
+                    </div>
+                    <div class="outcome-item">
+                      <span class="outcome-num">30%</span>
+                      <span class="outcome-label">Of newsletter subs from LinkedIn</span>
+                    </div>
+                    <div class="outcome-item">
+                      <span class="outcome-num">4.2×</span>
+                      <span class="outcome-label">Average engagement rate vs industry</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left">
+                <span class="case-study-client">EdTech Founder</span>
+                <span class="case-study-title">0 to Authority: Building a $300K Pipeline from LinkedIn</span>
+              </div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region">
+              <div class="case-study-content">
+                <div class="case-study-detail">
+                  <h4>The Challenge</h4>
+                  <p>A Series A EdTech founder had product-market fit but zero personal brand presence. Inbound leads were stagnant and they relied entirely on outbound SDRs burning through budget.</p>
+                  <br>
+                  <h4>The Approach</h4>
+                  <p>Repositioned the founder from "CEO of EdTech startup" to "the future of corporate learning". Built a 5-pillar content system, optimised the full LinkedIn profile, and established a 3× per week posting rhythm.</p>
+                </div>
+                <div class="case-study-detail">
+                  <h4>Results</h4>
+                  <div class="case-study-outcomes">
+                    <div class="outcome-item">
+                      <span class="outcome-num">12K</span>
+                      <span class="outcome-label">Followers in 90 days (from 300)</span>
+                    </div>
+                    <div class="outcome-item">
+                      <span class="outcome-num">$300K</span>
+                      <span class="outcome-label">Pipeline attributed to LinkedIn</span>
+                    </div>
+                    <div class="outcome-item">
+                      <span class="outcome-num">3</span>
+                      <span class="outcome-label">Inbound partnership deals in 90 days</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left">
+                <span class="case-study-client">Zedsource</span>
+                <span class="case-study-title">Complete Brand Identity for a Digital-First Staffing Company</span>
+              </div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region">
+              <div class="case-study-content">
+                <div class="case-study-detail">
+                  <h4>The Challenge</h4>
+                  <p>Zedsource launched in a commoditised staffing market with no visual identity, no positioning, and no brand system. Every competitor looked identical: generic blue logos and corporate stock photography.</p>
+                  <br>
+                  <h4>The Approach</h4>
+                  <p>Led a brand strategy sprint to define the positioning: "digital-first, founder-focused staffing." Designed a complete visual identity: logo, colour system, typography, and digital asset library.</p>
+                </div>
+                <div class="case-study-detail">
+                  <h4>Results</h4>
+                  <div class="case-study-outcomes">
+                    <div class="outcome-item">
+                      <span class="outcome-num">100%</span>
+                      <span class="outcome-label">Brand built from zero in 3 weeks</span>
+                    </div>
+                    <div class="outcome-item">
+                      <span class="outcome-num">60%</span>
+                      <span class="outcome-label">Reduction in CAC post brand launch</span>
+                    </div>
+                    <div class="outcome-item">
+                      <span class="outcome-num">5×</span>
+                      <span class="outcome-label">Profile visits after LinkedIn rebrand</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED CLIENTS -->
+    <ClientsGrid />
+
+    <!-- SKILLS TOOLKIT -->
+    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="skills-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Skills Toolkit</span>
+          <h2 id="skills-heading">{home.skillsHeadline}</h2>
+        </div>
+        <div class="skills-grid">
+          {home.skills.map(skill => (
+            <div class="skill-item reveal"><span class="skill-dot"></span>{skill.name}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTABand heading={home.ctaHeadline} subtext={home.ctaSubtext} />
+
+  </main>
+
+  <Footer />
+</BaseLayout>
