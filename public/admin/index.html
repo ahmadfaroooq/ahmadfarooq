@@ -169,9 +169,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh
 /* PREVIEW PANEL */
 #preview-panel{width:0;flex-shrink:0;overflow:hidden;transition:width 0.25s ease;display:flex;flex-direction:column}
 #preview-panel.open{width:44%;border-left:2px solid var(--border)}
-#preview-panel-header{height:52px;display:flex;align-items:center;padding:0 14px;background:var(--surface);border-bottom:2px solid var(--border);flex-shrink:0;gap:12px}
-#preview-panel-header strong{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap}
-#preview-hint{font-size:0.72rem;color:var(--muted);white-space:nowrap}
+#preview-panel-header{height:52px;display:flex;align-items:center;padding:0 14px;background:var(--surface);border-bottom:2px solid var(--border);flex-shrink:0;gap:0}
+.preview-tabs{display:flex;height:100%}
+.preview-tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:0 16px;height:100%;font-size:0.8rem;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap}
+.preview-tab:hover{color:var(--text)}
+.preview-tab.active{color:var(--lime);border-bottom-color:var(--lime)}
+#preview-hint{font-size:0.71rem;color:var(--muted);white-space:nowrap;margin-left:auto}
+#live-preview-pane{display:none;flex:1;flex-direction:column;overflow:hidden}
+#live-frame{flex:1;border:none;width:100%;height:100%;background:#fff}
+#live-status-bar{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0;font-size:0.71rem;color:var(--muted);gap:8px}
+.btn-refresh-live{background:none;border:1px solid var(--border);color:var(--muted);padding:3px 10px;font-size:0.71rem;cursor:pointer;font-family:var(--font);white-space:nowrap}
+.btn-refresh-live:hover{border-color:var(--lime);color:var(--lime)}
 /* CONTENT PREVIEW */
 #content-preview{padding:20px;overflow-y:auto;flex:1}
 .cp-section{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--border)}
@@ -387,11 +395,21 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);height:100vh
     <!-- PREVIEW PANEL -->
     <div id="preview-panel">
       <div id="preview-panel-header">
-        <strong>Content Preview</strong>
+        <div class="preview-tabs">
+          <button class="preview-tab active" id="tab-content" onclick="switchPreviewTab('content')">Content</button>
+          <button class="preview-tab" id="tab-live" onclick="switchPreviewTab('live')">Live Site</button>
+        </div>
         <span id="preview-hint">Click any text → jumps to that field</span>
       </div>
       <div id="content-preview">
         <div class="cp-placeholder">Select a section from the sidebar to see a live preview.<br><br>Click any text in the preview to jump to that field in the form.</div>
+      </div>
+      <div id="live-preview-pane">
+        <iframe id="live-frame" src="about:blank" title="Live site preview"></iframe>
+        <div id="live-status-bar">
+          <span id="live-url">No page loaded</span>
+          <button class="btn-refresh-live" onclick="refreshLiveFrame()">↻ Refresh after save</button>
+        </div>
       </div>
     </div>
 
@@ -522,7 +540,14 @@ function initTheme() {
 }
 
 // ─── PREVIEW PANEL ────────────────────────────────────────────────────────────
+const SECTION_URLS = {
+  home: '/', about: '/behind-the-build',
+  growth: '/growth', linkedin: '/linkedin',
+  strategy: '/strategy', 'content-writing': '/content-writing',
+  book: '/book', blog: '/blog', playbook: '/playbook', settings: '/'
+};
 let previewOpen = false;
+let previewTab = 'content';
 
 function togglePreview() {
   previewOpen = !previewOpen;
@@ -530,7 +555,40 @@ function togglePreview() {
   const btn = document.getElementById('preview-toggle-btn');
   panel.classList.toggle('open', previewOpen);
   btn.classList.toggle('active', previewOpen);
-  if (previewOpen && currentSection) {
+  if (previewOpen && currentSection) refreshPreviewPanel();
+}
+
+function switchPreviewTab(tab) {
+  previewTab = tab;
+  document.getElementById('tab-content').classList.toggle('active', tab === 'content');
+  document.getElementById('tab-live').classList.toggle('active', tab === 'live');
+  document.getElementById('content-preview').style.display = tab === 'content' ? '' : 'none';
+  document.getElementById('live-preview-pane').style.display = tab === 'live' ? 'flex' : 'none';
+  document.getElementById('preview-hint').style.display = tab === 'content' ? '' : 'none';
+  if (tab === 'live' && currentSection) loadLiveFrame(currentSection);
+}
+
+function loadLiveFrame(section) {
+  const url = SECTION_URLS[section] || '/';
+  const frame = document.getElementById('live-frame');
+  const fullUrl = location.origin + url;
+  if (frame.src !== fullUrl) {
+    frame.src = url;
+    document.getElementById('live-url').textContent = `${url} — save & wait ~60s then refresh`;
+  }
+}
+
+function refreshLiveFrame() {
+  const frame = document.getElementById('live-frame');
+  const src = frame.src;
+  frame.src = 'about:blank';
+  setTimeout(() => { frame.src = src; }, 80);
+}
+
+function refreshPreviewPanel() {
+  if (previewTab === 'live') {
+    if (currentSection) loadLiveFrame(currentSection);
+  } else {
     if (currentSection === 'blog' || currentSection === 'playbook') updateBlogPreview();
     else if (pageData && Object.keys(pageData).length) renderContentPreview(currentSection, pageData);
   }
@@ -691,11 +749,12 @@ function switchSection(name) {
   if (name === 'blog' || name === 'playbook') {
     document.getElementById('post-editor').style.display = 'flex';
     loadPostSection(name);
-    if (previewOpen) updateBlogPreview();
+    if (previewOpen && previewTab === 'content') updateBlogPreview();
   } else {
     document.getElementById('page-editor').style.display = 'flex';
     loadPageSection(name);
   }
+  if (previewOpen && previewTab === 'live') loadLiveFrame(name);
 }
 
 // ─── POST EDITOR ──────────────────────────────────────────────────────────────
@@ -993,7 +1052,7 @@ async function loadPageSection(name) {
     pageSha = file.sha;
     pageData = JSON.parse(ghDecode(file.content));
     el.innerHTML = renderPageForm(name, pageData);
-    if (previewOpen) renderContentPreview(name, pageData);
+    if (previewOpen && previewTab === 'content') renderContentPreview(name, pageData);
   } catch(e) {
     el.innerHTML = `<p style="color:var(--red)">Error loading: ${e.message}</p>`;
   }
