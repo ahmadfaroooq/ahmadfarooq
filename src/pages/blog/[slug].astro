@@ -45,7 +45,7 @@ const formattedDate = date.toLocaleDateString('en-GB', { day: 'numeric', month: 
     <section class="section">
       <div class="container">
         {imageUrl && (
-          <img class="post-featured-image" src={imageUrl} alt={title}>
+          <img class="post-featured-image" src={imageUrl} alt={title} loading="lazy" decoding="async" width="720" height="405">
         )}
         <article class="post-prose reveal">
           <Content />
