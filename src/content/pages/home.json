@@ -1,72 +1,72 @@
 {
-  "heroLabel": "Growth & Brand Strategist",
-  "heroTitle": "Building brands that compound.",
-  "heroTagline": "Not campaigns that spike. Systems that scale.",
-  "heroCTA1Text": "Book a Strategy Call",
-  "heroCTA2Text": "View Playbooks",
-  "servicesHeadline": "Five disciplines.One compounding system.",
-  "casesHeadline": "Real work.Real results.",
-  "skillsHeadline": "The full stack.",
-  "ctaHeadline": "Ready to build somethingthat compounds?",
-  "ctaSubtext": "30 minutes. No pitch. Just strategy.",
+  "heroLabel": "Full-Stack Builder & Strategist",
+  "heroTitle": "I build the product.\nAnd the system behind it.",
+  "heroTagline": "React, Supabase, AI-assisted execution, and strategy that ships.",
+  "heroCTA1Text": "Start a Project",
+  "heroCTA2Text": "View Projects",
+  "servicesHeadline": "Strategy to shipped product.\nOne connected system.",
+  "casesHeadline": "Built end to end.\nShipped for real.",
+  "skillsHeadline": "The builder's stack.",
+  "ctaHeadline": "Have something worth\nbuilding?",
+  "ctaSubtext": "Let's turn the idea, offer, or workflow into something people can use.",
   "services": [
     {
-      "title": "Growth Marketing",
-      "description": "Systematic acquisition and retention strategies that build compounding revenue, not one-off campaigns that spike and vanish.",
+      "title": "Full-Stack Builds",
+      "description": "Fast, focused web products built from interface to database with React, Supabase, and production-ready deployment.",
       "link": "/growth"
     },
     {
-      "title": "LinkedIn Branding",
-      "description": "Turn your LinkedIn into an inbound machine: positioning, content systems, and profile architecture that attract the right clients.",
+      "title": "AI-Assisted Systems",
+      "description": "Practical internal tools and workflows that use AI to reduce busywork, speed up execution, and keep humans in control.",
       "link": "/linkedin"
     },
     {
-      "title": "Marketing Strategy",
-      "description": "Go-to-market strategy, positioning, and channel architecture built for the long game, not the next quarter.",
+      "title": "Product Strategy",
+      "description": "Clear product scope, user flows, positioning, and priorities shaped before code turns ambiguity into expensive rework.",
       "link": "/strategy"
     },
     {
-      "title": "Copy Writing",
-      "description": "Long-form articles, thought leadership pieces, and brand copy that builds authority and drives organic traffic without burning out.",
+      "title": "Offers & Funnels",
+      "description": "Offers, landing pages, qualification, conversion paths, sales systems, and onboarding designed as one connected journey.",
       "link": "/copy-writing"
     }
   ],
   "skills": [
     {
-      "name": "Growth Marketing"
+      "name": "React"
     },
     {
-      "name": "LinkedIn Strategy"
+      "name": "Supabase"
     },
     {
-      "name": "Content Systems"
+      "name": "JavaScript"
     },
     {
-      "name": "Brand Strategy"
+      "name": "Full-Stack SaaS"
+    },
+    {
+      "name": "AI-Assisted Development"
+    },
+    {
+      "name": "Product Strategy"
+    },
+    {
+      "name": "Offer Creation"
     },
     {
       "name": "Funnel Architecture"
     },
     {
-      "name": "SEO, AEO & GEO"
+      "name": "Conversion Copy"
     },
     {
-      "name": "Copywriting"
+      "name": "Sales Systems"
     },
     {
-      "name": "Visual Identity"
+      "name": "Vercel"
     },
     {
-      "name": "Market Research"
-    },
-    {
-      "name": "Analytics & Data"
-    },
-    {
-      "name": "Community Building"
-    },
-    {
-      "name": "Pitch Decks"
+      "name": "Rapid Prototyping"
     }
   ]
 }

@@ -1,41 +1,41 @@
 {
-  "heroTitle": "The person behind\nthe strategy.",
-  "heroDesc": "Not an agency. Not a tool. A single practitioner obsessed with building brands that actually compound.",
-  "storyHeadline": "I build brands like systems,\nnot like campaigns.",
-  "bio": "Most marketing is designed to spike: a launch, a campaign, a viral moment. It works once and then you're back to zero. I got tired of watching founders rebuild their growth strategy from scratch every 90 days.\n\nI'm Ahmad Farooq. I've spent 4 years working inside growth teams, advising founders, and building my own content systems from the ground up. The pattern I kept seeing: brands that compounded treated every piece of content, every channel, every partnership as infrastructure, not an event.\n\nThat's the lens I bring. Whether I'm building a LinkedIn content system, redesigning a brand identity, or building a full growth funnel, I'm asking: does this compound? Does this get easier over time, not harder?\n\nI work with a small number of clients at a time. Not because I can't scale. Depth produces better results than breadth. When I take on a project, I'm all in.",
+  "heroTitle": "The builder behind\nthe strategy.",
+  "heroDesc": "Part developer, part strategist: I turn useful ideas into working products and the business systems around them.",
+  "storyHeadline": "I learned strategy.\nThen learned to ship it.",
+  "bio": "I'm Ahmad Farooq, a Full-Stack Builder & Strategist working across React, Supabase, AI-assisted tools, and the commercial thinking that makes a product useful.\n\nMy background is in agency strategy: shaping offers, building funnels, clarifying positioning, and finding the shortest path from attention to action. That taught me how businesses sell. Building software taught me how to turn that thinking into something people can actually use.\n\nNow I work across both sides. I can scope the product, map the user journey, build the interface and database, and connect it to the offer, sales flow, and onboarding experience. ARKA went from idea to a working SaaS dashboard in under 24 hours. Other builds span bilingual charity experiences, agency funnel systems, and conversion-focused service websites.\n\nI use AI as leverage, not as a substitute for judgment. The goal is simple: think clearly, build quickly, and ship work that solves the right problem.",
   "principlesHeadline": "Six principles.\nNon-negotiable.",
   "principles": [
     {
       "num": "01",
-      "title": "Systems > Sprints",
-      "body": "Build it once, make it repeatable, let it compound. One well-designed system outperforms ten one-off campaigns every time."
+      "title": "Ship the Useful Version",
+      "body": "Start with the smallest complete solution to the real problem. A working product creates better feedback than a perfect plan."
     },
     {
       "num": "02",
-      "title": "Distribution Is the Product",
-      "body": "The best content without distribution is noise. Getting something in front of the right people consistently is half the battle. Most brands ignore it."
+      "title": "Strategy Meets the Build",
+      "body": "Product decisions and business decisions belong in the same room. The interface, offer, funnel, and onboarding should reinforce each other."
     },
     {
       "num": "03",
-      "title": "Data-Informed, Not Data-Driven",
-      "body": "Numbers guide, judgment decides. I use data to validate and improve, not to replace thinking. Metrics are inputs, not answers."
+      "title": "Tools Serve the Outcome",
+      "body": "React, Supabase, Vercel, and AI are means, not the pitch. The right stack is the one that gets a reliable product into users' hands."
     },
     {
       "num": "04",
-      "title": "Compound Thinking",
-      "body": "Every piece of work should make the next piece easier. Content should feed strategy. Strategy should inform design. Design should amplify content."
+      "title": "Build Connected Systems",
+      "body": "A product does not live alone. Content, sales, data, operations, and delivery work better when they share one clear system."
     },
     {
       "num": "05",
       "title": "Specificity Converts",
-      "body": "Vague messaging loses deals. The more precise you are about who you serve and what result you deliver, the faster the right clients find you."
+      "body": "Clear users, clear problems, and clear outcomes make both software and offers stronger. Vagueness is expensive."
     },
     {
       "num": "06",
-      "title": "Execution Is the Strategy",
-      "body": "Ideas are cheap. The clearest thinker in the room loses to the best executor every time. Brilliant strategy unpublished is worth nothing."
+      "title": "AI With Judgment",
+      "body": "AI speeds up research, iteration, and production. Taste, context, and responsibility still belong to the builder."
     }
   ],
-  "ctaHeadline": "Let's build something\nthat lasts.",
-  "ctaSubtext": "One conversation. Zero pressure. Maximum clarity."
+  "ctaHeadline": "Let's build something\npeople can use.",
+  "ctaSubtext": "Bring the idea, bottleneck, or half-built system. We'll find the clearest path forward."
 }

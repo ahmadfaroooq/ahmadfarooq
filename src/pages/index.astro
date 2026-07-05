@@ -8,16 +8,16 @@ import settings from '../content/global/settings.json';
 import home from '../content/pages/home.json';
 
 const serviceIcons: Record<string, string> = {
-  'Growth Marketing': `<polyline points="2,22 8,14 14,18 20,8 26,4"/><circle cx="26" cy="4" r="2" fill="currentColor" stroke="none"/>`,
-  'LinkedIn Branding': `<rect x="3" y="3" width="22" height="16" rx="2"/><path d="M9 25h10M14 19v6"/><circle cx="9" cy="11" r="2"/><path d="M14 11h7M14 14h5"/>`,
-  'Marketing Strategy': `<circle cx="14" cy="14" r="11"/><circle cx="14" cy="14" r="4"/><line x1="14" y1="3" x2="14" y2="10"/><line x1="14" y1="18" x2="14" y2="25"/><line x1="3" y1="14" x2="10" y2="14"/><line x1="18" y1="14" x2="25" y2="14"/>`,
-  'Copy Writing': `<path d="M4 20l6-6 4 4 10-12"/><line x1="4" y1="24" x2="24" y2="24"/><circle cx="20" cy="6" r="2" fill="none"/>`,
+  'Full-Stack Builds': `<polyline points="2,22 8,14 14,18 20,8 26,4"/><circle cx="26" cy="4" r="2" fill="currentColor" stroke="none"/>`,
+  'AI-Assisted Systems': `<rect x="3" y="3" width="22" height="16" rx="2"/><path d="M9 25h10M14 19v6"/><circle cx="9" cy="11" r="2"/><path d="M14 11h7M14 14h5"/>`,
+  'Product Strategy': `<circle cx="14" cy="14" r="11"/><circle cx="14" cy="14" r="4"/><line x1="14" y1="3" x2="14" y2="10"/><line x1="14" y1="18" x2="14" y2="25"/><line x1="3" y1="14" x2="10" y2="14"/><line x1="18" y1="14" x2="25" y2="14"/>`,
+  'Offers & Funnels': `<path d="M4 20l6-6 4 4 10-12"/><line x1="4" y1="24" x2="24" y2="24"/><circle cx="20" cy="6" r="2" fill="none"/>`,
 };
 ---
 
 <BaseLayout
-  title="Ahmad Farooq | Growth Strategist & Brand Builder"
-  description="Ahmad Farooq helps founders, CMOs, and executives build brands that compound over time. Growth marketing, LinkedIn branding, content systems, and brand strategy."
+  title="Ahmad Farooq | Full-Stack Builder & Strategist"
+  description="Ahmad Farooq builds full-stack products, AI-assisted systems, and conversion funnels with React, Supabase, and sharp business strategy."
   canonicalPath="/"
 >
   <Header />
@@ -34,28 +34,28 @@ const serviceIcons: Record<string, string> = {
 
           <div class="hero-actions">
             <a href="/book" class="btn btn-primary">{home.heroCTA1Text}</a>
-            <a href="/playbook" class="btn btn-secondary">{home.heroCTA2Text}</a>
+            <a href="#projects" class="btn btn-secondary">{home.heroCTA2Text}</a>
           </div>
 
           <div class="hero-metrics">
             <div>
-              <span class="hero-metric-num">{settings.stats.brandsCount}</span>
-              <span class="hero-metric-label">Brands Grown</span>
+              <span class="hero-metric-num">4</span>
+              <span class="hero-metric-label">Featured Builds</span>
             </div>
             <div>
-              <span class="hero-metric-num">{settings.stats.revenueLabel}</span>
-              <span class="hero-metric-label">Avg. Revenue Lift</span>
+              <span class="hero-metric-num">&lt;24h</span>
+              <span class="hero-metric-label">Fastest SaaS Build</span>
             </div>
             <div>
-              <span class="hero-metric-num">{settings.stats.yearsInField}</span>
-              <span class="hero-metric-label">In the Field</span>
+              <span class="hero-metric-num">Full</span>
+              <span class="hero-metric-label">Stack + Strategy</span>
             </div>
           </div>
         </div>
 
         <div class="hero-visual">
           <div class="profile-frame">
-            <img src="/images/ahmad-profile.png" alt="Ahmad Farooq, Growth Strategist" width="340" height="440" loading="eager">
+            <img src="/images/ahmad-profile.png" alt="Ahmad Farooq, Full-Stack Builder and Strategist" width="340" height="440" loading="eager">
           </div>
         </div>
       </div>
@@ -90,14 +90,76 @@ const serviceIcons: Record<string, string> = {
     </section>
 
     <!-- CASE STUDIES -->
-    <section class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="cases-heading">
+    <section id="projects" class="section" style="background: var(--bg-dark); border-top: 2px solid var(--border); border-bottom: 2px solid var(--border);" aria-labelledby="cases-heading">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Case Studies</span>
+          <span class="section-label">Projects</span>
           <h2 id="cases-heading" set:html={home.casesHeadline.replace(/\n/g, '<br>')}></h2>
         </div>
 
         <div class="case-studies-list">
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left"><span class="case-study-client">ARKA</span><span class="case-study-title">Brand Command Center</span></div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region"><div class="case-study-content">
+              <div class="case-study-detail"><h4>The Build</h4><p>A full-stack SaaS dashboard for LinkedIn creators and freelancers, bringing daily execution and revenue workflows into one focused workspace.</p><br><h4>Stack &amp; Scope</h4><p>Built solo in under 24 hours with React, Supabase, and Vercel. Includes a task manager, content pipeline, outbound and inbound sales pipelines, and analytics.</p></div>
+              <div class="case-study-detail"><h4>Highlights</h4><div class="case-study-outcomes">
+                <div class="outcome-item"><span class="outcome-num">&lt;24h</span><span class="outcome-label">From idea to working SaaS</span></div>
+                <div class="outcome-item"><span class="outcome-num">4</span><span class="outcome-label">Core workflows in one dashboard</span></div>
+                <div class="outcome-item"><span class="outcome-num">Solo</span><span class="outcome-label">Strategy, product, and build</span></div>
+              </div></div>
+            </div></div>
+          </div>
+
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left"><span class="case-study-client">Etimad Foundation</span><span class="case-study-title">Bilingual Ramadan Charity Website</span></div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region"><div class="case-study-content">
+              <div class="case-study-detail"><h4>The Build</h4><p>A multi-page NGO website built pro bono for a Ramadan food drive, designed to make the campaign accessible in both Urdu and English.</p><br><h4>Stack &amp; Scope</h4><p>Built with a complete donation journey, bilingual content experience, volunteer registration, and clear campaign information across multiple pages.</p></div>
+              <div class="case-study-detail"><h4>Highlights</h4><div class="case-study-outcomes">
+                <div class="outcome-item"><span class="outcome-num">2</span><span class="outcome-label">Languages: Urdu and English</span></div>
+                <div class="outcome-item"><span class="outcome-num">End-to-end</span><span class="outcome-label">Donation flow</span></div>
+                <div class="outcome-item"><span class="outcome-num">Built in</span><span class="outcome-label">Volunteer registration</span></div>
+              </div></div>
+            </div></div>
+          </div>
+
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left"><span class="case-study-client">Agency Client</span><span class="case-study-title">Agency Funnel System</span></div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region"><div class="case-study-content">
+              <div class="case-study-detail"><h4>The Build</h4><p>An end-to-end acquisition and conversion system built to turn a stronger offer into qualified conversations and a cleaner client experience.</p><br><h4>Stack &amp; Scope</h4><p>Created the offer, landing page, three-step qualification flow, conversion architecture, sales system, and onboarding journey as one connected funnel.</p></div>
+              <div class="case-study-detail"><h4>Highlights</h4><div class="case-study-outcomes">
+                <div class="outcome-item"><span class="outcome-num">3-step</span><span class="outcome-label">Lead qualification flow</span></div>
+                <div class="outcome-item"><span class="outcome-num">Full</span><span class="outcome-label">Offer-to-onboarding journey</span></div>
+                <div class="outcome-item"><span class="outcome-num">One</span><span class="outcome-label">Connected sales system</span></div>
+              </div></div>
+            </div></div>
+          </div>
+
+          <div class="case-study reveal">
+            <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">
+              <div class="case-study-header-left"><span class="case-study-client">Unilimo</span><span class="case-study-title">Luxury Limo Service Website</span></div>
+              <div class="case-study-toggle" aria-hidden="true">+</div>
+            </div>
+            <div class="case-study-body" role="region"><div class="case-study-content">
+              <div class="case-study-detail"><h4>The Build</h4><p>A polished single-page website for a luxury limo service, built to move visitors from service discovery to inquiry without friction.</p><br><h4>Stack &amp; Scope</h4><p>Designed and developed as a focused, responsive experience with a custom built-in booking and inquiry form, deployed live on Vercel.</p><p style="margin-top:16px;"><a href="https://unilimo.vercel.app/" target="_blank" rel="noopener noreferrer" class="service-link">View live project →</a></p></div>
+              <div class="case-study-detail"><h4>Highlights</h4><div class="case-study-outcomes">
+                <div class="outcome-item"><span class="outcome-num">1 page</span><span class="outcome-label">Focused conversion journey</span></div>
+                <div class="outcome-item"><span class="outcome-num">Custom</span><span class="outcome-label">Booking and inquiry form</span></div>
+                <div class="outcome-item"><span class="outcome-num">Live</span><span class="outcome-label">Production deployment</span></div>
+              </div></div>
+            </div></div>
+          </div>
+        </div>
+
+        <div hidden>
 
           <div class="case-study reveal">
             <div class="case-study-header" role="button" tabindex="0" aria-expanded="false">

@@ -1,21 +1,21 @@
 {
-  "heroTitle": "Let's talk strategy.",
-  "heroDesc": "30 minutes. No templates, no decks, no sales pitch. Just a focused conversation about your brand, your growth, and what's actually blocking you.",
+  "heroTitle": "Let's talk about the build.",
+  "heroDesc": "30 minutes to unpack the product, workflow, offer, or funnel you want to improve—and identify the clearest next move.",
   "expectations": [
     {
       "num": "01",
       "title": "You talk, I listen",
-      "body": "First 10 minutes are yours. Tell me where you are, what's not working, and what you actually want to achieve."
+      "body": "Tell me what you want to build, what already exists, and where the project or business is getting stuck."
     },
     {
       "num": "02",
-      "title": "I diagnose, honestly",
-      "body": "I'll tell you what I see, including if I'm not the right fit. No false positives to land a deal."
+      "title": "We find the real scope",
+      "body": "We'll separate the useful first version from the nice-to-haves and connect the build to the business outcome."
     },
     {
       "num": "03",
       "title": "You leave with clarity",
-      "body": "Whether we work together or not, you'll have a clearer picture of what to do next. That's the minimum outcome."
+      "body": "Whether we work together or not, you'll leave with a clearer product, system, or funnel direction."
     }
   ]
 }
